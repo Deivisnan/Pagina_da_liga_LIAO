@@ -433,11 +433,10 @@
                 </ul>
                 <p>Acredito que, juntos, podemos construir uma liga forte e reconhecida.</p>
             ` },
-        // { nome: "Lucca Oliveira Seixas", email: "luccaoliveiraseixas@gmail.com", curso: "Ciência da Computação", diretorias: ["Secretaria Geral", "Coordenação Acadêmica", "Coordenação Científico"], propostaId: generatePropostaId("Lucca Oliveira Seixas"), propostaTexto: null }, // Removido
         { nome: "Paulo Ferreira de Castro Filho", email: "paulocastro@ufba.br", curso: "Ciência da Computação", diretorias: ["Secretaria Geral", "Coordenação Acadêmica", "Coordenação Científico"], propostaId: generatePropostaId("Paulo Ferreira de Castro Filho"), propostaTexto: null },
         { nome: "Danilo Santiago Fonseca", email: "danilofonseca@ufba.br", curso: "Ciência da Computação", diretorias: ["Coordenação Acadêmica", "Coordenação Científico"], propostaId: generatePropostaId("Danilo Santiago Fonseca"), propostaTexto: null },
         { nome: "danielle santos de souza", email: "souza.danielle@ufba.br", curso: "Ciência da Computação", diretorias: ["Direção Geral", "Coordenação Acadêmica", "Coordenação Científico", "Coordenação de Extensão"], propostaId: generatePropostaId("danielle santos de souza"), propostaTexto: null },
-        { nome: "Laura Ferreira de Almeida", email: "laura.ferreira@ufba.br", curso: "Ciência da Computação", diretorias: ["Relações Públicas", "Coordenação Científico"], propostaId: generatePropostaId("Laura Ferreira de Almeida"), propostaTexto: null },
+        // { nome: "Laura Ferreira de Almeida", email: "laura.ferreira@ufba.br", curso: "Ciência da Computação", diretorias: ["Relações Públicas", "Coordenação Científico"], propostaId: generatePropostaId("Laura Ferreira de Almeida"), propostaTexto: null }, // Removido
         { nome: "Yuri Freitas Hughes", email: "yuri.hughes@ufba.br", curso: "Ciência da Computação", diretorias: ["Direção Geral"], propostaId: generatePropostaId("Yuri Freitas Hughes"), propostaTexto: null },
         { nome: "Beatriz Pereira Espinheira", email: "espinheira.beatriz@ufba.br", curso: "Ciência da Computação", diretorias: ["Secretaria Geral", "Coordenação de Extensão"], propostaId: generatePropostaId("Beatriz Pereira Espinheira"), propostaTexto: null },
         { nome: "Djair Maykon de Novaes Miranda", email: "djair.maykon@ufba.br", curso: "Ciência da Computação", diretorias: ["Coordenação Acadêmica", "Coordenação Científico", "Coordenação de Extensão"], propostaId: generatePropostaId("Djair Maykon de Novaes Miranda"), propostaTexto: null },
@@ -590,7 +589,7 @@
 
         const sortedIntegrantes = [...dadosInteressadosDiretoria].sort((a, b) => a.nome.localeCompare(b.nome));
 
-        // Primeiro, popular a tabela com os dados atualizados (sem Lucca)
+        // Primeiro, popular a tabela com os dados atualizados
         dadosInteressadosDiretoria.forEach(item => {
             const row = tbody.insertRow();
             row.insertCell().textContent = item.nome;
@@ -617,7 +616,7 @@
             diretoriaCell.appendChild(select);
         });
 
-        // Em seguida, popular os botões com os dados ordenados (que já não incluem Lucca)
+        // Em seguida, popular os botões com os dados ordenados
         sortedIntegrantes.forEach(item => {
             const button = document.createElement('button');
             button.className = 'proposal-button';
@@ -872,23 +871,28 @@
         });
 
         if (pageId === 'dashboard') {
+            // É importante que os gráficos sejam recriados *depois* que os dados foram atualizados
+            // e a seção do dashboard está visível.
             setTimeout(() => {
+                popularTabelaInteressados(); // Garante que os dados da tabela e botões estão atualizados
                 criarGraficoInteresseDiretoria();
                 criarGraficoCursosInteressados();
             }, 10);
+        } else if (pageId === 'diretoria') {
+            popularTabelaInteressados(); // Atualiza a tabela e os botões ao mostrar a página de diretoria
         } else if (pageId === 'avisosLiga') {
             popularAvisosLiga();
         }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        popularTabelaInteressados();
+        popularTabelaInteressados(); // Popula inicialmente
         popularTabelaTutores();
         popularFAQs();
         popularReuniao();
         popularAvisosLiga();
 
-        showPage('dashboard');
+        showPage('dashboard'); // Mostra o dashboard como padrão
 
         document.getElementById('currentYear').textContent = new Date().getFullYear();
     });
