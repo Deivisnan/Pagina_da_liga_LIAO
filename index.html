@@ -63,22 +63,44 @@
             outline: none;
             box-shadow: 0 0 0 2px #a5b4fc; /* focus:ring-2 focus:ring-indigo-300 */
         }
+
+        /* Estilo base para o botão de carta de intenção */
         .proposal-button {
-            background-color: #4f46e5; /* indigo-600 */
             color: white;
-            padding: 0.75rem 1.25rem; /* Increased padding */
+            padding: 0.75rem 1.25rem; 
             border-radius: 0.5rem; /* rounded-lg */
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
             font-weight: 500; /* medium */
             cursor: pointer;
             text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow */
-            min-width: 200px; /* Minimum width for better alignment */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+            min-width: 200px; 
+            display: flex; /* Para alinhar nome e ícone */
+            align-items: center;
+            justify-content: center;
         }
-        .proposal-button:hover {
+
+        /* Estilo para botão COM carta de intenção */
+        .proposal-button-filled {
+            background-color: #4f46e5; /* indigo-600 */
+        }
+        .proposal-button-filled:hover {
             background-color: #4338ca; /* indigo-700 */
-            transform: translateY(-2px); /* Slight lift on hover */
+            transform: translateY(-2px); 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* Sombra mais pronunciada no hover */
         }
+
+        /* Estilo para botão SEM carta de intenção (vazio) */
+        .proposal-button-empty {
+            background-color: #9ca3af; /* gray-400 - cor mais neutra/apagada */
+            color: #f9fafb; /* gray-50 - texto claro para contraste */
+        }
+        .proposal-button-empty:hover {
+            background-color: #6b7280; /* gray-500 - escurece um pouco no hover */
+            transform: none; /* Sem animação de levantar */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Mantém sombra base ou remove */
+        }
+
         h2 {
             font-size: 1.5rem; /* text-2xl */
             font-weight: 600; /* font-semibold */
@@ -130,7 +152,7 @@
             position: relative;
             overflow: hidden;
             width: 100%;
-            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            padding-top: 56.25%; 
             background-color: #000;
             border-radius: 0.5rem;
         }
@@ -144,12 +166,12 @@
         }
         #conteudoProposta p, #conteudoProposta ul, #conteudoProposta ol {
             margin-bottom: 1rem;
-            color: #374151; /* text-gray-700 */
+            color: #374151; 
         }
         #conteudoProposta h4 {
-            font-size: 1.125rem; /* text-lg */
-            font-weight: 600; /* font-semibold */
-            color: #4f46e5; /* indigo-600 */
+            font-size: 1.125rem; 
+            font-weight: 600; 
+            color: #4f46e5; 
             margin-top: 1.5rem;
             margin-bottom: 0.75rem;
         }
@@ -167,25 +189,43 @@
             margin-bottom: 0.25rem;
         }
         #conteudoProposta strong {
-            font-weight: 600; /* font-semibold */
+            font-weight: 600; 
         }
         .aviso-card {
-            background-color: #eef2ff; /* indigo-50 */
-            border-left: 4px solid #4f46e5; /* indigo-600 */
+            background-color: #eef2ff; 
+            border-left: 4px solid #4f46e5; 
             padding: 1rem;
             margin-bottom: 1rem;
-            border-radius: 0.375rem; /* rounded-md */
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-sm */
+            border-radius: 0.375rem; 
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); 
         }
         .aviso-card h3 {
-            color: #3730a3; /* indigo-800 */
+            color: #3730a3; 
             margin-top: 0;
         }
         .aviso-card .aviso-data {
-            font-size: 0.875rem; /* text-sm */
-            color: #6b7280; /* gray-500 */
+            font-size: 0.875rem; 
+            color: #6b7280; 
             margin-bottom: 0.5rem;
         }
+        #reuniaoContent ul {
+            list-style-type: disc;
+            list-style-position: inside;
+            margin-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #374151;
+        }
+        #reuniaoContent li {
+            margin-bottom: 0.3rem;
+        }
+         #reuniaoContent h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #4338ca; /* indigo-700 */
+            margin-top: 1.25rem;
+            margin-bottom: 0.6rem;
+        }
+
     </style>
 </head>
 <body class="bg-gray-100 text-gray-900">
@@ -254,7 +294,7 @@
     <section id="diretoria" class="content-section">
         <div class="card">
             <h2>Interessados na Direção da Liga</h2>
-            <p class="text-gray-600 mb-4">Lista de candidatos e suas informações. Clique no nome do integrante abaixo para ver sua proposta.</p>
+            <p class="text-gray-600 mb-4">Lista de candidatos e suas informações. Clique no nome do integrante abaixo para ver sua carta de intenção.</p>
             <div class="overflow-x-auto">
                 <table id="tabelaInteressadosDiretoria">
                     <thead>
@@ -272,9 +312,9 @@
         </div>
 
         <div class="card mt-8">
-            <h2>Propostas dos Integrantes</h2>
-            <p class="text-gray-600 mb-4">Clique no botão com o nome de um integrante abaixo para visualizar sua proposta detalhada.</p>
-            <div id="botoesPropostas" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <h2>Carta de Intenção</h2> 
+            <p class="text-gray-600 mb-4">Clique no botão com o nome de um integrante abaixo para visualizar sua carta de intenção detalhada.</p>
+            <div id="botoesPropostas" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"> 
             </div>
         </div>
     </section>
@@ -320,7 +360,7 @@
             <h2>Avisos Importantes da LIAO</h2>
             <p class="text-gray-600 mb-6">Fique por dentro das últimas novidades, decisões e comunicados da liga.</p>
             <div id="avisosLigaContent" class="space-y-4">
-            </div>
+                </div>
         </div>
     </section>
 
@@ -331,7 +371,7 @@
             <div class="mx-auto max-w-3xl">
                 <div class="video-responsive-container">
                     <iframe
-                            src="https://www.youtube.com/embed/VwSeAm-9Vgg?si=4Lns3BzbHrRjr-AB"
+                            src="https://www.youtube.com/embed/VwSeAm-9Vgg?si=4Lns3BzbHrRjr-AB" 
                             title="YouTube video player"
                             frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -343,14 +383,14 @@
         </div>
     </section>
 
-    <section id="paginaProposta" class="content-section">
+    <section id="paginaProposta" class="content-section"> 
         <div class="card">
             <button class="nav-button mb-6 bg-gray-200 hover:bg-gray-300 text-gray-700" onclick="showPage('diretoria')">
                 ← Voltar para Interessados na Direção
             </button>
-            <h2 id="tituloProposta" class="text-2xl font-semibold text-indigo-700">Proposta do Integrante</h2>
-            <div id="conteudoProposta" class="mt-4 text-gray-700 leading-relaxed prose max-w-none">
-                <p>Carregando proposta...</p>
+            <h2 id="tituloProposta" class="text-2xl font-semibold text-indigo-700">Carta de Intenção do Integrante</h2> 
+            <div id="conteudoProposta" class="mt-4 text-gray-700 leading-relaxed prose max-w-none"> 
+                <p>Carregando carta de intenção...</p>
             </div>
         </div>
     </section>
@@ -361,42 +401,25 @@
 </footer>
 
 <script>
-    // Função para gerar IDs de proposta únicos
+    // Função para gerar IDs de proposta/carta de intenção únicos
     const generatePropostaId = (name) => 'proposta_' + name.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');
 
     // --- Dados dos Interessados na Diretoria ---
     let dadosInteressadosDiretoria = [
-        { nome: "DEIVISNAN DA SILVA BISPO", email: "Bispodeivisnan@gmail.com", curso: "Sistemas de Informação", diretorias: ["Direção Geral", "Coordenação Acadêmica", "Coordenação Científico"], propostaId: generatePropostaId("DEIVISNAN DA SILVA BISPO"), propostaTexto: `
-                <p>Minha principal motivação para integrar a diretoria da LIAO é contribuir ativamente para a criação de um ambiente de aprendizado dinâmico e colaborativo, focado em Inteligência Artificial e Otimização. Acredito que a Liga tem um potencial enorme para impactar positivamente a formação dos estudantes do Instituto de Computação e, futuramente, da comunidade acadêmica em geral.</p>
-                <h4>Visão e Objetivos:</h4>
-                <ul>
-                    <li><strong>Fortalecer a Base Acadêmica:</strong> Promover workshops, minicursos e grupos de estudo que abordem desde os fundamentos até tópicos avançados em IA e Otimização.</li>
-                    <li><strong>Incentivar a Pesquisa e Inovação:</strong> Criar um núcleo de desenvolvimento de projetos práticos e pesquisa aplicada, incentivando a participação em competições e publicações científicas.</li>
-                    <li><strong>Conectar com o Mercado:</strong> Estabelecer parcerias com empresas e profissionais da área para palestras, mentorias e possíveis oportunidades de estágio/trainee.</li>
-                    <li><strong>Promover a Extensão:</strong> Levar o conhecimento gerado na Liga para a comunidade externa, através de eventos abertos e projetos com impacto social.</li>
-                    <li><strong>Gestão Transparente e Participativa:</strong> Assegurar uma comunicação clara com todos os membros e tomar decisões de forma colaborativa.</li>
-                </ul>
-                <h4>Propostas Específicas (dependendo da Diretoria):</h4>
-                <ul>
-                    <li><strong>Direção Geral:</strong> Liderar a equipe com foco na integração das diretorias, representação institucional e busca por recursos e parcerias.</li>
-                    <li><strong>Coordenação Acadêmica:</strong> Desenvolver um cronograma de atividades de formação continuada, com trilhas de aprendizado personalizadas.</li>
-                    <li><strong>Coordenação Científica:</strong> Mapear editais de fomento à pesquisa, organizar hackathons e desafios internos para estimular a produção científica.</li>
-                </ul>
-                <p>Estou entusiasmado com a possibilidade de aplicar minha experiência e dedicação para o crescimento da LIAO. Conto com o apoio de vocês!</p>
-            ` },
-        {
-            nome: "Priscila Conceição Araújo",
-            email: "priscila.araujossa@gmail.com",
-            curso: "Ciência da Computação",
+        { nome: "DEIVISNAN DA SILVA BISPO", email: "Bispodeivisnan@gmail.com", curso: "Sistemas de Informação", diretorias: ["Direção Geral", "Coordenação Acadêmica", "Coordenação Científico"], propostaId: generatePropostaId("DEIVISNAN DA SILVA BISPO"), propostaTexto: null }, 
+        { 
+            nome: "Priscila Conceição Araújo", 
+            email: "priscila.araujossa@gmail.com", 
+            curso: "Ciência da Computação", 
             diretorias: ["Coordenação Acadêmica", "Coordenação Científica"],
-            propostaId: generatePropostaId("Priscila Conceição Araújo"),
+            propostaId: generatePropostaId("Priscila Conceição Araújo"), 
             propostaTexto: `
                 <p><strong>Nome:</strong> Priscila Conceição Araújo</p>
                 <p><strong>Curso/Período:</strong> Ciência da Computação - sétimo semestre</p>
                 <p><strong>Cargo pleiteado:</strong> Coordenação Acadêmica/Coordenação Científica</p>
                 <p><strong>Liga Acadêmica:</strong> LIAO</p>
                 <p><strong>Ano de gestão:</strong> 2025</p>
-
+                
                 <h4>1. Motivação para ocupar o cargo</h4>
                 <p>Programando na área de Inteligência artificial e visão computacional desde 2019, tanto no meio acadêmico, com projetos envolvendo Iniciação Científica, como também em conjunto com empresas de médio e grande porte, sempre se aprofundando em questões de IA (como na edtech, Letrus), em projetos no GSAM (IFBA), LIPI(IFBA) e Ivisionlab(Breve pesquisa em 2023, UFBA) envolvendo visão computacional e robótica (Opencv e TensorFlow) e Pytorch e Keras. Hoje com vários resumos e artigos publicados desde 2019 e um conhecimento interdisciplinar aprofundado em pesquisa e ensino, atuo como pesquisadora em IA e LLM na multinacional Ford.</p>
                 <p>Além disso, tive experiência em 2018 na fundação e gestão de projetos com consultoria em uma startup que criei, a LAB TEKH, atuando como diretora de negócios, liderando equipes e, também, movendo-me para me tornar vice-presidente. Após sair da empresa e adentrar no mercado pude atestar que adquiri conhecimentos aprofundados em gestão de projetos, pessoas, prospecções e desenvolvimento pessoal como comunicação e resolução de conflitos internos e externos a empresa. Podendo também, adquirir minha formação como SCRUM Master em 2022, que me permite aprofundamento em gestão de projetos em grandes iniciativas, como faço na Ford.</p>
@@ -423,20 +446,37 @@
                 </ul>
             `
         },
-        { nome: "Davi Vaccarezza Guedes Pinheiro", email: "davivacareza@gmail.com", curso: "Sistemas de Informação", diretorias: ["Coordenação Acadêmica", "Coordenação Científico"], propostaId: generatePropostaId("Davi Vaccarezza Guedes Pinheiro"), propostaTexto: `
-                <p>Como entusiasta de IA e Otimização, vejo a LIAO como uma plataforma crucial para aprofundar nossos conhecimentos e aplicá-los de forma prática. Minha proposta foca em criar projetos desafiadores e colaborativos.</p>
-                <h4>Foco Principal:</h4>
+        { nome: "Davi Vaccarezza Guedes Pinheiro", email: "davivacareza@gmail.com", curso: "Sistemas de Informação", diretorias: ["Coordenação Acadêmica", "Coordenação Científico"], propostaId: generatePropostaId("Davi Vaccarezza Guedes Pinheiro"), propostaTexto: null }, 
+        { 
+            nome: "Paulo Ferreira de Castro Filho", 
+            email: "paulocastro@ufba.br", 
+            curso: "Ciência da Computação", 
+            diretorias: ["Secretaria Geral"], 
+            propostaId: generatePropostaId("Paulo Ferreira de Castro Filho"), 
+            propostaTexto: `
+                <p><strong>Nome:</strong> Paulo Ferreira de Castro Filho</p>
+                <p><strong>Curso/Período:</strong> Ciência da Computação – quarto semestre</p>
+                <p><strong>Cargo pleiteado:</strong> Secretaria Geral</p>
+                <p><strong>Liga Acadêmica:</strong> LIAO</p>
+                <p><strong>Ano de gestão:</strong> 2025</p>
+
+                <h4>Motivação para ocupar o cargo:</h4>
+                <p>Atuo como presidente do Centro Acadêmico de Ciência da Computação, onde sou responsável pela organização de processos internos, elaboração e arquivamento de documentos, além do gerenciamento de dados essenciais ao funcionamento da entidade. Paralelamente, exerço atividades de gestão de pessoas (RH) na TITAN-UFBA, experiência na qual tenho refinado habilidades em mapeamento e otimização de fluxos administrativos em tempo real.</p>
+                <p>Sou proficiente em metodologias ágeis, como Scrum e Kanban, adquiridas tanto em projetos acadêmicos quanto em iniciativas práticas. Além disso, atualmente realizo Iniciação Científica no Inpatics, sob orientação do professor Rubisley, o que me proporciona sólido embasamento teórico e prático em pesquisa, análise de dados e elaboração de relatórios.</p>
+                
+                <h4>Propostas e planos de ação:</h4>
                 <ul>
-                    <li>Desenvolvimento de um projeto semestral de impacto, envolvendo todos os membros interessados.</li>
-                    <li>Criação de um repositório de conhecimento compartilhado (tutoriais, datasets, códigos).</li>
-                    <li>Organização de "Coding Dojos" e "Study Jams" focados em problemas reais.</li>
+                    <li>Simplificar processos de arquivamento e distribuição de documentos administrativos.</li>
+                    <li>Garantir atualização e organização do acervo de atas, regulamentos e registros.</li>
+                    <li>Facilitar a comunicação eficaz entre coordenações, membros e parceiros externos.</li>
+                    <li>Manter disponibilidade para suporte operacional nas atividades da Liga.</li>
+                    <li>Implantar sistemas digitais para controle de prazos e compromissos.</li>
+                    <li>Auxiliar na integração de novos membros, fornecendo orientações e materiais necessários.</li>
                 </ul>
-                <p>Acredito que, juntos, podemos construir uma liga forte e reconhecida.</p>
-            ` },
-        { nome: "Paulo Ferreira de Castro Filho", email: "paulocastro@ufba.br", curso: "Ciência da Computação", diretorias: ["Secretaria Geral", "Coordenação Acadêmica", "Coordenação Científico"], propostaId: generatePropostaId("Paulo Ferreira de Castro Filho"), propostaTexto: null },
+            `
+        },
         { nome: "Danilo Santiago Fonseca", email: "danilofonseca@ufba.br", curso: "Ciência da Computação", diretorias: ["Coordenação Acadêmica", "Coordenação Científico"], propostaId: generatePropostaId("Danilo Santiago Fonseca"), propostaTexto: null },
         { nome: "danielle santos de souza", email: "souza.danielle@ufba.br", curso: "Ciência da Computação", diretorias: ["Direção Geral", "Coordenação Acadêmica", "Coordenação Científico", "Coordenação de Extensão"], propostaId: generatePropostaId("danielle santos de souza"), propostaTexto: null },
-        // { nome: "Laura Ferreira de Almeida", email: "laura.ferreira@ufba.br", curso: "Ciência da Computação", diretorias: ["Relações Públicas", "Coordenação Científico"], propostaId: generatePropostaId("Laura Ferreira de Almeida"), propostaTexto: null }, // Removido
         { nome: "Yuri Freitas Hughes", email: "yuri.hughes@ufba.br", curso: "Ciência da Computação", diretorias: ["Direção Geral"], propostaId: generatePropostaId("Yuri Freitas Hughes"), propostaTexto: null },
         { nome: "Beatriz Pereira Espinheira", email: "espinheira.beatriz@ufba.br", curso: "Ciência da Computação", diretorias: ["Secretaria Geral", "Coordenação de Extensão"], propostaId: generatePropostaId("Beatriz Pereira Espinheira"), propostaTexto: null },
         { nome: "Djair Maykon de Novaes Miranda", email: "djair.maykon@ufba.br", curso: "Ciência da Computação", diretorias: ["Coordenação Acadêmica", "Coordenação Científico", "Coordenação de Extensão"], propostaId: generatePropostaId("Djair Maykon de Novaes Miranda"), propostaTexto: null },
@@ -447,6 +487,7 @@
     const dadosTutores = [
         { nome: "Prof. Dr. Islame Felipe da Costa Fernandes", email: "felipe.fernandes@ufba.br", area: "Otimização, Meta-heurísticas, Grafos, IA" },
         { nome: "Prof. Dr. Marlo Vieira dos Santos e Souza", email: "marlo.viera@ufba.br", area: "IA, PLN, Semântica Formal, Comp. Teórica" },
+        { nome: "Prof. Franklin Lázaro Santos de Oliveira", email: "franklinoliveira40@gmail.com", area: "IA, Visão Computacional, EdgeAI, Otimização" } // Novo tutor adicionado
     ];
 
     const faqData = [
@@ -495,6 +536,10 @@
                            Professor do Departamento de Computação Interdisciplinar da UFBA e do Programa de Pós-graduação em Computação da UFBA. Doutor em Computação (UFRGS).<br>
                            <em>Áreas de atuação:</em> Computação Teórica, Inteligência Artificial, Processamento de Linguagem Natural, Semântica Formal e Representação de Conhecimento.<br>
                            <em>Status:</em> Em contato.<br><br>
+                           <strong>Prof. Franklin Lázaro Santos de Oliveira</strong><br>
+                           <em>E-mail:</em> franklinoliveira40@gmail.com<br>
+                           <em>Áreas de atuação:</em> IA, Visão Computacional, EdgeAI, Otimização.<br>
+                           <em>Status:</em> Interessado.<br><br>
                            Devido à abrangência dos temas abordados pela Liga, como Inteligência Artificial e Otimização, é provável que outros tutores possam ser envolvidos para atender às diferentes frentes.`
         },
         {
@@ -503,8 +548,8 @@
         }
     ];
 
-    const reuniaoData = `
-            <h3>Pautas: 18/05/2025</h3>
+    let reuniaoData = `
+            <h3>Pautas da Reunião: 18/05/2025</h3>
             <h4>Escopo e Atividades da liga:</h4>
             <p><strong>Extensão:</strong></p>
             <ul>
@@ -564,12 +609,20 @@
                 <li>Paulo Ferreira</li>
                 <li>Thales Brito</li>
             </ul>
+            <hr class="my-6 border-gray-300"> 
+            <h3>Deliberações da Reunião de 01/06/2025:</h3> 
+            <ul>
+                <li><strong>Deliberação sobre o Estatuto:</strong> Ficou definido que, inicialmente, haverá apenas os 6 cargos na DEX.</li>
+                <li><strong>Discussão sobre o cargo de Vice-Presidência:</strong> Decidiu-se que o cargo será ocupado por indicação.</li>
+                <li><strong>Entrada de novos membros:</strong> A votação e a entrada de novos integrantes na Liga ocorrerão durante a terceira reunião presencial. Os membros presentes e ativos nessa reunião serão considerados membros fundadores.</li>
+                <li><strong>Eleição dos Diretores:</strong> A escolha dos Diretores será feita de forma consensual entre os presentes. Depois será feita a aprovação do estatuto.</li>
+            </ul>
         `;
-
+    
     // --- Dados para Avisos da Liga ---
     const dadosAvisosLiga = [
         {
-            data: "01/06/2025",
+            data: "01/06/2025", 
             titulo: "Reunião Online: Discussão do Estatuto",
             conteudo: "Nesse domingo, dia <strong>01/06/2025, às 10 horas</strong>, teremos uma reunião online para discutir sobre o estatuto redigido e proposto. O link será enviado por e-mail e no grupo da Liga. Sua participação é fundamental!"
         },
@@ -584,12 +637,11 @@
     function popularTabelaInteressados() {
         const tbody = document.getElementById('tabelaInteressadosDiretoria').getElementsByTagName('tbody')[0];
         const botoesContainer = document.getElementById('botoesPropostas');
-        tbody.innerHTML = '';
-        botoesContainer.innerHTML = '';
+        tbody.innerHTML = ''; 
+        botoesContainer.innerHTML = ''; 
 
         const sortedIntegrantes = [...dadosInteressadosDiretoria].sort((a, b) => a.nome.localeCompare(b.nome));
 
-        // Primeiro, popular a tabela com os dados atualizados
         dadosInteressadosDiretoria.forEach(item => {
             const row = tbody.insertRow();
             row.insertCell().textContent = item.nome;
@@ -599,7 +651,7 @@
             const diretoriaCell = row.insertCell();
             const select = document.createElement('select');
             select.className = 'diretoria-dropdown';
-            select.disabled = false;
+            select.disabled = false; 
 
             if (item.diretorias && item.diretorias.length > 0) {
                 item.diretorias.forEach(diretoria => {
@@ -615,13 +667,19 @@
             }
             diretoriaCell.appendChild(select);
         });
-
-        // Em seguida, popular os botões com os dados ordenados
+        
         sortedIntegrantes.forEach(item => {
             const button = document.createElement('button');
-            button.className = 'proposal-button';
-            button.textContent = item.nome;
-            button.onclick = () => mostrarProposta(item.propostaId, item.nome);
+            button.classList.add('proposal-button');
+
+            if (item.propostaTexto && item.propostaTexto.trim() !== "") {
+                button.innerHTML = `${item.nome} <span class="ml-1 text-xs opacity-80">📄</span>`;
+                button.classList.add('proposal-button-filled'); 
+            } else {
+                button.textContent = item.nome;
+                button.classList.add('proposal-button-empty'); 
+            }
+            button.onclick = () => mostrarProposta(item.propostaId, item.nome); 
             botoesContainer.appendChild(button);
         });
 
@@ -630,7 +688,7 @@
 
     function popularTabelaTutores() {
         const tbody = document.getElementById('tabelaTutores').getElementsByTagName('tbody')[0];
-        tbody.innerHTML = '';
+        tbody.innerHTML = ''; 
         dadosTutores.forEach(item => {
             const row = tbody.insertRow();
             row.insertCell().textContent = item.nome;
@@ -642,7 +700,7 @@
 
     function popularFAQs() {
         const container = document.getElementById('faqContent');
-        container.innerHTML = '';
+        container.innerHTML = ''; 
         faqData.forEach(item => {
             const div = document.createElement('div');
             div.className = 'p-4 bg-gray-50 rounded-lg shadow-sm';
@@ -651,7 +709,7 @@
             h3.textContent = item.pergunta;
             const p = document.createElement('p');
             p.className = 'text-gray-700 leading-relaxed';
-            p.innerHTML = item.resposta;
+            p.innerHTML = item.resposta; 
             div.appendChild(h3);
             div.appendChild(p);
             container.appendChild(div);
@@ -661,19 +719,13 @@
 
     function popularReuniao() {
         const container = document.getElementById('reuniaoContent');
-        container.innerHTML = reuniaoData;
-        container.querySelectorAll('ul').forEach(ul => {
-            ul.classList.add('list-disc', 'list-inside', 'ml-4', 'mb-2', 'text-gray-700');
-        });
-        container.querySelectorAll('h4').forEach(h4 => {
-            h4.classList.add('text-lg', 'font-semibold', 'text-indigo-600', 'mt-4', 'mb-2');
-        });
+        container.innerHTML = reuniaoData; 
     }
 
     function popularAvisosLiga() {
         const container = document.getElementById('avisosLigaContent');
         if (!container) return;
-        container.innerHTML = '';
+        container.innerHTML = ''; 
         if (dadosAvisosLiga.length === 0) {
             container.innerHTML = '<p class="text-gray-500">Nenhum aviso no momento.</p>';
             return;
@@ -688,7 +740,7 @@
 
         sortedAvisos.forEach(aviso => {
             const avisoCard = document.createElement('div');
-            avisoCard.className = 'aviso-card';
+            avisoCard.className = 'aviso-card'; 
             avisoCard.innerHTML = `
                 <h3>${aviso.titulo}</h3>
                 <p class="aviso-data">Publicado em: ${aviso.data === "A definir" ? "Data a definir" : aviso.data}</p>
@@ -698,22 +750,22 @@
         });
     }
 
-    function mostrarProposta(propostaId, nomeIntegrante) {
-        const tituloEl = document.getElementById('tituloProposta');
-        const conteudoEl = document.getElementById('conteudoProposta');
+    function mostrarProposta(propostaId, nomeIntegrante) { 
+        const tituloEl = document.getElementById('tituloProposta'); 
+        const conteudoEl = document.getElementById('conteudoProposta'); 
         const integrante = dadosInteressadosDiretoria.find(p => p.propostaId === propostaId);
 
-        tituloEl.textContent = `Proposta de ${nomeIntegrante}`;
+        tituloEl.textContent = `Carta de Intenção de ${nomeIntegrante}`; 
 
         if (integrante && integrante.propostaTexto && integrante.propostaTexto.trim() !== "") {
             conteudoEl.innerHTML = integrante.propostaTexto;
         } else {
             conteudoEl.innerHTML = `
                     <p class="mb-4">Agradeço a oportunidade de apresentar minhas ideias para a Liga Acadêmica...</p>
-                    <p class="mt-2"><em>(Este é um texto de exemplo. O conteúdo específico da proposta para ${nomeIntegrante} ainda não foi submetido ou será adicionado aqui.)</em></p>
+                    <p class="mt-2"><em>(O conteúdo específico da carta de intenção para ${nomeIntegrante} ainda não foi submetido ou será adicionado aqui.)</em></p>
                 `;
         }
-        showPage('paginaProposta');
+        showPage('paginaProposta'); 
     }
 
     let interesseDiretoriaChartInstance = null;
@@ -727,16 +779,16 @@
         todasDiretoriasPossiveis.forEach(dir => contagemDiretorias[dir] = 0);
 
         dadosInteressadosDiretoria.forEach(item => {
-            (item.diretorias || []).forEach(diretoria => {
-                let diretoriaNormalizada = diretoria.replace("Científico", "Científica");
+            (item.diretorias || []).forEach(diretoria => { 
+                let diretoriaNormalizada = diretoria.replace("Científico", "Científica"); 
                 if (contagemDiretorias.hasOwnProperty(diretoriaNormalizada)) {
                     contagemDiretorias[diretoriaNormalizada]++;
-                } else if (contagemDiretorias.hasOwnProperty(diretoria)) {
-                    contagemDiretorias[diretoria]++;
+                } else if (contagemDiretorias.hasOwnProperty(diretoria)) { 
+                     contagemDiretorias[diretoria]++;
                 }
             });
         });
-
+        
         if (contagemDiretorias["Coordenação Científico"] && contagemDiretorias["Coordenação Científica"]) {
             contagemDiretorias["Coordenação Científica"] += contagemDiretorias["Coordenação Científico"];
             delete contagemDiretorias["Coordenação Científico"];
@@ -748,9 +800,9 @@
         const filteredLabels = [];
         const filteredData = [];
         todasDiretoriasPossiveis.forEach(dir => {
-            let dirKey = dir.replace("Científico", "Científica");
+            let dirKey = dir.replace("Científico", "Científica"); 
             filteredLabels.push(dirKey);
-            filteredData.push(contagemDiretorias[dirKey] || 0);
+            filteredData.push(contagemDiretorias[dirKey] || 0); 
         });
 
         if (interesseDiretoriaChartInstance) {
@@ -764,8 +816,8 @@
                 datasets: [{
                     label: 'Número de Interessados',
                     data: filteredData,
-                    backgroundColor: 'rgba(79, 70, 229, 0.7)',
-                    borderColor: 'rgba(79, 70, 229, 1)',
+                    backgroundColor: 'rgba(79, 70, 229, 0.7)', 
+                    borderColor: 'rgba(79, 70, 229, 1)',     
                     borderWidth: 1,
                     borderRadius: 5,
                 }]
@@ -777,14 +829,14 @@
                     y: {
                         beginAtZero: true,
                         ticks: {
-                            stepSize: Math.max(1, Math.ceil(Math.max(...filteredData, 0) / 5)),
-                            precision: 0
+                            stepSize: Math.max(1, Math.ceil(Math.max(...filteredData, 0) / 5)), 
+                            precision: 0 
                         }
                     }
                 },
                 plugins: {
                     legend: {
-                        display: false
+                        display: false 
                     }
                 }
             }
@@ -809,15 +861,15 @@
                 datasets: [{
                     label: 'Distribuição por Curso',
                     data: Object.values(contagemCursos),
-                    backgroundColor: [
-                        'rgba(59, 130, 246, 0.7)',
-                        'rgba(16, 185, 129, 0.7)',
-                        'rgba(239, 68, 68, 0.7)',
-                        'rgba(245, 158, 11, 0.7)',
-                        'rgba(139, 92, 246, 0.7)',
-                        'rgba(236, 72, 153, 0.7)'
+                    backgroundColor: [ 
+                        'rgba(59, 130, 246, 0.7)',  
+                        'rgba(16, 185, 129, 0.7)',  
+                        'rgba(239, 68, 68, 0.7)',   
+                        'rgba(245, 158, 11, 0.7)',  
+                        'rgba(139, 92, 246, 0.7)',  
+                        'rgba(236, 72, 153, 0.7)'   
                     ],
-                    borderColor: [
+                    borderColor: [ 
                         'rgba(59, 130, 246, 1)',
                         'rgba(16, 185, 129, 1)',
                         'rgba(239, 68, 68, 1)',
@@ -833,7 +885,7 @@
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        position: 'top',
+                        position: 'top', 
                     },
                     tooltip: {
                         callbacks: {
@@ -871,28 +923,30 @@
         });
 
         if (pageId === 'dashboard') {
-            // É importante que os gráficos sejam recriados *depois* que os dados foram atualizados
-            // e a seção do dashboard está visível.
             setTimeout(() => {
-                popularTabelaInteressados(); // Garante que os dados da tabela e botões estão atualizados
+                popularTabelaInteressados(); 
                 criarGraficoInteresseDiretoria();
                 criarGraficoCursosInteressados();
-            }, 10);
+            }, 10); 
         } else if (pageId === 'diretoria') {
-            popularTabelaInteressados(); // Atualiza a tabela e os botões ao mostrar a página de diretoria
+            popularTabelaInteressados(); 
         } else if (pageId === 'avisosLiga') {
-            popularAvisosLiga();
+            popularAvisosLiga(); 
+        } else if (pageId === 'reuniao') {
+            popularReuniao();
+        } else if (pageId === 'tutores') { // Adicionado para atualizar a contagem de tutores
+            popularTabelaTutores();
         }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        popularTabelaInteressados(); // Popula inicialmente
+        popularTabelaInteressados(); 
         popularTabelaTutores();
         popularFAQs();
         popularReuniao();
-        popularAvisosLiga();
+        popularAvisosLiga(); 
 
-        showPage('dashboard'); // Mostra o dashboard como padrão
+        showPage('dashboard'); 
 
         document.getElementById('currentYear').textContent = new Date().getFullYear();
     });
