@@ -480,14 +480,43 @@
         { nome: "Yuri Freitas Hughes", email: "yuri.hughes@ufba.br", curso: "Ciência da Computação", diretorias: ["Direção Geral"], propostaId: generatePropostaId("Yuri Freitas Hughes"), propostaTexto: null },
         { nome: "Beatriz Pereira Espinheira", email: "espinheira.beatriz@ufba.br", curso: "Ciência da Computação", diretorias: ["Secretaria Geral", "Coordenação de Extensão"], propostaId: generatePropostaId("Beatriz Pereira Espinheira"), propostaTexto: null },
         { nome: "Djair Maykon de Novaes Miranda", email: "djair.maykon@ufba.br", curso: "Ciência da Computação", diretorias: ["Coordenação Acadêmica", "Coordenação Científico", "Coordenação de Extensão"], propostaId: generatePropostaId("Djair Maykon de Novaes Miranda"), propostaTexto: null },
-        { nome: "Thales Brito Rodrigues", email: "thalesbr@ufba.br", curso: "Ciência da Computação", diretorias: ["Secretaria Geral"], propostaId: generatePropostaId("Thales Brito Rodrigues"), propostaTexto: null }
+        { 
+            nome: "Thales Brito Rodrigues", 
+            email: "thalesbr@ufba.br", 
+            curso: "Ciência da Computação", 
+            diretorias: ["Secretaria Geral"], // Atualizado conforme carta
+            propostaId: generatePropostaId("Thales Brito Rodrigues"), 
+            propostaTexto: `
+                <p><strong>Nome:</strong> Thales Brito Rodrigues</p>
+                <p><strong>Curso/Período:</strong> Ciência da Computação - 6º semestre</p>
+                <p><strong>Cargo pleiteado:</strong> Secretaria Geral</p>
+                <p><strong>Liga Acadêmica:</strong> LIAO</p>
+                <p><strong>Ano de gestão:</strong> 2025</p>
+
+                <h4>Motivação para ocupar o cargo</h4>
+                <p>Prezados colegas da LIAO,</p>
+                <p>Gostaria de manifestar meu interesse em ocupar o cargo de Secretário Geral da Liga, pois acredito que minha trajetória prévia e minha visão institucional podem contribuir de forma significativa para promover o crescimento sólido e estruturado da LIAO.</p>
+                <p>Já atuei em cargos de gestão durante minha participação na InfoJr UFBA, onde fui Diretor de Projetos. Nesta função, fui responsável por definir e aprimorar diversos processos de gerência e documentação de projetos, além de ter fundado os núcleos de estudos, que desde 2021 são a principal metodologia de capacitação e disseminação de conhecimento técnico na empresa. Posteriormente, como Conselheiro Administrativo, colaborei com a Diretoria Executiva em diversos aspectos administrativos, com destaque para a organização de processos seletivos e a elaboração do Estatuto vigente da InfoJr.</p>
+                <p>Além disso, possuo sólida experiência profissional em desenvolvimento de software (7 anos). Atualmente, atuo em projetos integrados com tecnologias de Inteligência Artificial, o que me permite alinhar a gestão administrativa da Liga com soluções tecnológicas eficazes e inovadoras.</p>
+
+                <h4>Propostas e planos de ação</h4>
+                <p>Como Secretário Geral, pretendo:</p>
+                <ul>
+                    <li>Definir os processos internos da LIAO, como o processo seletivo, o processo eleitoral e o modelo de gestão de projetos;</li>
+                    <li>Estabelecer padrões de registro documental e organização de projetos, utilizando ferramentas como Google Drive, GitHub e similares, promovendo coesão e continuidade institucional;</li>
+                    <li>Finalizar a regulamentação da Liga, com a redação do Regimento Interno e do Código de Ética, complementando o Estatuto aprovado que já fiz;</li>
+                    <li>Desenvolver um bot para o Discord oficial da LIAO, utilizando tecnologias de IA com busca (RAG). Esse bot permitirá consultas rápidas a documentos importantes, como o Estatuto, o Regimento Interno, documentação de projetos, história da LIAO, e demais registros institucionais. Sua manutenção será feita pelos próprios membros da Liga, reforçando a cultura de autonomia e engajamento técnico;</li>
+                    <li>Auxiliar o Diretor Geral em ações conjuntas que envolvam outras coordenações, contribuindo para a integração e eficiência das atividades da LIAO.</li>
+                </ul>
+            `
+        }
     ];
 
 
     const dadosTutores = [
         { nome: "Prof. Dr. Islame Felipe da Costa Fernandes", email: "felipe.fernandes@ufba.br", area: "Otimização, Meta-heurísticas, Grafos, IA" },
         { nome: "Prof. Dr. Marlo Vieira dos Santos e Souza", email: "marlo.viera@ufba.br", area: "IA, PLN, Semântica Formal, Comp. Teórica" },
-        { nome: "Prof. Franklin Lázaro Santos de Oliveira", email: "franklinoliveira40@gmail.com", area: "IA, Visão Computacional, EdgeAI, Otimização" } // Novo tutor adicionado
+        { nome: "Prof. Franklin Lázaro Santos de Oliveira", email: "franklinoliveira40@gmail.com", area: "IA, Visão Computacional, EdgeAI, Otimização" }
     ];
 
     const faqData = [
@@ -934,7 +963,7 @@
             popularAvisosLiga(); 
         } else if (pageId === 'reuniao') {
             popularReuniao();
-        } else if (pageId === 'tutores') { // Adicionado para atualizar a contagem de tutores
+        } else if (pageId === 'tutores') { 
             popularTabelaTutores();
         }
     }
