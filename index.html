@@ -175,15 +175,10 @@
             margin-top: 1.5rem;
             margin-bottom: 0.75rem;
         }
-        #conteudoProposta ul, #conteudoProposta ol {
+        #conteudoProposta ul {
             list-style-position: inside;
             margin-left: 1rem;
-        }
-        #conteudoProposta ul {
             list-style-type: disc;
-        }
-        #conteudoProposta ol {
-            list-style-type: decimal;
         }
         #conteudoProposta li {
             margin-bottom: 0.25rem;
@@ -406,7 +401,52 @@
 
     // --- Dados dos Interessados na Diretoria ---
     let dadosInteressadosDiretoria = [
-        { nome: "DEIVISNAN DA SILVA BISPO", email: "Bispodeivisnan@gmail.com", curso: "Sistemas de Informação", diretorias: ["Direção Geral", "Coordenação Acadêmica", "Coordenação Científico"], propostaId: generatePropostaId("DEIVISNAN DA SILVA BISPO"), propostaTexto: null }, 
+        { 
+            nome: "DEIVISNAN DA SILVA BISPO", 
+            email: "Bispodeivisnan@gmail.com", 
+            curso: "Sistemas de Informação", 
+            diretorias: ["Direção Geral", "Direção Acadêmica"], 
+            propostaId: generatePropostaId("DEIVISNAN DA SILVA BISPO"), 
+            propostaTexto: `
+                <h4>📄 Carta de Intenção –  Deivisnan Da silva Bispo</h4>
+                <p><strong>Nome:</strong> Deivisnan da silva Bispo</p>
+                <p><strong>Curso/Período:</strong> Sistema de informação Quarto semestre</p>
+                <p><strong>Cargo pleiteado:</strong> Direção geral ou Direção acadêmica</p>
+                <p><strong>Liga acadêmica:</strong> LIAO</p>
+                <p><strong>Ano de gestão:</strong> 2025</p>
+
+                <p>Prezados membros da Liga Acadêmica,</p>
+                <p>Venho, por meio desta, manifestar meu interesse em concorrer ao cargo de Diretor Geral ou possivelmente Direção Acadêmica, para a próxima gestão. Esta decisão parte do meu compromisso com o crescimento coletivo, da minha visão estratégica para o fortalecimento institucional da liga e da vontade de contribuir ativamente com a organização e o impacto das nossas ações.</p>
+                
+                <h4>Motivação para ocupar o cargo</h4>
+                <p>Acredito que, ao longo do meu percurso no Bacharelado Interdisciplinar, desenvolvi algo valioso: a capacidade de me relacionar com pessoas de diferentes áreas e nichos, sabendo me comunicar de forma clara e eficaz com todos em prol de um objetivo comum. Além disso, venho me especializando cada vez mais na parte analítica, o que considero uma ferramenta essencial para a tomada de decisões estratégicas.</p>
+                <p>Tenho uma motivação genuína de fazer acontecer — e da melhor forma possível. Estou disposto a me empenhar para que os resultados da gestão sejam notáveis. Mais do que apenas ocupar um cargo, meu desejo é desenvolver com responsabilidade tudo o que a Direção Geral exige, com comprometimento real e vontade de contribuir para o crescimento coletivo da liga.</p>
+                <p>Já participei como voluntário em algumas redes de pesquisa, o que despertou ainda mais meu entusiasmo em me envolver ativamente com projetos realizados dentro da universidade. Essas experiências reforçaram meu interesse em desenvolver conhecimento prático e teórico, tanto dentro quanto fora da instituição.</p>
+                <p>Acredito que qualquer colega que assumir essa responsabilidade terá um papel importante para tornar essa realidade possível — e coloco minha disposição justamente nesse sentido. Sempre tive afinidade com a área de administração e gestão, e acredito que essa inclinação, somada à minha vontade de ver a liga se consolidar, me motiva profundamente a ocupar o cargo de Direção Geral. Estou preparado para contribuir com empenho para o avanço e a estruturação inicial da nossa liga.</p>
+
+                <h4>2. Propostas e planos de ação</h4>
+                <p>Caso eleito para a Direção Geral, pretendo:</p>
+                <ul>
+                    <li>Fortalecer a comunicação interna, criando canais eficientes entre todas as coordenações para garantir alinhamento e clareza nos projetos.</li>
+                    <li>Estabelecer um calendário de reuniões estratégicas com foco em metas mensais, acompanhamentos e resolução de pendências.</li>
+                    <li>Apoiar cada coordenação em seus desafios específicos, promovendo um modelo de gestão participativa.</li>
+                    <li>Buscar parcerias externas com instituições, professores e projetos que fortaleçam a atuação acadêmica e social da liga.</li>
+                    <li>Promover treinamentos e momentos de integração, que favoreçam o aprendizado coletivo e o engajamento dos membros.</li>
+                </ul>
+
+                <h4>3. Metas para a gestão</h4>
+                <p>Minhas metas concretas para o período de gestão incluem:</p>
+                <ul>
+                    <li>Garantir a realização de pelo menos um projeto relevante por coordenação (científica, acadêmica e de extensão), com impacto mensurável.</li>
+                    <li>Criar e manter um painel de acompanhamento de atividades e metas.</li>
+                    <li>Pretendo estabelecer relatórios semestrais de avaliação da gestão da liga, nos quais cada diretoria apresentará suas ações, avanços e desafios. Esses relatórios serão consolidados pela Direção Geral e servirão tanto para acompanhamento interno quanto para orientar futuras gestões.</li>
+                    <li>Melhorar a visibilidade da liga através de uma presença digital organizada e ativa (site, redes sociais, e-mail institucional).</li>
+                    <li>Deixar como legado um manual de transição de gestão para facilitar a continuidade do trabalho nas próximas gestões.</li>
+                </ul>
+                <p>Acredito que a liderança deve ser exercida com empatia, foco e organização, e estou pronto para assumir esse compromisso com responsabilidade.</p>
+                <p>Atenciosamente,<br>Deivisnan Bispo<br>Candidato à Direção Geral</p>
+            ` 
+        },
         { 
             nome: "Priscila Conceição Araújo", 
             email: "priscila.araujossa@gmail.com", 
@@ -651,15 +691,14 @@
     // --- Dados para Avisos da Liga ---
     const dadosAvisosLiga = [
         {
-            data: "02/06/2025", // Data do novo aviso
+            data: "02/06/2025",
             titulo: "Importante: Leitura das Cartas de Intenção",
             conteudo: "Para os futuros diretores e membros: Lembrando que é de responsabilidade indispensável que todos os interessados à direção leiam a carta de intenção de cada um previamente até a próxima reunião. Quanto a futuros membros, aconselho que fiquem por dentro e leiam também, pois desde já terão dimensões dos prováveis diretores."
         },
-       
         {
-            data: "A definir",
+            data: "13/06/2025", 
             titulo: "Próxima Reunião Presencial: Integração dos Diretores",
-            conteudo: "Planos para a próxima reunião: será <strong>presencial na UFBA</strong> para integração dos membros diretores. A data e o local exato serão definidos e comunicados em breve. Preparem-se para um momento de alinhamento e confraternização!"
+            conteudo: "A próxima reunião presencial será na <strong>sexta-feira, dia 13/06, às 13h, na sala 111 do PAF 1</strong> para integração dos membros diretores. Preparem-se para um momento de alinhamento e confraternização!"
         }
     ];
 
