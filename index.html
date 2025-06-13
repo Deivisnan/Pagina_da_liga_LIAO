@@ -396,10 +396,9 @@
 </footer>
 
 <script>
-    // Função para gerar IDs de proposta/carta de intenção únicos
+    // --- DADOS DO SITE ---
     const generatePropostaId = (name) => 'proposta_' + name.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');
 
-    // --- Dados dos Interessados na Diretoria ---
     let dadosInteressadosDiretoria = [
         { 
             nome: "DEIVISNAN DA SILVA BISPO", 
@@ -543,7 +542,58 @@
             `
         },
         { nome: "Danilo Santiago Fonseca", email: "danilofonseca@ufba.br", curso: "Ciência da Computação", diretorias: ["Coordenação Acadêmica", "Coordenação Científico"], propostaId: generatePropostaId("Danilo Santiago Fonseca"), propostaTexto: null },
-        { nome: "danielle santos de souza", email: "souza.danielle@ufba.br", curso: "Ciência da Computação", diretorias: ["Direção Geral", "Coordenação Acadêmica", "Coordenação Científico", "Coordenação de Extensão"], propostaId: generatePropostaId("danielle santos de souza"), propostaTexto: null },
+        { 
+            nome: "danielle santos de souza", 
+            email: "souza.danielle@ufba.br", 
+            curso: "Ciência da Computação", 
+            diretorias: ["Direção Geral", "Relações Públicas", "Secretaria Geral"], 
+            propostaId: generatePropostaId("danielle santos de souza"), 
+            propostaTexto: `
+                <p><strong>Nome:</strong> Danielle Souza</p>
+                <p><strong>Curso/Período:</strong> Ciência da Computação 1/2 semestre</p>
+                <p><strong>Cargo(s) pleiteado(s):</strong> Direção Geral, Relações Públicas ou Secretaria Geral</p>
+                <p><strong>Liga Acadêmica:</strong> LIAO</p>
+                <p><strong>Ano de gestão:</strong> 2025</p>
+
+                <h4>Motivação para ocupar o cargo</h4>
+                <p>Sou bacharel em Ciência e Tecnologia pela UFBA e atualmente curso Ciência da Computação na mesma instituição. Programo desde 2020 e, ao longo da minha trajetória, sempre busquei unir o desenvolvimento técnico com a participação ativa em ambientes colaborativos e acadêmicos.</p>
+                <p>Fui membro da diretoria de desenvolvimento da antiga empresa júnior EJCET, onde participei da estruturação de projetos reais. Desde então, tenho me aprofundado nas áreas de análise e engenharia de dados, buscando compreender melhor como a informação pode gerar valor e soluções inteligentes. Atualmente, faço parte da InfoJr como trainee da trilha empreendedora, onde tenho focado no aprimoramento da minha comunicação, liderança e outras soft skills.</p>
+                <p>Estou muito empenhada em fazer a LIAO funcionar com excelência e crescer como referência em Inteligência Artificial dentro e fora da UFBA. Quero contribuir ativamente para que a Liga seja um espaço de desenvolvimento técnico, humano e social.</p>
+                <p>Vejo nesta oportunidade uma forma de aplicar os novos conhecimentos que venho adquirindo em Ciência da Computação, especialmente nas áreas de dados e IA e ao mesmo tempo em que desenvolvo minhas habilidades interpessoais e de liderança. Buscando unir técnica e sensibilidade para gerar impacto real e duradouro na universidade.</p>
+                <p>Tenho profundo interesse em Inteligência Artificial e vejo na LIAO um espaço onde posso somar, aprender e impulsionar iniciativas que aproximem a tecnologia das pessoas. Ao me candidatar à Direção Geral, Relações Públicas ou Secretaria Geral, me coloco a disposição para atuar onde for mais útil a gestão e a missão da Liga.</p>
+
+                <h4>Planos de Ação por Cargo</h4>
+                <h5>Direção Geral</h5>
+                <p><strong>Objetivo:</strong> Garantir o bom funcionamento das diretorias e a coerência estratégica das ações da LIAO, promovendo liderança colaborativa e impacto institucional.</p>
+                <ul>
+                    <li>Realizar reuniões mensais com todas as diretorias para alinhamento e acompanhamento de metas.</li>
+                    <li>Elaborar um plano de metas semestral com indicadores simples e check-ins quinzenais.</li>
+                    <li>Promover mentoria cruzada entre diretorias para troca de experiências.</li>
+                    <li>Estimular uma cultura de feedback e reconhecimento.</li>
+                    <li>Documentar aprendizados da gestão para transições futuras.</li>
+                </ul>
+
+                <h5>Relações Públicas</h5>
+                <p><strong>Objetivo:</strong> Fortalecer a imagem da LIAO e suas ações, promovendo conexões estratégicas e conteúdo acessível ao público.</p>
+                <ul>
+                    <li>Criar um calendário de publicações para redes sociais com conteúdo técnico, humano e institucional.</li>
+                    <li>Produzir séries de vídeos curtos com especialistas, membros e colaboradores.</li>
+                    <li>Estabelecer parcerias com outras ligas, grupos de pesquisa e empresas para eventos e conteúdo colaborativo, afim de contribuir com futuros eventos.</li>
+                    <li>Desenvolver campanhas temáticas como "IA para Todos", com foco social e educativo.</li>
+                    <li>Fazer com que a LIAO seja cada vez mais bem representada.</li>
+                </ul>
+
+                <h5>Secretaria Geral</h5>
+                <p><strong>Objetivo:</strong> Organizar os fluxos internos da Liga, garantindo comunicação clara, documentação eficiente e apoio logístico à gestão.</p>
+                <ul>
+                    <li>Padronizar e armazenar atas de reuniões no Drive com acesso fácil.</li>
+                    <li>Manter um calendário geral da Liga integrado ao Google Agenda, com notificações.</li>
+                    <li>Criar um manual de boas práticas da Secretaria para continuidade entre gestões.</li>
+                    <li>Aplicar formulários periódicos de escuta interna para mapear sugestões e satisfação dos membros.</li>
+                    <li>Apoiar a elaboração de relatórios e documentos para editais e prestação de contas.</li>
+                </ul>
+            ` 
+        },
         { nome: "Yuri Freitas Hughes", email: "yuri.hughes@ufba.br", curso: "Ciência da Computação", diretorias: ["Direção Geral"], propostaId: generatePropostaId("Yuri Freitas Hughes"), propostaTexto: null },
         { 
             nome: "Beatriz Pereira Espinheira", 
@@ -770,15 +820,17 @@
 
     // --- Funções de Renderização ---
     function popularTabelaInteressados() {
-        const tbody = document.getElementById('tabelaInteressadosDiretoria').getElementsByTagName('tbody')[0];
+        const tbody = document.getElementById('tabelaInteressadosDiretoria');
+        if (!tbody) return;
+        const tbodyContent = tbody.getElementsByTagName('tbody')[0];
         const botoesContainer = document.getElementById('botoesPropostas');
-        tbody.innerHTML = ''; 
+        tbodyContent.innerHTML = ''; 
         botoesContainer.innerHTML = ''; 
 
         const sortedIntegrantes = [...dadosInteressadosDiretoria].sort((a, b) => a.nome.localeCompare(b.nome));
 
         dadosInteressadosDiretoria.forEach(item => {
-            const row = tbody.insertRow();
+            const row = tbodyContent.insertRow();
             row.insertCell().textContent = item.nome;
             row.insertCell().textContent = item.email;
             row.insertCell().textContent = item.curso;
@@ -817,12 +869,14 @@
             button.onclick = () => mostrarProposta(item.propostaId, item.nome); 
             botoesContainer.appendChild(button);
         });
-
-        document.getElementById('totalInteressadosDirecao').textContent = dadosInteressadosDiretoria.length;
+        
+        const totalInteressadosEl = document.getElementById('totalInteressadosDirecao');
+        if (totalInteressadosEl) totalInteressadosEl.textContent = dadosInteressadosDiretoria.length;
     }
 
     function popularTabelaTutores() {
-        const tbody = document.getElementById('tabelaTutores').getElementsByTagName('tbody')[0];
+        const tbody = document.getElementById('tabelaTutores')?.getElementsByTagName('tbody')[0];
+        if(!tbody) return;
         tbody.innerHTML = ''; 
         dadosTutores.forEach(item => {
             const row = tbody.insertRow();
@@ -830,11 +884,13 @@
             row.insertCell().textContent = item.email;
             row.insertCell().textContent = item.area;
         });
-        document.getElementById('totalTutoresInteressados').textContent = dadosTutores.length;
+        const totalTutoresEl = document.getElementById('totalTutoresInteressados');
+        if(totalTutoresEl) totalTutoresEl.textContent = dadosTutores.length;
     }
 
     function popularFAQs() {
         const container = document.getElementById('faqContent');
+        if (!container) return;
         container.innerHTML = ''; 
         faqData.forEach(item => {
             const div = document.createElement('div');
@@ -849,12 +905,13 @@
             div.appendChild(p);
             container.appendChild(div);
         });
-        document.getElementById('totalPerguntasFrequentes').textContent = faqData.length;
+        const totalFaqEl = document.getElementById('totalPerguntasFrequentes');
+        if(totalFaqEl) totalFaqEl.textContent = faqData.length;
     }
 
     function popularReuniao() {
         const container = document.getElementById('reuniaoContent');
-        container.innerHTML = reuniaoData; 
+        if(container) container.innerHTML = reuniaoData; 
     }
 
     function popularAvisosLiga() {
@@ -907,9 +964,11 @@
     let cursosInteressadosChartInstance = null;
 
     function criarGraficoInteresseDiretoria() {
-        const ctx = document.getElementById('interesseDiretoriaChart').getContext('2d');
+        const ctx = document.getElementById('interesseDiretoriaChart')?.getContext('2d');
+        if(!ctx) return;
+        
         const contagemDiretorias = {};
-        const todasDiretoriasPossiveis = ["Direção Geral", "Secretaria Geral", "Relações Públicas", "Coordenação Acadêmica", "Coordenação Científico", "Coordenação de Extensão"];
+        const todasDiretoriasPossiveis = ["Direção Geral", "Secretaria Geral", "Relações Públicas", "Coordenação Acadêmica", "Coordenação Científico", "Coordenação de Extensão", "Direção de Extensão"];
 
         todasDiretoriasPossiveis.forEach(dir => contagemDiretorias[dir] = 0);
 
@@ -936,8 +995,10 @@
         const filteredData = [];
         todasDiretoriasPossiveis.forEach(dir => {
             let dirKey = dir.replace("Científico", "Científica"); 
-            filteredLabels.push(dirKey);
-            filteredData.push(contagemDiretorias[dirKey] || 0); 
+            if(contagemDiretorias[dirKey] !== undefined) {
+                filteredLabels.push(dirKey);
+                filteredData.push(contagemDiretorias[dirKey]); 
+            }
         });
 
         if (interesseDiretoriaChartInstance) {
@@ -964,7 +1025,7 @@
                     y: {
                         beginAtZero: true,
                         ticks: {
-                            stepSize: Math.max(1, Math.ceil(Math.max(...filteredData, 0) / 5)), 
+                            stepSize: 1, 
                             precision: 0 
                         }
                     }
@@ -979,7 +1040,9 @@
     }
 
     function criarGraficoCursosInteressados() {
-        const ctx = document.getElementById('cursosInteressadosChart').getContext('2d');
+        const ctx = document.getElementById('cursosInteressadosChart')?.getContext('2d');
+        if(!ctx) return;
+
         const contagemCursos = dadosInteressadosDiretoria.reduce((acc, item) => {
             acc[item.curso] = (acc[item.curso] || 0) + 1;
             return acc;
@@ -1042,11 +1105,56 @@
     }
 
     function showPage(pageId) {
-        document.querySelectorAll('.content-section').forEach(section => {
-            section.classList.remove('active');
-        });
+        document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
         const activePage = document.getElementById(pageId);
         if (activePage) {
+             // Limpa e preenche o conteúdo da seção ativa para garantir que esteja atualizado
+            const sectionContent = {
+                dashboard: `
+                <div class="card">
+                    <h2>Dashboard Geral</h2>
+                    <p class="text-gray-600 mb-6">Visão geral dos dados da Liga Acadêmica.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="card">
+                            <h3>Interesse por Diretoria</h3>
+                            <div class="chart-container">
+                                <canvas id="interesseDiretoriaChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h3>Cursos dos Interessados na Direção</h3>
+                            <div class="chart-container">
+                                <canvas id="cursosInteressadosChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mt-6">
+                        <h3>Estatísticas Rápidas</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-center">
+                            <div class="bg-blue-100 p-4 rounded-lg shadow">
+                                <p class="text-3xl font-bold text-blue-600" id="totalInteressadosDirecao">0</p>
+                                <p class="text-gray-700">Interessados na Direção</p>
+                            </div>
+                            <div class="bg-green-100 p-4 rounded-lg shadow">
+                                <p class="text-3xl font-bold text-green-600" id="totalTutoresInteressados">0</p>
+                                <p class="text-gray-700">Tutores Interessados</p>
+                            </div>
+                            <div class="bg-purple-100 p-4 rounded-lg shadow">
+                                <p class="text-3xl font-bold text-purple-600" id="totalPerguntasFrequentes">0</p>
+                                <p class="text-gray-700">Dúvidas Frequentes</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>`,
+                tutores: `<div class="card"><h2>Professores Tutores Interessados</h2><p class="text-gray-600 mb-4">Professores que demonstraram interesse em ser tutores da liga.</p><div class="overflow-x-auto"><table id="tabelaTutores"><thead><tr><th>Nome Completo</th><th>E-mail</th><th>Área de Especialidade</th></tr></thead><tbody></tbody></table></div></div>`,
+                faq: `<div class="card"><h2>Dúvidas Frequentes sobre a Liga</h2><div id="faqContent" class="space-y-6"></div></div>`,
+                reuniao: `<div class="card"><h2>Tópicos Discutidos em Reunião</h2><div id="reuniaoContent" class="space-y-6"></div></div>`,
+                avisosLiga: `<div class="card"><h2>Avisos Importantes da LIAO</h2><p class="text-gray-600 mb-6">Fique por dentro das últimas novidades, decisões e comunicados da liga.</p><div id="avisosLigaContent" class="space-y-4"></div></div>`,
+                videoApresentacao: `<div class="card"><h2>Vídeo de Apresentação</h2><p class="text-gray-600 mb-4">Confira o vídeo de apresentação da LIAO.</p><div class="mx-auto max-w-3xl"><div class="video-responsive-container"><iframe src="https://www.youtube.com/embed/VwSeAm-9Vgg?si=4Lns3BzbHrRjr-AB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div></div>`
+            };
+            if(sectionContent[pageId]){
+                activePage.innerHTML = sectionContent[pageId];
+            }
             activePage.classList.add('active');
         }
 
@@ -1057,9 +1165,12 @@
             }
         });
 
+        // Chamar as funções de população após o conteúdo da seção ser injetado
         if (pageId === 'dashboard') {
             setTimeout(() => {
                 popularTabelaInteressados(); 
+                popularTabelaTutores();
+                popularFAQs();
                 criarGraficoInteresseDiretoria();
                 criarGraficoCursosInteressados();
             }, 10); 
@@ -1071,22 +1182,16 @@
             popularReuniao();
         } else if (pageId === 'tutores') { 
             popularTabelaTutores();
+        } else if (pageId === 'faq') { 
+            popularFAQs();
         }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        popularTabelaInteressados(); 
-        popularTabelaTutores();
-        popularFAQs();
-        popularReuniao();
-        popularAvisosLiga(); 
-
         showPage('dashboard'); 
-
         document.getElementById('currentYear').textContent = new Date().getFullYear();
     });
 
 </script>
 </body>
 </html>
-
