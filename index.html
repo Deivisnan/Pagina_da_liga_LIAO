@@ -755,7 +755,7 @@
                 <p><strong>Nome:</strong> Paulo Ferreira de Castro Filho</p> 
                 <p><strong>Curso/Período:</strong> Ciência da Computação, 4° Semestre</p> 
                 <p><strong>Cargo pleiteado:</strong> Secretaria Geral, Coordenação Acadêmica e Coordenação Científica</p> 
-                <p><strong>Liga Acadêmica:</strong> LIAO</p> 
+                <p><strong>Liga acadêmica:</strong> LIAO</p> 
                 <p><strong>Ano de gestão:</strong> 2025</p> 
 
                 <h4>Motivação para ocupar o cargo</h4> 
@@ -800,7 +800,7 @@
                 <p><strong>Nome:</strong> Danielle Souza</p> 
                 <p><strong>Curso/Período:</strong> Ciência da Computação 1/2 semestre</p> 
                 <p><strong>Cargo(s) pleiteado(s):</strong> Direção Geral, Relações Públicas ou Secretaria Geral</p> 
-                <p><strong>Liga Acadêmica:</strong> LIAO</p> 
+                <p><strong>Liga acadêmica:</strong> LIAO</p> 
                 <p><strong>Ano de gestão:</strong> 2025</p> 
 
                 <h4>Motivação para ocupar o cargo</h4> 
@@ -1564,6 +1564,13 @@
     }
     
     // --- Funções para Relatórios de Participação ---
+    const parseCustomDate = (dateStr) => {
+        if (!dateStr || !dateStr.includes(',')) return 0;
+        const [datePart, timePart] = dateStr.split(', ');
+        const [day, month, year] = datePart.split('/');
+        return new Date(`${year}-${month}-${day}T${timePart}`).getTime();
+    };
+
     const timeToSeconds = (timeStr) => {
         if (!timeStr || timeStr === '-') return 0;
         const parts = timeStr.split(':').map(Number);
@@ -1574,8 +1581,8 @@
     
     const tableHeadersRelatorios = [
         { title: 'Participante', key: 'name', sortable: true },
-        { title: 'Entrou', key: 'joined', sortable: false },
-        { title: 'Saiu', key: 'left', sortable: false },
+        { title: 'Entrada', key: 'joined', sortable: true },
+        { title: 'Saída', key: 'left', sortable: true },
         { title: 'Tempo Falando', key: 'speaking', sortable: true, isTime: true },
         { title: 'Mensagens', key: 'messages', sortable: true },
         { title: 'Mãos Levantadas', key: 'hands', sortable: true },
@@ -1621,7 +1628,12 @@
         data.forEach(row => {
             let tr = '<tr>';
             tableHeadersRelatorios.forEach(header => {
-                tr += `<td class="px-4 py-3 whitespace-nowrap text-sm text-gray-700">${row[header.key]}</td>`;
+                let cellContent = row[header.key];
+                if ((header.key === 'joined' || header.key === 'left') && cellContent.includes(',')) {
+                    const [date, time] = cellContent.split(', ');
+                    cellContent = `${date} <span class="text-xs text-gray-500 block">${time}</span>`;
+                }
+                tr += `<td class="px-4 py-3 whitespace-nowrap text-sm text-gray-700 align-top">${cellContent}</td>`;
             });
             tr += '</tr>';
             tbody.innerHTML += tr;
@@ -1658,7 +1670,10 @@
             let valA = a[key];
             let valB = b[key];
             
-            if(isTime) {
+            if (key === 'joined' || key === 'left') {
+                valA = parseCustomDate(valA);
+                valB = parseCustomDate(valB);
+            } else if (isTime) {
                 valA = timeToSeconds(valA);
                 valB = timeToSeconds(valB);
             }
@@ -1683,11 +1698,16 @@
         const uniqueParticipants = new Set(allData.map(d => d.name)).size;
         const totalMessages = allData.reduce((sum, d) => sum + d.messages, 0);
         const totalScore = allData.reduce((sum, d) => sum + parseFloat(String(d.score).replace(',', '.')), 0);
+        
+        const kpiTotal = document.getElementById('kpi-total-participations');
+        const kpiUnique = document.getElementById('kpi-unique-participants');
+        const kpiMessages = document.getElementById('kpi-total-messages');
+        const kpiAvgScore = document.getElementById('kpi-avg-score');
 
-        document.getElementById('kpi-total-participations').textContent = allData.length;
-        document.getElementById('kpi-unique-participants').textContent = uniqueParticipants;
-        document.getElementById('kpi-total-messages').textContent = totalMessages;
-        document.getElementById('kpi-avg-score').textContent = (totalScore / allData.length).toFixed(2);
+        if(kpiTotal) kpiTotal.textContent = allData.length;
+        if(kpiUnique) kpiUnique.textContent = uniqueParticipants;
+        if(kpiMessages) kpiMessages.textContent = totalMessages;
+        if(kpiAvgScore) kpiAvgScore.textContent = (totalScore / allData.length).toFixed(2);
         
         const calcAverages = (data) => {
             if (data.length === 0) return { speaking: 0, messages: 0, hands: 0 };
