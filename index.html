@@ -307,6 +307,30 @@
         .stat-card-link:hover {
             background-color: rgba(0,0,0,0.04);
         }
+        
+        /* Estilos para Relatórios de Participação */
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            border-color: #3b82f6;
+            color: #3b82f6;
+            background-color: #eff6ff;
+        }
+        .table-header-sortable {
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .table-header-sortable:hover {
+            background-color: #e5e7eb;
+        }
+        .table-header-sortable .sort-icon {
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .table-header-sortable:hover .sort-icon {
+            opacity: 0.5;
+        }
     </style> 
 </head> 
 <body class="bg-gray-100 text-gray-900"> 
@@ -324,6 +348,7 @@
             <button class="nav-button active" onclick="showPage('dashboard')">Dashboard</button> 
             <button class="nav-button" onclick="showPage('membrosFundadores')">Diretoria e Membros</button>
             <button class="nav-button" onclick="showPage('cartasIntencao')">Cartas de Intenção</button> 
+            <button class="nav-button" onclick="showPage('relatorios')">Relatórios de Participação</button>
             <button class="nav-button" onclick="showPage('tutores')">Professores Tutores</button> 
             <button class="nav-button" onclick="showPage('faq')">Dúvidas Frequentes</button> 
             <button class="nav-button" onclick="showPage('reuniao')">Tópicos da Reunião</button> 
@@ -415,7 +440,91 @@
                 <!-- Conteúdo gerado via JS -->
             </div> 
         </div> 
-    </section> 
+    </section>
+    
+    <section id="relatorios" class="content-section">
+        <div class="max-w-screen-xl mx-auto">
+            <!-- Cabeçalho -->
+            <header class="mb-6">
+                <h1 class="text-3xl font-bold text-gray-900">Dashboard Analítico de Engajamento</h1>
+                <p class="text-gray-600 mt-1">Análise de participação individual e comparativa das reuniões da Liga de IA.</p>
+            </header>
+
+            <!-- Navegação por Abas -->
+            <div class="mb-6">
+                <div class="border-b border-gray-200">
+                    <nav class="-mb-px flex space-x-6" aria-label="Tabs">
+                        <button onclick="changeTab('overview')" id="tab-overview" class="tab-button active whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm">Visão Geral</button>
+                        <button onclick="changeTab('reuniao1')" id="tab-reuniao1" class="tab-button whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">Reunião 1</button>
+                        <button onclick="changeTab('reuniao2')" id="tab-reuniao2" class="tab-button whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">Reunião 2</button>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Conteúdo das Abas -->
+            <main>
+                <!-- Aba: Visão Geral -->
+                <div id="content-overview" class="space-y-6">
+                    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                        <div class="bg-white p-5 rounded-lg shadow-sm">
+                            <h3 class="text-sm font-medium text-gray-500">Total de Participações</h3>
+                            <p class="text-3xl font-bold text-gray-800 mt-2" id="kpi-total-participations">37</p>
+                        </div>
+                        <div class="bg-white p-5 rounded-lg shadow-sm">
+                            <h3 class="text-sm font-medium text-gray-500">Participantes Únicos</h3>
+                            <p class="text-3xl font-bold text-gray-800 mt-2" id="kpi-unique-participants">25</p>
+                        </div>
+                        <div class="bg-white p-5 rounded-lg shadow-sm">
+                            <h3 class="text-sm font-medium text-gray-500">Total de Mensagens</h3>
+                            <p class="text-3xl font-bold text-gray-800 mt-2" id="kpi-total-messages">320</p>
+                        </div>
+                         <div class="bg-white p-5 rounded-lg shadow-sm">
+                            <h3 class="text-sm font-medium text-gray-500">Média de Activity Score</h3>
+                            <p class="text-3xl font-bold text-gray-800 mt-2" id="kpi-avg-score">1.02</p>
+                        </div>
+                    </section>
+                    <section class="bg-white p-5 rounded-lg shadow-sm">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Perfil de Engajamento Comparativo (Médias por Participante)</h3>
+                        <div class="h-96">
+                            <canvas id="engagementRadarChart"></canvas>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Aba: Reunião 1 -->
+                <div id="content-reuniao1" class="hidden space-y-6">
+                    <div class="bg-white p-5 rounded-lg shadow-sm">
+                        <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-4">
+                            <h3 class="text-xl font-semibold text-gray-800">Participantes da Reunião 1</h3>
+                            <input type="text" id="searchInput1" onkeyup="filterTable('1')" placeholder="Pesquisar na Reunião 1..." class="w-full sm:w-64 p-2 border border-gray-300 rounded-md mt-2 sm:mt-0">
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200" id="table-reuniao1">
+                                <thead class="bg-gray-50"></thead>
+                                <tbody class="bg-white divide-y divide-gray-200"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aba: Reunião 2 -->
+                <div id="content-reuniao2" class="hidden space-y-6">
+                     <div class="bg-white p-5 rounded-lg shadow-sm">
+                        <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-4">
+                            <h3 class="text-xl font-semibold text-gray-800">Participantes da Reunião 2</h3>
+                            <input type="text" id="searchInput2" onkeyup="filterTable('2')" placeholder="Pesquisar na Reunião 2..." class="w-full sm:w-64 p-2 border border-gray-300 rounded-md mt-2 sm:mt-0">
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200" id="table-reuniao2">
+                                <thead class="bg-gray-50"></thead>
+                                <tbody class="bg-white divide-y divide-gray-200"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </section>
 
     <section id="tutores" class="content-section"> 
         <div class="card"> 
@@ -578,7 +687,7 @@
                 <p><strong>Nome:</strong> Priscila Conceição Araújo</p> 
                 <p><strong>Curso/Período:</strong> Ciência da Computação - sétimo semestre</p> 
                 <p><strong>Cargo pleiteado:</strong> Coordenação Acadêmica/Coordenação Científica</p> 
-                <p><strong>Liga Acadêmica:</strong> LIAO</p> 
+                <p><strong>Liga acadêmica:</strong> LIAO</p> 
                 <p><strong>Ano de gestão:</strong> 2025</p> 
                 
                 <h4>1. Motivação para ocupar o cargo</h4> 
@@ -617,7 +726,7 @@
                 <p><strong>Nome:</strong> Davi Vaccarezza Guedes Pinheiro</p> 
                 <p><strong>Curso/Período:</strong> Sistemas de informação – primeiro semestre</p> 
                 <p><strong>Cargo pleiteado:</strong> Coordenação científica</p> 
-                <p><strong>Liga Acadêmica:</strong> LIAO</p> 
+                <p><strong>Liga acadêmica:</strong> LIAO</p> 
                 <p><strong>Ano de gestão:</strong> 2025</p> 
 
                 <h4>1. Motivação para ocupar o cargo</h4> 
@@ -1061,6 +1170,55 @@
             conteudo: "A próxima reunião presencial será na <strong>sexta-feira, dia 13/06, às 13h, na sala 111 do PAF 1</strong> para integração dos membros diretores. Preparem-se para um momento de alinhamento e confraternização!" 
         } 
     ]; 
+    
+    // --- DADOS PARA RELATÓRIOS DE PARTICIPAÇÃO ---
+    const allData = [
+         // Reunião 1
+         { meeting: 1, name: "Deivisnan da Silva Bispo", moderator: true, score: 0, speaking: "01:04:02", camera: "00:00:03", messages: 7, reactions: 0, votes: 0, hands: 2, joined: "18/05/2025, 10:25:28", left: "18/05/2025, 12:54:41", duration: "02:29:12" },
+         { meeting: 1, name: "Priscila Conceicao Araujo", moderator: false, score: 5.3, speaking: "00:40:03", camera: "-", messages: 21, reactions: 0, votes: 0, hands: 9, joined: "18/05/2025, 10:48:10", left: "18/05/2025, 12:54:41", duration: "02:05:47" },
+         { meeting: 1, name: "Paulo Ferreira de Castro Filho", moderator: false, score: 1.8, speaking: "00:08:29", camera: "-", messages: 25, reactions: 0, votes: 0, hands: 3, joined: "18/05/2025, 10:33:04", left: "18/05/2025, 12:54:41", duration: "02:21:37" },
+         { meeting: 1, name: "Thales B. Rodrigues", moderator: false, score: 0.9, speaking: "00:04:18", camera: "-", messages: 13, reactions: 0, votes: 0, hands: 0, joined: "18/05/2025, 10:33:23", left: "18/05/2025, 12:27:08", duration: "01:53:44" },
+         { meeting: 1, name: "Lucca Oliveira Seixas", moderator: false, score: 2, speaking: "-", camera: "-", messages: 33, reactions: 0, votes: 0, hands: 0, joined: "18/05/2025, 10:31:14", left: "18/05/2025, 11:38:30", duration: "01:07:16" },
+         { meeting: 1, name: "Daniel Ferreira", moderator: false, score: 0.2, speaking: "-", camera: "-", messages: 4, reactions: 0, votes: 0, hands: 0, joined: "18/05/2025, 10:43:00", left: "18/05/2025, 12:54:41", duration: "02:11:40" },
+         { meeting: 1, name: "Djair Maykon de Novaes Miranda", moderator: false, score: 0.4, speaking: "00:01:29", camera: "-", messages: 6, reactions: 0, votes: 0, hands: 0, joined: "18/05/2025, 12:40:42", left: "18/05/2025, 12:54:41", duration: "00:13:59" },
+         { meeting: 1, name: "Rodrigo da Silva Alcantara", moderator: false, score: 0.2, speaking: "00:01:11", camera: "-", messages: 2, reactions: 0, votes: 0, hands: 1, joined: "18/05/2025, 11:15:36", left: "18/05/2025, 12:54:41", duration: "01:39:04" },
+         { meeting: 1, name: "Caio Icaro Santos de Jesus", moderator: false, score: 0.2, speaking: "00:00:10", camera: "-", messages: 4, reactions: 0, votes: 0, hands: 0, joined: "18/05/2025, 12:35:10", left: "18/05/2025, 12:40:22", duration: "00:05:11" },
+         { meeting: 1, name: "Iago Pereira Oliveira", moderator: false, score: 0.2, speaking: "-", camera: "-", messages: 5, reactions: 0, votes: 0, hands: 0, joined: "18/05/2025, 10:35:01", left: "18/05/2025, 12:54:41", duration: "02:19:39" },
+         { meeting: 1, name: "Gabriel Farias da Silva", moderator: false, score: 0.2, speaking: "-", camera: "-", messages: 4, reactions: 0, votes: 0, hands: 1, joined: "18/05/2025, 11:24:59", left: "18/05/2025, 12:54:41", duration: "01:29:41" },
+         { meeting: 1, name: "Ulisses Pedro da Silva Santos", moderator: false, score: 0.1, speaking: "-", camera: "-", messages: 2, reactions: 0, votes: 0, hands: 1, joined: "18/05/2025, 10:52:19", left: "18/05/2025, 12:54:41", duration: "02:02:21" },
+         { meeting: 1, name: "Felipe Dos Santos", moderator: false, score: 0, speaking: "-", camera: "-", messages: 1, reactions: 0, votes: 0, hands: 0, joined: "18/05/2025, 11:03:08", left: "18/05/2025, 12:54:41", duration: "01:51:33" },
+         { meeting: 1, name: "Marcos Vinicius", moderator: false, score: 0, speaking: "-", camera: "-", messages: 1, reactions: 0, votes: 0, hands: 0, joined: "18/05/2025, 11:05:01", left: "18/05/2025, 12:54:41", duration: "01:49:39" },
+         { meeting: 1, name: "Luan da Paixao de Jesus", moderator: false, score: 0, speaking: "-", camera: "-", messages: 1, reactions: 0, votes: 0, hands: 0, joined: "18/05/2025, 11:03:00", left: "18/05/2025, 11:04:12", duration: "00:01:12" },
+         { meeting: 1, name: "Vitor Manoel", moderator: false, score: 0, speaking: "-", camera: "-", messages: 1, reactions: 0, votes: 0, hands: 0, joined: "18/05/2025, 11:01:31", left: "18/05/2025, 12:54:41", duration: "01:53:09" },
+         { meeting: 1, name: "Luan Teles", moderator: false, score: 0, speaking: "-", camera: "-", messages: 1, reactions: 0, votes: 0, hands: 1, joined: "18/05/2025, 11:13:30", left: "18/05/2025, 12:54:41", duration: "01:41:10" },
+         { meeting: 1, name: "Adauto de Jesus", moderator: false, score: 0, speaking: "-", camera: "-", messages: 0, reactions: 0, votes: 0, hands: 2, joined: "18/05/2025, 11:02:15", left: "18/05/2025, 12:54:41", duration: "01:52:25" },
+         { meeting: 1, name: "João Victor", moderator: false, score: 0, speaking: "-", camera: "-", messages: 0, reactions: 0, votes: 0, hands: 0, joined: "18/05/2025, 11:01:36", left: "18/05/2025, 12:54:41", duration: "01:53:04" },
+         { meeting: 1, name: "Guest", moderator: false, score: 0, speaking: "-", camera: "-", messages: 1, reactions: 0, votes: 0, hands: 0, joined: "18/05/2025, 10:59:16", left: "18/05/2025, 11:00:23", duration: "00:01:07" },
+         // Reunião 2
+         { meeting: 2, name: "Deivisnan da Silva Bispo", moderator: true, score: 5.8, speaking: "00:42:33", camera: "00:01:13", messages: 46, reactions: 0, votes: 0, hands: 4, joined: "01/06/2025, 10:02:45", left: "01/06/2025, 12:11:46", duration: "02:09:01" },
+         { meeting: 2, name: "Priscila Conceicao Araujo", moderator: false, score: 4.7, speaking: "00:31:04", camera: "-", messages: 11, reactions: 0, votes: 0, hands: 8, joined: "01/06/2025, 10:03:00", left: "01/06/2025, 12:11:46", duration: "02:08:45" },
+         { meeting: 2, name: "Paulo Ferreira de Castro Filho", moderator: false, score: 4.6, speaking: "00:03:07", camera: "-", messages: 24, reactions: 1, votes: 0, hands: 14, joined: "01/06/2025, 10:08:24", left: "01/06/2025, 12:07:58", duration: "01:59:34" },
+         { meeting: 2, name: "Thales B. Rodrigues", moderator: false, score: 3.8, speaking: "00:23:43", camera: "-", messages: 15, reactions: 0, votes: 0, hands: 7, joined: "01/06/2025, 10:01:49", left: "01/06/2025, 12:11:46", duration: "02:09:56" },
+         { meeting: 2, name: "Djair Maykon de Novaes Miranda", moderator: false, score: 3.4, speaking: "00:17:32", camera: "-", messages: 28, reactions: 0, votes: 0, hands: 3, joined: "01/06/2025, 10:19:38", left: "01/06/2025, 12:09:38", duration: "01:49:59" },
+         { meeting: 2, name: "Lucca Oliveira Seixas", moderator: false, score: 2.3, speaking: "-", camera: "-", messages: 6, reactions: 2, votes: 0, hands: 0, joined: "01/06/2025, 10:14:45", left: "01/06/2025, 12:11:46", duration: "01:07:48" },
+         { meeting: 2, name: "Ulisses Pedro da Silva Santos", moderator: false, score: 0.2, speaking: "00:00:00", camera: "-", messages: 4, reactions: 0, votes: 0, hands: 0, joined: "01/06/2025, 10:43:35", left: "01/06/2025, 12:11:46", duration: "01:27:53" },
+         { meeting: 2, name: "Luan da Paixao de Jesus", moderator: false, score: 0.1, speaking: "00:02:07", camera: "-", messages: 1, reactions: 0, votes: 0, hands: 0, joined: "01/06/2025, 10:18:16", left: "01/06/2025, 11:36:26", duration: "01:18:09" },
+         { meeting: 2, name: "Iago Pereira Oliveira", moderator: false, score: 0.1, speaking: "00:01:25", camera: "-", messages: 1, reactions: 0, votes: 0, hands: 0, joined: "01/06/2025, 10:20:01", left: "01/06/2025, 12:11:46", duration: "01:51:44" },
+         { meeting: 2, name: "Daniel Ferreira", moderator: false, score: 0, speaking: "-", camera: "-", messages: 2, reactions: 0, votes: 0, hands: 1, joined: "01/06/2025, 11:30:17", left: "01/06/2025, 12:11:46", duration: "00:41:28" },
+         { meeting: 2, name: "Marcos Vinicius", moderator: false, score: 0, speaking: "-", camera: "-", messages: 1, reactions: 0, votes: 0, hands: 1, joined: "01/06/2025, 10:23:49", left: "01/06/2025, 12:11:46", duration: "01:47:57" },
+         { meeting: 2, name: "Felipe Dos Santos", moderator: false, score: 0, speaking: "-", camera: "-", messages: 1, reactions: 0, votes: 0, hands: 0, joined: "01/06/2025, 11:00:18", left: "01/06/2025, 12:11:46", duration: "01:11:28" },
+         { meeting: 2, name: "Guest", moderator: false, score: 0, speaking: "-", camera: "-", messages: 1, reactions: 0, votes: 0, hands: 0, joined: "01/06/2025, 10:55:01", left: "01/06/2025, 10:56:04", duration: "00:01:03" },
+         { meeting: 2, name: "Vitor Manoel", moderator: false, score: 0, speaking: "-", camera: "-", messages: 0, reactions: 0, votes: 0, hands: 1, joined: "01/06/2025, 10:33:04", left: "01/06/2025, 12:11:46", duration: "01:38:41" },
+         { meeting: 2, name: "Matheus Paixao", moderator: false, score: 0, speaking: "-", camera: "-", messages: 1, reactions: 0, votes: 0, hands: 0, joined: "01/06/2025, 11:00:26", left: "01/06/2025, 11:01:22", duration: "00:00:56" },
+         { meeting: 2, name: "Luan Teles", moderator: false, score: 0, speaking: "-", camera: "-", messages: 0, reactions: 0, votes: 0, hands: 0, joined: "01/06/2025, 11:40:48", left: "01/06/2025, 12:11:46", duration: "00:30:57" },
+         { meeting: 2, name: "Leandro Nascimento", moderator: false, score: 0, speaking: "-", camera: "-", messages: 1, reactions: 0, votes: 0, hands: 0, joined: "01/06/2025, 10:23:37", left: "01/06/2025, 10:30:22", duration: "00:06:44" }
+    ];
+
+    // --- Chart Instances ---
+    let cursosMembrosChartInstance = null;
+    let generoMembrosChartInstance = null;
+    let membrosPorDiretoriaChartInstance = null;
+    let engagementRadarChartInstance = null; // Instância para o gráfico de radar
 
     // --- Funções de Renderização --- 
     function popularTabelaInteressados() { 
@@ -1076,7 +1234,6 @@
         sortedIntegrantes.forEach(item => { 
             const row = tbody.insertRow(); 
             
-            // Adiciona a classe para o clique
             row.style.cursor = 'pointer';
             row.onclick = () => mostrarProposta(item.propostaId, item.nome, 'cartasIntencao');
 
@@ -1260,10 +1417,6 @@
         showPage('paginaProposta');  
     } 
 
-    let cursosMembrosChartInstance = null;
-    let generoMembrosChartInstance = null;
-    let membrosPorDiretoriaChartInstance = null;
-
     function criarGraficoCursosMembros() {
         const ctx = document.getElementById('cursosMembrosChart')?.getContext('2d');
         if (!ctx) return;
@@ -1409,6 +1562,187 @@
             criarGraficoMembrosPorDiretoria();
         }, 10);
     }
+    
+    // --- Funções para Relatórios de Participação ---
+    const timeToSeconds = (timeStr) => {
+        if (!timeStr || timeStr === '-') return 0;
+        const parts = timeStr.split(':').map(Number);
+        if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];
+        if (parts.length === 2) return parts[0] * 60 + parts[1];
+        return 0;
+    };
+    
+    const tableHeadersRelatorios = [
+        { title: 'Participante', key: 'name', sortable: true },
+        { title: 'Entrou', key: 'joined', sortable: false },
+        { title: 'Saiu', key: 'left', sortable: false },
+        { title: 'Tempo Falando', key: 'speaking', sortable: true, isTime: true },
+        { title: 'Mensagens', key: 'messages', sortable: true },
+        { title: 'Mãos Levantadas', key: 'hands', sortable: true },
+        { title: 'Score', key: 'score', sortable: true }
+    ];
+
+    let sortState = { meeting: null, key: null, asc: true };
+
+    function changeTab(tabName) {
+        ['overview', 'reuniao1', 'reuniao2'].forEach(id => {
+            const contentEl = document.getElementById(`content-${id}`);
+            const tabEl = document.getElementById(`tab-${id}`);
+            if (contentEl) contentEl.classList.add('hidden');
+            if (tabEl) tabEl.classList.remove('active');
+        });
+        const activeContent = document.getElementById(`content-${tabName}`);
+        const activeTab = document.getElementById(`tab-${tabName}`);
+        if(activeContent) activeContent.classList.remove('hidden');
+        if(activeTab) activeTab.classList.add('active');
+    }
+
+    function renderTableHeader(tableId, meetingId) {
+        const thead = document.querySelector(`#${tableId} thead`);
+        if(!thead) return;
+        thead.innerHTML = '';
+        let tr = '<tr>';
+        tableHeadersRelatorios.forEach(header => {
+            tr += `<th scope="col" class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider ${header.sortable ? 'table-header-sortable' : ''}" onclick="${header.sortable ? `sortTable('${meetingId}', '${header.key}', ${!!header.isTime})` : ''}">
+                <div class="flex items-center">
+                    <span>${header.title}</span>
+                    ${header.sortable ? `<svg class="w-4 h-4 ml-1.5 sort-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path></svg>` : ''}
+                </div>
+            </th>`;
+        });
+        tr += '</tr>';
+        thead.innerHTML = tr;
+    }
+
+    function renderTableBody(tableId, data) {
+        const tbody = document.querySelector(`#${tableId} tbody`);
+        if(!tbody) return;
+        tbody.innerHTML = '';
+        data.forEach(row => {
+            let tr = '<tr>';
+            tableHeadersRelatorios.forEach(header => {
+                tr += `<td class="px-4 py-3 whitespace-nowrap text-sm text-gray-700">${row[header.key]}</td>`;
+            });
+            tr += '</tr>';
+            tbody.innerHTML += tr;
+        });
+    }
+
+    function filterTable(meetingId) {
+        const input = document.getElementById(`searchInput${meetingId}`);
+        const filter = input.value.toLowerCase();
+        const table = document.getElementById(`table-reuniao${meetingId}`);
+        const trs = table.getElementsByTagName('tr');
+
+        for (let i = 1; i < trs.length; i++) {
+            const td = trs[i].getElementsByTagName('td')[0];
+            if (td) {
+                const txtValue = td.textContent || td.innerText;
+                trs[i].style.display = txtValue.toLowerCase().indexOf(filter) > -1 ? "" : "none";
+            }
+        }
+    }
+
+    function sortTable(meetingId, key, isTime = false) {
+        const data = allData.filter(d => d.meeting == meetingId);
+        
+        if (sortState.key === key && sortState.meeting === meetingId) {
+            sortState.asc = !sortState.asc;
+        } else {
+            sortState.key = key;
+            sortState.meeting = meetingId;
+            sortState.asc = true;
+        }
+        
+        data.sort((a, b) => {
+            let valA = a[key];
+            let valB = b[key];
+            
+            if(isTime) {
+                valA = timeToSeconds(valA);
+                valB = timeToSeconds(valB);
+            }
+
+            if (valA < valB) return sortState.asc ? -1 : 1;
+            if (valA > valB) return sortState.asc ? 1 : -1;
+            return 0;
+        });
+
+        renderTableBody(`table-reuniao${meetingId}`, data);
+    }
+
+    function initDashboardRelatorios() {
+        const data1 = allData.filter(d => d.meeting === 1);
+        const data2 = allData.filter(d => d.meeting === 2);
+
+        renderTableHeader('table-reuniao1', '1');
+        renderTableBody('table-reuniao1', data1);
+        renderTableHeader('table-reuniao2', '2');
+        renderTableBody('table-reuniao2', data2);
+
+        const uniqueParticipants = new Set(allData.map(d => d.name)).size;
+        const totalMessages = allData.reduce((sum, d) => sum + d.messages, 0);
+        const totalScore = allData.reduce((sum, d) => sum + parseFloat(String(d.score).replace(',', '.')), 0);
+
+        document.getElementById('kpi-total-participations').textContent = allData.length;
+        document.getElementById('kpi-unique-participants').textContent = uniqueParticipants;
+        document.getElementById('kpi-total-messages').textContent = totalMessages;
+        document.getElementById('kpi-avg-score').textContent = (totalScore / allData.length).toFixed(2);
+        
+        const calcAverages = (data) => {
+            if (data.length === 0) return { speaking: 0, messages: 0, hands: 0 };
+            const totalSpeaking = data.reduce((sum, d) => sum + timeToSeconds(d.speaking), 0);
+            const totalMessages = data.reduce((sum, d) => sum + d.messages, 0);
+            const totalHands = data.reduce((sum, d) => sum + d.hands, 0);
+            return {
+                speaking: (totalSpeaking / data.length) / 60, // em minutos
+                messages: totalMessages / data.length,
+                hands: totalHands / data.length,
+            };
+        };
+        
+        const avg1 = calcAverages(data1);
+        const avg2 = calcAverages(data2);
+
+        const ctx = document.getElementById('engagementRadarChart')?.getContext('2d');
+        if (ctx) {
+            if (engagementRadarChartInstance) {
+                engagementRadarChartInstance.destroy();
+            }
+            engagementRadarChartInstance = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Tempo Falando (min)', 'Mensagens', 'Mãos Levantadas'],
+                    datasets: [{
+                        label: 'Reunião 1',
+                        data: [avg1.speaking, avg1.messages, avg1.hands],
+                        backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                        pointBackgroundColor: 'rgba(59, 130, 246, 1)',
+                    }, {
+                        label: 'Reunião 2',
+                        data: [avg2.speaking, avg2.messages, avg2.hands],
+                        backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                        borderColor: 'rgba(16, 185, 129, 1)',
+                        pointBackgroundColor: 'rgba(16, 185, 129, 1)',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: '#e5e7eb' },
+                            grid: { color: '#e5e7eb' },
+                            pointLabels: { font: { size: 14 } },
+                            ticks: { backdropColor: '#f3f4f6', color: '#6b7280' }
+                        }
+                    },
+                    plugins: { legend: { position: 'top' } }
+                }
+            });
+        }
+    }
 
 
     function showPage(pageId) { 
@@ -1435,6 +1769,9 @@
                 break;
             case 'cartasIntencao': 
                 popularTabelaInteressados();
+                break;
+            case 'relatorios':
+                initDashboardRelatorios();
                 break;
             case 'tutores':
                 popularTabelaTutores();
