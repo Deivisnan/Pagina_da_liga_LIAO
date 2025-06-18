@@ -9,6 +9,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style> 
+        @property --rotate {
+          syntax: "<angle>";
+          initial-value: 132deg;
+          inherits: false;
+        }
+
         body { 
             font-family: 'Inter', sans-serif; 
             background-color: #f3f4f6; /* Tailwind gray-100 */ 
@@ -226,14 +232,72 @@
             background-color: white;
             border-radius: 0.75rem;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            padding: 2rem;
+            padding: 3px;
             text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
         }
+        .director-card-inner {
+            background-color: white;
+            padding: 2rem;
+            border-radius: calc(0.75rem - 3px);
+        }
+
         .director-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
+        
+        .director-card::before {
+            content: "";
+            width: 104%;
+            height: 102%;
+            border-radius: 0.75rem;
+            background-image: linear-gradient(
+                var(--rotate)
+                , #5ddcff, #3c67e3 43%, #4e00c2);
+            position: absolute;
+            z-index: -1;
+            top: -1%;
+            left: -2%;
+            opacity: 0;
+            transition: opacity .5s;
+            animation: spin 2.5s linear infinite;
+        }
+
+        .director-card::after {
+            position: absolute;
+            content: "";
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: -2;
+            height: 100%;
+            width: 100%;
+            margin: 0 auto;
+            transform: scale(0.85);
+            filter: blur(25px);
+            background-image: linear-gradient(
+                var(--rotate)
+                , #5ddcff, #3c67e3 43%, #4e00c2);
+            opacity: 0;
+            transition: opacity .5s;
+            animation: spin 2.5s linear infinite;
+        }
+
+        .director-card:hover:before, .director-card:hover:after {
+            opacity: 1;
+        }
+
+        @keyframes spin {
+          0% {
+            --rotate: 0deg;
+          }
+          100% {
+            --rotate: 360deg;
+          }
+        }
+
         .director-avatar {
             width: 120px;
             height: 120px;
@@ -997,7 +1061,7 @@
                 <p><strong>Nome:</strong> Thales Brito Rodrigues</p> 
                 <p><strong>Curso/Período:</strong> Ciência da Computação - 6º semestre</p> 
                 <p><strong>Cargo pleiteado:</strong> Secretaria Geral</p> 
-                <p><strong>Liga Acadêmica:</strong> LIAO</p> 
+                <p><strong>Liga acadêmica:</strong> LIAO</p> 
                 <p><strong>Ano de gestão:</strong> 2025</p> 
 
                 <h4>Motivação para ocupar o cargo</h4> 
@@ -1372,6 +1436,7 @@
             "José Henrique do Espírito Santo Santana": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/be25860a34aeccc60b65c5c0165552d873f1e5da/Liao_membros/jos%C3%A9_henrrique.jpg"
         };
 
+
         let content = `
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-bold text-gray-800">Diretoria Fundadora da LIAO</h2>
@@ -1394,12 +1459,14 @@
 
             content += `
                 <div class="director-card">
-                    <div class="director-avatar">${avatarHtml}</div>
-                    <h3 class="director-name">${diretor.nome}</h3>
-                    <p class="director-title">${diretor.cargo}</p>
-                    <button onclick="mostrarProposta('${integranteCompleto ? integranteCompleto.propostaId : ''}', '${diretor.nome}', 'membrosFundadores')" class="director-button">
-                        Ver Carta de Intenção
-                    </button>
+                    <div class="director-card-inner">
+                        <div class="director-avatar">${avatarHtml}</div>
+                        <h3 class="director-name">${diretor.nome}</h3>
+                        <p class="director-title">${diretor.cargo}</p>
+                        <button onclick="mostrarProposta('${integranteCompleto ? integranteCompleto.propostaId : ''}', '${diretor.nome}', 'membrosFundadores')" class="director-button">
+                            Ver Carta de Intenção
+                        </button>
+                    </div>
                 </div>
             `;
         });
