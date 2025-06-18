@@ -229,64 +229,57 @@
         
         /* Estilos para a página de Membros Fundadores */
         .director-card {
-            background-color: white;
-            border-radius: 0.75rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            background-color: #191c29;
             padding: 3px;
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
-        }
-        .director-card-inner {
-            background-color: white;
-            padding: 2rem;
-            border-radius: calc(0.75rem - 3px);
+            border-radius: 0.75rem;
+            text-align: center;
+            transition: transform 0.3s ease;
         }
 
         .director-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
-        
+
         .director-card::before {
-            content: "";
-            width: 104%;
-            height: 102%;
-            border-radius: 0.75rem;
-            background-image: linear-gradient(
-                var(--rotate)
-                , #5ddcff, #3c67e3 43%, #4e00c2);
+          content: "";
+          width: 104%;
+          height: 102%;
+          border-radius: 8px;
+          background-image: linear-gradient(
+            var(--rotate)
+            , #5ddcff, #3c67e3 43%, #4e00c2);
             position: absolute;
             z-index: -1;
             top: -1%;
             left: -2%;
-            opacity: 0;
-            transition: opacity .5s;
             animation: spin 2.5s linear infinite;
         }
 
         .director-card::after {
-            position: absolute;
-            content: "";
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: -2;
-            height: 100%;
-            width: 100%;
-            margin: 0 auto;
-            transform: scale(0.85);
-            filter: blur(25px);
-            background-image: linear-gradient(
-                var(--rotate)
-                , #5ddcff, #3c67e3 43%, #4e00c2);
+          position: absolute;
+          content: "";
+          top: 0;
+          left: 0;
+          right: 0;
+          z-index: -2;
+          height: 100%;
+          width: 100%;
+          margin: 0 auto;
+          transform: scale(0.85);
+          filter: blur(25px);
+          background-image: linear-gradient(
+            var(--rotate)
+            , #5ddcff, #3c67e3 43%, #4e00c2);
             opacity: 0;
-            transition: opacity .5s;
-            animation: spin 2.5s linear infinite;
+          transition: opacity .5s;
+          animation: spin 2.5s linear infinite;
         }
 
         .director-card:hover:before, .director-card:hover:after {
-            opacity: 1;
+          animation: none;
+          opacity: 1;
         }
 
         @keyframes spin {
@@ -296,6 +289,12 @@
           100% {
             --rotate: 360deg;
           }
+        }
+
+        .director-card-inner {
+            background-color: white;
+            padding: 2rem;
+            border-radius: calc(0.75rem - 3px);
         }
 
         .director-avatar {
@@ -457,6 +456,58 @@
         }
         .table-header-sortable:hover .sort-icon {
             opacity: 0.5;
+        }
+        /* Estilos para cards de tutores */
+        .tutor-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .tutor-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            background-color: #eef2ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #4f46e5;
+            font-weight: bold;
+            overflow: hidden;
+        }
+         .tutor-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .tutor-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+        .tutor-email {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .tutor-area {
+            font-size: 0.875rem;
+            color: #374151;
+            background-color: #f3f4f6;
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+        }
+        .tutor-area strong {
+            color: #4f46e5;
+            font-weight: 600;
         }
     </style> 
 </head> 
@@ -654,23 +705,7 @@
     </section>
 
     <section id="tutores" class="content-section"> 
-        <div class="card"> 
-            <h2>Professores Tutores Interessados</h2> 
-            <p class="text-gray-600 mb-4">Professores que demonstraram interesse em ser tutores da liga.</p> 
-            <div class="overflow-x-auto"> 
-                <table id="tabelaTutores"> 
-                    <thead> 
-                    <tr> 
-                        <th>Nome Completo</th> 
-                        <th>E-mail</th> 
-                        <th>Área de Especialidade</th> 
-                    </tr> 
-                    </thead> 
-                    <tbody> 
-                    </tbody> 
-                </table> 
-            </div> 
-        </div> 
+       <!-- O conteúdo dos tutores será gerado dinamicamente aqui -->
     </section> 
 
     <section id="faq" class="content-section"> 
@@ -748,22 +783,22 @@
     let lastPage = 'dashboard';
 
     const dadosMembros = [
-        { nome: "Yuri Freitas Hughes", curso: "Ciência da Computação", genero: "Masculino" },
-        { nome: "DEIVISNAN DA SILVA BISPO", curso: "Sistemas de Informação", genero: "Masculino" },
-        { nome: "Thales Brito Rodrigues", curso: "Ciência da Computação", genero: "Masculino" },
-        { nome: "Danielle Santos de Souza", curso: "Ciência da Computação", genero: "Feminino" },
-        { nome: "Beatriz Pereira Espinheira", curso: "Ciência da Computação", genero: "Feminino" },
-        { nome: "Paulo Ferreira de Castro Filho", curso: "Ciência da Computação", genero: "Masculino" },
-        { nome: "Priscila Conceição Araújo", curso: "Ciência da Computação", genero: "Feminino" },
-        { nome: "Lucca Oliveira Seixas", curso: "Ciência da Computação", genero: "Masculino" },
-        { nome: "Jaedson Barbosa Macedo", curso: "Ciência da Computação", genero: "Masculino" },
-        { nome: "José Henrique do Espírito Santo Santana", curso: "Engenharia da Computação", genero: "Masculino" },
-        { nome: "Laura Ferreira", curso: "Ciência da Computação", genero: "Feminino" },
-        { nome: "Ulysses", curso: "Ciência e Tecnologia", genero: "Masculino" },
-        { nome: "Djair Maykon de Novaes Miranda", curso: "Ciência da Computação", genero: "Masculino" },
+        { nome: "Yuri Freitas Hughes", curso: "Ciência da Computação", genero: "Masculino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/908b4952aac861544264708280db41ecba067bd6/Liao_membros/yuri%20hughes.jpg" },
+        { nome: "DEIVISNAN DA SILVA BISPO", curso: "Sistemas de Informação", genero: "Masculino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/f0f1fb1dcfaf7e881cd11f35d6882de77058efaf/Liao_membros/deivisnan.jpg" },
+        { nome: "Thales Brito Rodrigues", curso: "Ciência da Computação", genero: "Masculino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/f0f1fb1dcfaf7e881cd11f35d6882de77058efaf/Liao_membros/thales.jpg" },
+        { nome: "Danielle Santos de Souza", curso: "Ciência da Computação", genero: "Feminino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/e9105c3766c17ba2d0bc9f25e60604b7bb52f223/Liao_membros/danielle.jpg" },
+        { nome: "Beatriz Pereira Espinheira", curso: "Ciência da Computação", genero: "Feminino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/7d0dfea764e02c820fa20186c23b68aae03b763b/Liao_membros/beatriz.png" },
+        { nome: "Paulo Ferreira de Castro Filho", curso: "Ciência da Computação", genero: "Masculino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/f0f1fb1dcfaf7e881cd11f35d6882de77058efaf/Liao_membros/paulo.jpg" },
+        { nome: "Priscila Conceição Araújo", curso: "Ciência da Computação", genero: "Feminino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/f0f1fb1dcfaf7e881cd11f35d6882de77058efaf/Liao_membros/priscila.jpg" },
+        { nome: "Lucca Oliveira Seixas", curso: "Ciência da Computação", genero: "Masculino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/lucca%20seixas.png" },
+        { nome: "Jaedson Barbosa Macedo", curso: "Ciência da Computação", genero: "Masculino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/e9105c3766c17ba2d0bc9f25e60604b7bb52f223/Liao_membros/jaedson%20perfil%20.png" },
+        { nome: "José Henrique do Espírito Santo Santana", curso: "Engenharia da Computação", genero: "Masculino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/be25860a34aeccc60b65c5c0165552d873f1e5da/Liao_membros/jos%C3%A9_henrrique.jpg" },
+        { nome: "Laura Ferreira", curso: "Ciência da Computação", genero: "Feminino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/laura_perfil%20.png" },
+        { nome: "Ulysses", curso: "Ciência e Tecnologia", genero: "Masculino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/ulisses.jpg" },
+        { nome: "Djair Maykon de Novaes Miranda", curso: "Ciência da Computação", genero: "Masculino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/djair.jpg" },
         { nome: "Tarcisio de Assis Pereira Brito", curso: "Ciência da Computação", genero: "Masculino" },
-        { nome: "Davi Vaccarezza Guedes Pinheiro", curso: "Sistemas de Informação", genero: "Masculino" },
-        { nome: "Eduarda Almeida", curso: "Licenciatura da Computação", genero: "Feminino" }
+        { nome: "Davi Vaccarezza Guedes Pinheiro", curso: "Sistemas de Informação", genero: "Masculino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/davi%20vacareza.jpg" },
+        { nome: "Eduarda Almeida", curso: "Licenciatura da Computação", genero: "Feminino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/eduarda%20almeida.jpg" }
     ];
 
     const dadosInteressadosDiretoria = [ 
@@ -801,7 +836,6 @@
                 </ul> 
 
                 <h4>3. Metas para a gestão</h4> 
-                <p>Minhas metas concretas para o período de gestão incluem:</p> 
                 <ul> 
                     <li>Garantir a realização de pelo menos um projeto relevante por coordenação (científica, acadêmica e de extensão), com impacto mensurável.</li> 
                     <li>Criar e manter um painel de acompanhamento de atividades e metas.</li> 
@@ -1114,9 +1148,9 @@
 
 
     const dadosTutores = [ 
-        { nome: "Prof. Dr. Islame Felipe da Costa Fernandes", email: "felipe.fernandes@ufba.br", area: "Otimização, Meta-heurísticas, Grafos, IA" }, 
-        { nome: "Prof. Dr. Marlo Vieira dos Santos e Souza", email: "marlo.viera@ufba.br", area: "IA, PLN, Semântica Formal, Comp. Teórica" }, 
-        { nome: "Prof. Franklin Lázaro Santos de Oliveira", email: "franklinoliveira40@gmail.com", area: "IA, Visão Computacional, EdgeAI, Otimização" } 
+        { nome: "Prof. Dr. Islame Felipe da Costa Fernandes", email: "felipe.fernandes@ufba.br", area: "Otimização, Meta-heurísticas, Grafos, IA", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/ba4b6ec78d3c8ebc880863249e0ec9b2e9301770/Liao_membros/professo_islame.jpg" }, 
+        { nome: "Prof. Dr. Marlo Vieira dos Santos e Souza", email: "marlo.viera@ufba.br", area: "IA, PLN, Semântica Formal, Comp. Teórica", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/dd96f6e63abb6f3b7601010307e3573405a75723/Liao_membros/professor_malo_perfil.png"}, 
+        { nome: "Prof. Franklin Lázaro Santos de Oliveira", email: "franklinoliveira40@gmail.com", area: "IA, Visão Computacional, EdgeAI, Otimização", img: null } 
     ]; 
 
     const faqData = [ 
@@ -1510,7 +1544,7 @@
         const nameEl = document.getElementById('modalName');
         const courseEl = document.getElementById('modalCourse');
 
-        const memberImages = {
+        const founderImages = {
             "Yuri Freitas Hughes": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/908b4952aac861544264708280db41ecba067bd6/Liao_membros/yuri%20hughes.jpg",
             "DEIVISNAN DA SILVA BISPO": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/f0f1fb1dcfaf7e881cd11f35d6882de77058efaf/Liao_membros/deivisnan.jpg",
             "Thales Brito Rodrigues": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/f0f1fb1dcfaf7e881cd11f35d6882de77058efaf/Liao_membros/thales.jpg",
@@ -1527,7 +1561,7 @@
              "Jaedson Barbosa Macedo": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/e9105c3766c17ba2d0bc9f25e60604b7bb52f223/Liao_membros/jaedson%20perfil%20.png",
              "José Henrique do Espírito Santo Santana": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/be25860a34aeccc60b65c5c0165552d873f1e5da/Liao_membros/jos%C3%A9_henrrique.jpg"
         };
-        const imageUrl = memberImages[member.nome];
+        const imageUrl = founderImages[member.nome];
 
         if (imageUrl) {
             avatarEl.innerHTML = `<img src="${imageUrl}" alt="Foto de ${member.nome}" class="w-full h-full object-cover">`;
@@ -1547,15 +1581,42 @@
     }
 
     function popularTabelaTutores() { 
-        const tbody = document.getElementById('tabelaTutores')?.getElementsByTagName('tbody')[0]; 
-        if(!tbody) return; 
-        tbody.innerHTML = '';  
-        dadosTutores.forEach(item => { 
-            const row = tbody.insertRow(); 
-            row.insertCell().textContent = item.nome; 
-            row.insertCell().textContent = item.email; 
-            row.insertCell().textContent = item.area; 
-        }); 
+        const container = document.getElementById('tutores');
+        if(!container) return;
+
+        let content = `
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800">Professores Tutores</h2>
+                <p class="mt-2 text-lg text-gray-600">Conheça os professores que apoiam e orientam nossa liga.</p>
+            </div>
+            <div id="tutors-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        `;
+        
+        dadosTutores.forEach(tutor => {
+             let avatarHtml;
+             if (tutor.img) {
+                 avatarHtml = `<img src="${tutor.img}" alt="Foto de ${tutor.nome}" class="w-full h-full object-cover">`;
+             } else {
+                 const iniciais = tutor.nome.split(' ').slice(1, 3).map(n => n[0]).join('').toUpperCase();
+                 avatarHtml = `<span>${iniciais}</span>`;
+             }
+
+             content += `
+                <div class="tutor-card">
+                    <div class="tutor-avatar">${avatarHtml}</div>
+                    <h3 class="tutor-name">${tutor.nome}</h3>
+                    <p class="tutor-email"><i class="fas fa-envelope"></i> ${tutor.email}</p>
+                    <div class="tutor-area">
+                        <strong>Áreas de Especialidade:</strong><br>
+                        ${tutor.area}
+                    </div>
+                </div>
+             `;
+        });
+
+        content += '</div>';
+        container.innerHTML = content;
+
         const totalTutoresEl = document.getElementById('totalTutoresInteressados'); 
         if(totalTutoresEl) totalTutoresEl.textContent = dadosTutores.length; 
     } 
