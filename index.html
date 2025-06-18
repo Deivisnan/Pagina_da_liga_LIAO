@@ -248,6 +248,12 @@
             font-weight: bold;
             border: 4px solid white;
             box-shadow: 0 0 0 4px #4f46e5;
+            overflow: hidden;
+        }
+        .director-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         .director-name {
             font-size: 1.25rem;
@@ -280,7 +286,7 @@
         }
         .founder-list {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1rem;
         }
         .founder-item {
@@ -292,11 +298,68 @@
             align-items: center;
             color: #374151;
             font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-         .founder-item .fa-user-check {
+        .founder-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+        }
+        .founder-item-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            background-color: #eef2ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: #4f46e5;
-            margin-right: 0.75rem;
+            font-weight: bold;
+            overflow: hidden;
+            flex-shrink: 0;
         }
+        .founder-item-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Estilos do Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+        
         .stat-card-link {
             display: block;
             text-decoration: none;
@@ -607,6 +670,14 @@
     <p>© <span id="currentYear"></span> Liga Acadêmica. Todos os direitos reservados.</p> 
 </footer> 
 
+<div id="founderModal" class="modal-overlay" onclick="hideFounderDetails()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <div id="modalAvatar" class="director-avatar mx-auto mb-4" style="width: 150px; height: 150px;"></div>
+        <h3 id="modalName" class="text-2xl font-bold text-gray-900"></h3>
+        <p id="modalCourse" class="text-md text-indigo-600 font-medium"></p>
+    </div>
+</div>
+
 <script> 
     // --- DADOS DO SITE --- 
     const generatePropostaId = (name) => 'proposta_' + name.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, ''); 
@@ -792,11 +863,11 @@
         }, 
         { nome: "Danilo Santiago Fonseca", email: "danilofonseca@ufba.br", curso: "Ciência da Computação", diretorias: ["Coordenação Acadêmica", "Coordenação Científico"], propostaId: generatePropostaId("Danilo Santiago Fonseca"), propostaTexto: null }, 
         {  
-            nome: "danielle santos de souza",  
+            nome: "Danielle Santos de Souza",  
             email: "souza.danielle@ufba.br",  
             curso: "Ciência da Computação",  
             diretorias: ["Direção Geral", "Relações Públicas", "Secretaria Geral"],  
-            propostaId: generatePropostaId("danielle santos de souza"),  
+            propostaId: generatePropostaId("Danielle Santos de Souza"),  
             propostaTexto: ` 
                 <p><strong>Nome:</strong> Danielle Souza</p> 
                 <p><strong>Curso/Período:</strong> Ciência da Computação 1/2 semestre</p> 
@@ -952,29 +1023,29 @@
         { nome: "Yuri Freitas Hughes", cargo: "Diretor Geral" },
         { nome: "DEIVISNAN DA SILVA BISPO", cargo: "Vice-diretor Geral" },
         { nome: "Thales Brito Rodrigues", cargo: "Secretário" },
-        { nome: "danielle santos de souza", cargo: "Relações Externas" },
+        { nome: "Danielle Santos de Souza", cargo: "Relações Externas" },
         { nome: "Beatriz Pereira Espinheira", cargo: "Coordenação Acadêmica" },
         { nome: "Paulo Ferreira de Castro Filho", cargo: "Coordenação Científica" },
         { nome: "Priscila Conceição Araújo", cargo: "Coordenação de Extensão" }
     ];
 
     const dadosMembrosFundadores = [
-        "Yuri Freitas Hughes",
-        "DEIVISNAN DA SILVA BISPO",
-        "Thales Brito Rodrigues",
-        "Danielle Santos de Souza",
-        "Beatriz Pereira Espinheira",
-        "Paulo Ferreira de Castro Filho",
-        "Priscila Conceição Araújo",
-        "Lucca Oliveira Seixas",
-        "Jaedson Barbosa Macedo",
-        "José Henrique do Espírito Santo Santana",
-        "Laura Ferreira",
-        "Ulysses",
-        "Djair Maykon de Novaes Miranda",
-        "Tarcisio de Assis Pereira Brito",
-        "Davi Vaccarezza Guedes Pinheiro",
-        "Eduarda Almeida"
+        { nome: "Yuri Freitas Hughes", curso: "Ciência da Computação", genero: "Masculino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/908b4952aac861544264708280db41ecba067bd6/Liao_membros/yuri%20hughes.jpg" },
+        { nome: "DEIVISNAN DA SILVA BISPO", curso: "Sistemas de Informação", genero: "Masculino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/f0f1fb1dcfaf7e881cd11f35d6882de77058efaf/Liao_membros/deivisnan.jpg" },
+        { nome: "Thales Brito Rodrigues", curso: "Ciência da Computação", genero: "Masculino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/f0f1fb1dcfaf7e881cd11f35d6882de77058efaf/Liao_membros/thales.jpg" },
+        { nome: "Danielle Santos de Souza", curso: "Ciência da Computação", genero: "Feminino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/e9105c3766c17ba2d0bc9f25e60604b7bb52f223/Liao_membros/danielle.jpg" },
+        { nome: "Beatriz Pereira Espinheira", curso: "Ciência da Computação", genero: "Feminino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/7d0dfea764e02c820fa20186c23b68aae03b763b/Liao_membros/beatriz.png" },
+        { nome: "Paulo Ferreira de Castro Filho", curso: "Ciência da Computação", genero: "Masculino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/f0f1fb1dcfaf7e881cd11f35d6882de77058efaf/Liao_membros/paulo.jpg" },
+        { nome: "Priscila Conceição Araújo", curso: "Ciência da Computação", genero: "Feminino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/f0f1fb1dcfaf7e881cd11f35d6882de77058efaf/Liao_membros/priscila.jpg" },
+        { nome: "Lucca Oliveira Seixas", curso: "Ciência da Computação", genero: "Masculino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/lucca%20seixas.png" },
+        { nome: "Jaedson Barbosa Macedo", curso: "Ciência da Computação", genero: "Masculino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/e9105c3766c17ba2d0bc9f25e60604b7bb52f223/Liao_membros/jaedson%20perfil%20.png" },
+        { nome: "José Henrique do Espírito Santo Santana", curso: "Engenharia da Computação", genero: "Masculino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/be25860a34aeccc60b65c5c0165552d873f1e5da/Liao_membros/jos%C3%A9_henrrique.jpg" },
+        { nome: "Laura Ferreira", curso: "Ciência da Computação", genero: "Feminino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/laura_perfil%20.png" },
+        { nome: "Ulysses", curso: "Ciência e Tecnologia", genero: "Masculino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/ulisses.jpg" },
+        { nome: "Djair Maykon de Novaes Miranda", curso: "Ciência da Computação", genero: "Masculino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/djair.jpg" },
+        { nome: "Tarcisio de Assis Pereira Brito", curso: "Ciência da Computação", genero: "Masculino" },
+        { nome: "Davi Vaccarezza Guedes Pinheiro", curso: "Sistemas de Informação", genero: "Masculino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/davi%20vacareza.jpg" },
+        { nome: "Eduarda Almeida", curso: "Licenciatura da Computação", genero: "Feminino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/eduarda%20almeida.jpg" }
     ];
 
 
@@ -1213,7 +1284,7 @@
          { meeting: 2, name: "Vitor Manoel", moderator: false, score: 0, speaking: "-", camera: "-", messages: 0, reactions: 0, votes: 0, hands: 1, joined: "01/06/2025, 10:33:04", left: "01/06/2025, 12:11:46", duration: "01:38:41" },
          { meeting: 2, name: "Matheus Paixao", moderator: false, score: 0, speaking: "-", camera: "-", messages: 1, reactions: 0, votes: 0, hands: 0, joined: "01/06/2025, 11:00:26", left: "01/06/2025, 11:01:22", duration: "00:00:56" },
          { meeting: 2, name: "Luan Teles", moderator: false, score: 0, speaking: "-", camera: "-", messages: 0, reactions: 0, votes: 0, hands: 0, joined: "01/06/2025, 11:40:48", left: "01/06/2025, 12:11:46", duration: "00:30:57" },
-         { meeting: 2, name: "Leandro Nascimento", moderator: false, score: 0, speaking: "-", camera: "-", messages: 1, reactions: 0, votes: 0, hands: 0, joined: "01/06/2025, 10:23:37", left: "01/06/2025, 10:30:22", duration: "00:06:44" }
+         { meeting: 2, name: "Leandro Nascimento", moderator: false, score: 0, speaking: "-", camera: "-", messages: 1, reactions: 0, votes: 0, hands: 0, joined: "01/06/2025, 10:23:37", left: "01/06/2025, 10:30:22", duration: "00:06:44" },
     ];
 
     // --- Chart Instances ---
@@ -1282,6 +1353,24 @@
     function popularMembrosFundadores() {
         const container = document.getElementById('membrosFundadores');
         if (!container) return;
+        
+        const memberImages = {
+            "DEIVISNAN DA SILVA BISPO": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/f0f1fb1dcfaf7e881cd11f35d6882de77058efaf/Liao_membros/deivisnan.jpg",
+            "Paulo Ferreira de Castro Filho": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/f0f1fb1dcfaf7e881cd11f35d6882de77058efaf/Liao_membros/paulo.jpg",
+            "Thales Brito Rodrigues": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/f0f1fb1dcfaf7e881cd11f35d6882de77058efaf/Liao_membros/thales.jpg",
+            "Priscila Conceição Araújo": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/f0f1fb1dcfaf7e881cd11f35d6882de77058efaf/Liao_membros/priscila.jpg",
+            "Danielle Santos de Souza": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/e9105c3766c17ba2d0bc9f25e60604b7bb52f223/Liao_membros/danielle.jpg",
+            "Yuri Freitas Hughes": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/908b4952aac861544264708280db41ecba067bd6/Liao_membros/yuri%20hughes.jpg",
+            "Beatriz Pereira Espinheira": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/7d0dfea764e02c820fa20186c23b68aae03b763b/Liao_membros/beatriz.png",
+            "Laura Ferreira": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/laura_perfil%20.png",
+            "Davi Vaccarezza Guedes Pinheiro": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/davi%20vacareza.jpg",
+            "Lucca Oliveira Seixas": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/lucca%20seixas.png",
+            "Eduarda Almeida": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/eduarda%20almeida.jpg",
+            "Ulysses": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/ulisses.jpg",
+            "Djair Maykon de Novaes Miranda": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/djair.jpg",
+            "Jaedson Barbosa Macedo": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/e9105c3766c17ba2d0bc9f25e60604b7bb52f223/Liao_membros/jaedson%20perfil%20.png",
+            "José Henrique do Espírito Santo Santana": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/be25860a34aeccc60b65c5c0165552d873f1e5da/Liao_membros/jos%C3%A9_henrrique.jpg"
+        };
 
         let content = `
             <div class="text-center mb-12">
@@ -1293,11 +1382,19 @@
 
         dadosDiretoriaAprovada.forEach(diretor => {
             const integranteCompleto = dadosInteressadosDiretoria.find(i => i.nome.toLowerCase() === diretor.nome.toLowerCase());
-            const iniciais = diretor.nome.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+            const imageUrl = memberImages[diretor.nome];
+            let avatarHtml;
+
+            if (imageUrl) {
+                avatarHtml = `<img src="${imageUrl}" alt="Foto de ${diretor.nome}" class="w-full h-full object-cover">`;
+            } else {
+                const iniciais = diretor.nome.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                avatarHtml = `<span>${iniciais}</span>`;
+            }
 
             content += `
                 <div class="director-card">
-                    <div class="director-avatar">${iniciais}</div>
+                    <div class="director-avatar">${avatarHtml}</div>
                     <h3 class="director-name">${diretor.nome}</h3>
                     <p class="director-title">${diretor.cargo}</p>
                     <button onclick="mostrarProposta('${integranteCompleto ? integranteCompleto.propostaId : ''}', '${diretor.nome}', 'membrosFundadores')" class="director-button">
@@ -1315,19 +1412,71 @@
                  <div class="founder-list">
         `;
 
-        const sortedMembros = [...dadosMembrosFundadores].sort((a,b) => a.localeCompare(b));
+        dadosMembros.sort((a,b) => a.nome.localeCompare(b)).forEach(membro => {
+            const imageUrl = memberImages[membro.nome];
+            let avatarHtml;
 
-        sortedMembros.forEach(membro => {
+            if (imageUrl) {
+                 avatarHtml = `<img src="${imageUrl}" alt="Foto de ${membro.nome}" class="w-full h-full object-cover">`;
+            } else {
+                const iniciais = membro.nome.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                avatarHtml = `<span>${iniciais}</span>`;
+            }
             content += `
-                <div class="founder-item">
-                    <i class="fas fa-user-check"></i>
-                    <span>${membro}</span>
+                <div class="founder-item" onclick="showFounderDetails('${membro.nome}')">
+                    <div class="founder-item-avatar">${avatarHtml}</div>
+                    <span>${membro.nome}</span>
                 </div>
             `;
         });
 
         content += `</div></div>`;
         container.innerHTML = content;
+    }
+    
+    function showFounderDetails(memberName) {
+        const member = dadosMembros.find(m => m.nome === memberName);
+        if (!member) return;
+        
+        const modal = document.getElementById('founderModal');
+        const avatarEl = document.getElementById('modalAvatar');
+        const nameEl = document.getElementById('modalName');
+        const courseEl = document.getElementById('modalCourse');
+
+        const memberImages = {
+            "Yuri Freitas Hughes": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/908b4952aac861544264708280db41ecba067bd6/Liao_membros/yuri%20hughes.jpg",
+            "DEIVISNAN DA SILVA BISPO": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/f0f1fb1dcfaf7e881cd11f35d6882de77058efaf/Liao_membros/deivisnan.jpg",
+            "Thales Brito Rodrigues": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/f0f1fb1dcfaf7e881cd11f35d6882de77058efaf/Liao_membros/thales.jpg",
+            "Danielle Santos de Souza": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/e9105c3766c17ba2d0bc9f25e60604b7bb52f223/Liao_membros/danielle.jpg",
+            "Beatriz Pereira Espinheira": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/7d0dfea764e02c820fa20186c23b68aae03b763b/Liao_membros/beatriz.png",
+            "Paulo Ferreira de Castro Filho": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/f0f1fb1dcfaf7e881cd11f35d6882de77058efaf/Liao_membros/paulo.jpg",
+            "Priscila Conceição Araújo": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/f0f1fb1dcfaf7e881cd11f35d6882de77058efaf/Liao_membros/priscila.jpg",
+             "Laura Ferreira": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/laura_perfil%20.png",
+             "Davi Vaccarezza Guedes Pinheiro": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/davi%20vacareza.jpg",
+             "Lucca Oliveira Seixas": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/lucca%20seixas.png",
+             "Eduarda Almeida": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/eduarda%20almeida.jpg",
+             "Ulysses": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/ulisses.jpg",
+             "Djair Maykon de Novaes Miranda": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/djair.jpg",
+             "Jaedson Barbosa Macedo": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/e9105c3766c17ba2d0bc9f25e60604b7bb52f223/Liao_membros/jaedson%20perfil%20.png",
+             "José Henrique do Espírito Santo Santana": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/be25860a34aeccc60b65c5c0165552d873f1e5da/Liao_membros/jos%C3%A9_henrrique.jpg"
+        };
+        const imageUrl = memberImages[member.nome];
+
+        if (imageUrl) {
+            avatarEl.innerHTML = `<img src="${imageUrl}" alt="Foto de ${member.nome}" class="w-full h-full object-cover">`;
+        } else {
+            const iniciais = member.nome.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+            avatarEl.innerHTML = `<span>${iniciais}</span>`;
+        }
+        
+        nameEl.textContent = member.nome;
+        courseEl.textContent = member.curso;
+        
+        modal.classList.add('active');
+    }
+
+    function hideFounderDetails() {
+        document.getElementById('founderModal').classList.remove('active');
     }
 
     function popularTabelaTutores() { 
