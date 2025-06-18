@@ -18,7 +18,19 @@
         body { 
             font-family: 'Inter', sans-serif; 
             background-color: #f3f4f6; /* Tailwind gray-100 */ 
+            position: relative;
         } 
+        
+        #circuit-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
         .content-section { 
             display: none; 
         } 
@@ -512,7 +524,7 @@
     </style> 
 </head> 
 <body class="bg-gray-100 text-gray-900"> 
-
+<canvas id="circuit-bg"></canvas>
 <header class="bg-indigo-700 text-white shadow-md"> 
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-center sm:justify-start"> 
         <img src="https://raw.githubusercontent.com/Deivisnan/imagens_site/main/logo.jpg" alt="Logo LIAO" class="header-logo" onerror="this.onerror=null; this.src='https://placehold.co/150x50/indigo/white?text=LIAO';"> 
@@ -1544,7 +1556,7 @@
         const nameEl = document.getElementById('modalName');
         const courseEl = document.getElementById('modalCourse');
 
-        const founderImages = {
+        const memberImages = {
             "Yuri Freitas Hughes": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/908b4952aac861544264708280db41ecba067bd6/Liao_membros/yuri%20hughes.jpg",
             "DEIVISNAN DA SILVA BISPO": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/f0f1fb1dcfaf7e881cd11f35d6882de77058efaf/Liao_membros/deivisnan.jpg",
             "Thales Brito Rodrigues": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/f0f1fb1dcfaf7e881cd11f35d6882de77058efaf/Liao_membros/thales.jpg",
@@ -1561,7 +1573,7 @@
              "Jaedson Barbosa Macedo": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/e9105c3766c17ba2d0bc9f25e60604b7bb52f223/Liao_membros/jaedson%20perfil%20.png",
              "José Henrique do Espírito Santo Santana": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/be25860a34aeccc60b65c5c0165552d873f1e5da/Liao_membros/jos%C3%A9_henrrique.jpg"
         };
-        const imageUrl = founderImages[member.nome];
+        const imageUrl = memberImages[member.nome];
 
         if (imageUrl) {
             avatarEl.innerHTML = `<img src="${imageUrl}" alt="Foto de ${member.nome}" class="w-full h-full object-cover">`;
@@ -2088,6 +2100,72 @@
     } 
 
     document.addEventListener('DOMContentLoaded', () => { 
+        const canvas = document.getElementById('circuit-bg');
+        const ctx = canvas.getContext('2d');
+        let nodes = [];
+        const gridSize = 30;
+        let scrollY = 0;
+
+        function setup() {
+            canvas.width = window.innerWidth;
+            canvas.height = document.body.scrollHeight; 
+            nodes = [];
+            for (let y = 0; y < canvas.height; y += gridSize) {
+                for (let x = 0; x < canvas.width; x += gridSize) {
+                    if(x > canvas.width * 0.2 && x < canvas.width * 0.8) continue;
+                    nodes.push({ 
+                        x: x + Math.random() * gridSize, 
+                        y: y + Math.random() * gridSize,
+                        vx: (Math.random() - 0.5) * 0.5,
+                        vy: (Math.random() - 0.5) * 0.5
+                    });
+                }
+            }
+            draw();
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            const currentScroll = window.scrollY;
+            const screenHeight = window.innerHeight;
+
+            nodes.forEach(node => {
+                const activationPoint = node.y - currentScroll;
+                if (activationPoint > 0 && activationPoint < screenHeight) {
+                    const opacity = 1 - Math.abs(activationPoint - screenHeight / 2) / (screenHeight / 2);
+                    
+                    // Draw node
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, 1.5, 0, 2 * Math.PI);
+                    ctx.fillStyle = `rgba(79, 70, 229, ${opacity * 0.6})`;
+                    ctx.fill();
+
+                    // Draw lines to neighbors
+                    nodes.forEach(neighbor => {
+                        const dist = Math.hypot(node.x - neighbor.x, node.y - neighbor.y);
+                        if (dist < gridSize * 2) {
+                             const neighborActivationPoint = neighbor.y - currentScroll;
+                             if(neighborActivationPoint > 0 && neighborActivationPoint < screenHeight){
+                                const neighborOpacity = 1 - Math.abs(neighborActivationPoint - screenHeight / 2) / (screenHeight / 2);
+                                ctx.beginPath();
+                                ctx.moveTo(node.x, node.y);
+                                ctx.lineTo(neighbor.x, neighbor.y);
+                                ctx.strokeStyle = `rgba(165, 180, 252, ${Math.min(opacity, neighborOpacity) * 0.3})`;
+                                ctx.stroke();
+                             }
+                        }
+                    });
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', draw);
+        window.addEventListener('resize', setup);
+        
+        // Initial setup
+        setup();
+        
         showPage('dashboard');  
         document.getElementById('currentYear').textContent = new Date().getFullYear(); 
     }); 
