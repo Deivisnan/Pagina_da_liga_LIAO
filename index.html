@@ -65,59 +65,21 @@
             padding: 1.5rem; /* p-6 */ 
             margin-bottom: 1.5rem; /* mb-6 */ 
         } 
-        .nav-button { 
-            padding: 0.5rem 1rem; 
-            border-radius: 0.375rem; /* rounded-md */ 
-            transition: background-color 0.3s ease, color 0.3s ease; 
-            font-weight: 500; 
-            cursor: pointer; 
-            text-align: center; 
-        } 
-        .nav-button.active, .nav-button:hover { 
-            background-color: #4f46e5; /* indigo-600 */ 
-            color: white; 
-        } 
-        .nav-button:focus { 
-            outline: none; 
-            box-shadow: 0 0 0 2px #a5b4fc; /* focus:ring-2 focus:ring-indigo-300 */ 
-        } 
-
-        /* Estilo base para o botão de carta de intenção */ 
-        .proposal-button { 
-            color: white; 
-            padding: 0.75rem 1.25rem;  
-            border-radius: 0.5rem; /* rounded-lg */ 
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease; 
-            font-weight: 500; /* medium */ 
-            cursor: pointer; 
-            text-align: center; 
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);  
-            min-width: 200px;  
-            display: flex; /* Para alinhar nome e ícone */ 
-            align-items: center; 
-            justify-content: center; 
-        } 
-
-        /* Estilo para botão COM carta de intenção */ 
-        .proposal-button-filled { 
-            background-color: #4f46e5; /* indigo-600 */ 
-        } 
-        .proposal-button-filled:hover { 
-            background-color: #4338ca; /* indigo-700 */ 
-            transform: translateY(-2px);  
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* Sombra mais pronunciada no hover */ 
-        } 
-
-        /* Estilo para botão SEM carta de intenção (vazio) */ 
-        .proposal-button-empty { 
-            background-color: #9ca3af; /* gray-400 - cor mais neutra/apagada */ 
-            color: #f9fafb; /* gray-50 - texto claro para contraste */ 
-        } 
-        .proposal-button-empty:hover { 
-            background-color: #6b7280; /* gray-500 - escurece um pouco no hover */ 
-            transform: none; /* Sem animação de levantar */ 
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Mantém sombra base ou remove */ 
-        } 
+        
+        .nav-button {
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem; /* rounded-md */
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-weight: 500;
+            cursor: pointer;
+            text-align: center;
+            color: #4b5563; /* text-gray-600 */
+        }
+        
+        .nav-button.active, .nav-button:hover {
+            background-color: #4f46e5; /* indigo-600 */
+            color: white;
+        }
 
         h2 { 
             font-size: 1.5rem; /* text-2xl */ 
@@ -151,14 +113,7 @@
         tbody tr:hover { 
             background-color: #f3f4f6; /* hover:bg-gray-100 */ 
         } 
-        select.diretoria-dropdown { 
-            width: 100%; 
-            padding: 0.5rem; 
-            border-radius: 0.375rem; 
-            border: 1px solid #d1d5db; /* gray-300 */ 
-            background-color: white; 
-            min-width: 200px; 
-        } 
+        
         .header-logo { 
             height: 50px; 
             width: auto; 
@@ -247,6 +202,7 @@
             border-radius: 0.75rem;
             text-align: center;
             transition: transform 0.3s ease;
+            display: flex;
         }
 
         .director-card:hover {
@@ -307,6 +263,13 @@
             background-color: white;
             padding: 2rem;
             border-radius: calc(0.75rem - 3px);
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .director-info {
+            flex-grow: 1;
         }
 
         .director-avatar {
@@ -350,6 +313,7 @@
             font-weight: 500;
             text-decoration: none;
             transition: background-color 0.3s;
+            margin-top: auto; /* Pushes button to bottom */
         }
         .director-button:hover {
             background-color: #4338ca;
@@ -532,21 +496,64 @@
     </div> 
 </header> 
 
-<nav class="bg-white shadow-sm sticky top-0 z-50"> 
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8"> 
-        <div class="flex flex-wrap justify-center items-center py-3 space-x-2 sm:space-x-4"> 
-            <button class="nav-button active" onclick="showPage('dashboard')">Dashboard</button> 
-            <button class="nav-button" onclick="showPage('membrosFundadores')">Diretoria e Membros</button>
-            <button class="nav-button" onclick="showPage('cartasIntencao')">Cartas de Intenção</button> 
-            <button class="nav-button" onclick="showPage('relatorios')">Relatórios de Participação</button>
-            <button class="nav-button" onclick="showPage('tutores')">Professores Tutores</button> 
-            <button class="nav-button" onclick="showPage('faq')">Dúvidas Frequentes</button> 
-            <button class="nav-button" onclick="showPage('reuniao')">Tópicos da Reunião</button> 
-            <button class="nav-button" onclick="showPage('avisosLiga')">Avisos da Liga</button> 
-            <button class="nav-button" onclick="showPage('videoApresentacao')">Vídeo de Apresentação</button> 
-        </div> 
-    </div> 
-</nav> 
+<nav class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="relative flex items-center justify-between h-16">
+            <div class="absolute inset-y-0 left-0 flex items-center md:hidden">
+                <!-- Mobile menu button-->
+                <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                    <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="flex-1 flex items-center justify-center md:items-stretch md:justify-start">
+                <div class="flex-shrink-0 flex items-center md:hidden">
+                     <h2 class="text-xl font-bold text-indigo-600">Navegação</h2>
+                </div>
+                <div class="hidden md:block md:ml-6">
+                    <div class="flex space-x-2">
+                        <button class="nav-button active" onclick="showPage('dashboard')">Dashboard</button> 
+                        <button class="nav-button" onclick="showPage('membrosFundadores')">Diretoria e Membros</button>
+                        <button class="nav-button" onclick="showPage('relatorios')">Relatórios</button>
+                        <button class="nav-button" onclick="showPage('tutores')">Tutores</button> 
+                        <button class="nav-button" onclick="showPage('faq')">FAQ</button> 
+                        <button class="nav-button" onclick="showPage('reuniao')">Atas</button> 
+                        <button class="nav-button" onclick="showPage('avisosLiga')">Avisos</button> 
+                        <button class="nav-button" onclick="showPage('videoApresentacao')">Vídeo</button>
+                    </div>
+                </div>
+            </div>
+             <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                  <a href="https://www.instagram.com/liaoufba?utm_source=ig_web_button_share_sheet&igsh=MW56MHh6YWF4ZnF5bQ==" target="_blank" class="text-gray-400 hover:text-indigo-600 p-2 rounded-full">
+                    <span class="sr-only">Instagram</span>
+                    <i class="fab fa-instagram fa-lg"></i>
+                  </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile menu, show/hide based on menu state. -->
+    <div class="md:hidden hidden" id="mobile-menu">
+        <div class="px-2 pt-2 pb-3 space-y-1">
+            <button class="nav-button active block w-full text-left" onclick="showPage('dashboard')">Dashboard</button> 
+            <button class="nav-button block w-full text-left" onclick="showPage('membrosFundadores')">Diretoria e Membros</button>
+            <button class="nav-button block w-full text-left" onclick="showPage('relatorios')">Relatórios</button>
+            <button class="nav-button block w-full text-left" onclick="showPage('tutores')">Tutores</button> 
+            <button class="nav-button block w-full text-left" onclick="showPage('faq')">FAQ</button> 
+            <button class="nav-button block w-full text-left" onclick="showPage('reuniao')">Atas de Reunião</button> 
+            <button class="nav-button block w-full text-left" onclick="showPage('avisosLiga')">Avisos da Liga</button> 
+            <button class="nav-button block w-full text-left" onclick="showPage('videoApresentacao')">Vídeo de Apresentação</button> 
+            <a href="https://www.instagram.com/liaoufba?utm_source=ig_web_button_share_sheet&igsh=MW56MHh6YWF4ZnF5bQ==" target="_blank" class="nav-button block w-full text-left flex items-center gap-2">
+               <i class="fab fa-instagram"></i> Instagram
+            </a>
+        </div>
+    </div>
+</nav>
 
 <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8"> 
 
@@ -600,36 +607,6 @@
     
     <section id="membrosFundadores" class="content-section">
         <!-- O conteúdo será gerado dinamicamente via JS -->
-    </section>
-
-    <section id="cartasIntencao" class="content-section"> 
-        <div class="card"> 
-            <h2>Cartas de Intenção dos Candidatos à Diretoria</h2> 
-            <p class="text-gray-600 mb-4">Lista de todos os candidatos que manifestaram interesse na direção da liga e suas respectivas cartas de intenção.</p> 
-            <div class="overflow-x-auto"> 
-                <table id="tabelaInteressadosDiretoria"> 
-                    <thead> 
-                        <tr> 
-                            <th>Nome Completo</th> 
-                            <th>E-mail</th> 
-                            <th>Curso</th> 
-                            <th>Diretoria(s) de Interesse</th> 
-                        </tr> 
-                    </thead> 
-                    <tbody> 
-                        <!-- Conteúdo gerado via JS -->
-                    </tbody> 
-                </table> 
-            </div> 
-        </div> 
-
-        <div class="card mt-8"> 
-            <h2>Visualizar Carta de Intenção</h2>  
-            <p class="text-gray-600 mb-4">Clique no botão com o nome de um integrante abaixo para visualizar sua carta de intenção detalhada.</p> 
-            <div id="botoesPropostas" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">  
-                <!-- Conteúdo gerado via JS -->
-            </div> 
-        </div> 
     </section>
     
     <section id="relatorios" class="content-section">
@@ -779,6 +756,12 @@
 
 <footer class="bg-gray-800 text-white text-center py-6 mt-12"> 
     <p>© <span id="currentYear"></span> Liga Acadêmica. Todos os direitos reservados.</p> 
+    <div class="mt-4">
+        <a href="https://www.instagram.com/liaoufba?utm_source=ig_web_button_share_sheet&igsh=MW56MHh6YWF4ZnF5bQ==" target="_blank" class="inline-block text-gray-400 hover:text-white transition-colors duration-300">
+            <i class="fab fa-instagram fa-2x"></i>
+            <span class="sr-only">Instagram</span>
+        </a>
+    </div>
 </footer> 
 
 <div id="founderModal" class="modal-overlay" onclick="hideFounderDetails()">
@@ -1404,62 +1387,7 @@
     let engagementRadarChartInstance = null; // Instância para o gráfico de radar
 
     // --- Funções de Renderização --- 
-    function popularTabelaInteressados() { 
-        const tbody = document.getElementById('tabelaInteressadosDiretoria')?.getElementsByTagName('tbody')[0]; 
-        const botoesContainer = document.getElementById('botoesPropostas'); 
-        if (!tbody || !botoesContainer) return;
-
-        tbody.innerHTML = '';  
-        botoesContainer.innerHTML = '';  
-
-        const sortedIntegrantes = [...dadosInteressadosDiretoria].sort((a, b) => a.nome.localeCompare(b.nome)); 
-
-        sortedIntegrantes.forEach(item => { 
-            const row = tbody.insertRow(); 
-            
-            row.style.cursor = 'pointer';
-            row.onclick = () => mostrarProposta(item.propostaId, item.nome, 'cartasIntencao');
-
-            row.insertCell().textContent = item.nome; 
-            row.insertCell().textContent = item.email; 
-            row.insertCell().textContent = item.curso; 
-
-            const diretoriaCell = row.insertCell(); 
-            const select = document.createElement('select'); 
-            select.className = 'diretoria-dropdown bg-gray-50'; 
-            select.disabled = true;  
-
-            if (item.diretorias && item.diretorias.length > 0) { 
-                item.diretorias.forEach(diretoria => { 
-                    const option = document.createElement('option'); 
-                    option.value = diretoria; 
-                    option.textContent = diretoria; 
-                    select.appendChild(option); 
-                }); 
-            } else { 
-                const option = document.createElement('option'); 
-                option.textContent = "Nenhum interesse"; 
-                select.appendChild(option); 
-            } 
-            diretoriaCell.appendChild(select); 
-        }); 
-        
-        sortedIntegrantes.forEach(item => { 
-            const button = document.createElement('button'); 
-            button.classList.add('proposal-button'); 
-
-            if (item.propostaTexto && item.propostaTexto.trim() !== "") { 
-                button.innerHTML = `${item.nome} <span class="ml-1 text-xs opacity-80">📄</span>`; 
-                button.classList.add('proposal-button-filled');  
-            } else { 
-                button.textContent = item.nome; 
-                button.classList.add('proposal-button-empty');  
-            } 
-            button.onclick = () => mostrarProposta(item.propostaId, item.nome, 'cartasIntencao');  
-            botoesContainer.appendChild(button); 
-        }); 
-    } 
-
+    
     function popularMembrosFundadores() {
         const container = document.getElementById('membrosFundadores');
         if (!container) return;
@@ -1506,9 +1434,11 @@
             content += `
                 <div class="director-card">
                     <div class="director-card-inner">
-                        <div class="director-avatar">${avatarHtml}</div>
-                        <h3 class="director-name">${diretor.nome}</h3>
-                        <p class="director-title">${diretor.cargo}</p>
+                        <div class="director-info">
+                            <div class="director-avatar">${avatarHtml}</div>
+                            <h3 class="director-name">${diretor.nome}</h3>
+                            <p class="director-title">${diretor.cargo}</p>
+                        </div>
                         <button onclick="mostrarProposta('${integranteCompleto ? integranteCompleto.propostaId : ''}', '${diretor.nome}', 'membrosFundadores')" class="director-button">
                             Ver Carta de Intenção
                         </button>
@@ -1844,7 +1774,6 @@
         const totalMembrosEl = document.getElementById('totalMembros');
         if (totalMembrosEl) totalMembrosEl.textContent = dadosMembros.length;
         
-        popularTabelaTutores();
         popularFAQs();
         
         setTimeout(() => {
@@ -2065,9 +1994,13 @@
 
         document.querySelectorAll('.nav-button').forEach(button => { 
             button.classList.remove('active'); 
-            if(button.getAttribute('onclick') === `showPage('${pageId}')`) { 
-                button.classList.add('active'); 
-            } 
+            const onclickAttr = button.getAttribute('onclick');
+            if (onclickAttr) {
+                const match = onclickAttr.match(/'([^']+)'/);
+                if (match && match[1] === pageId) {
+                    button.classList.add('active');
+                }
+            }
         }); 
 
         // Chamar as funções de população para a página ativa
@@ -2079,7 +2012,8 @@
                 popularMembrosFundadores();
                 break;
             case 'cartasIntencao': 
-                popularTabelaInteressados();
+                // Esta página não é mais exibida pelo menu, mas a função é mantida
+                // para o caso de ser chamada de outro lugar.
                 break;
             case 'relatorios':
                 initDashboardRelatorios();
@@ -2101,70 +2035,87 @@
 
     document.addEventListener('DOMContentLoaded', () => { 
         const canvas = document.getElementById('circuit-bg');
-        const ctx = canvas.getContext('2d');
-        let nodes = [];
-        const gridSize = 30;
-        let scrollY = 0;
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let nodes = [];
+            const gridSize = 30;
+            let scrollY = 0;
 
-        function setup() {
-            canvas.width = window.innerWidth;
-            canvas.height = document.body.scrollHeight; 
-            nodes = [];
-            for (let y = 0; y < canvas.height; y += gridSize) {
-                for (let x = 0; x < canvas.width; x += gridSize) {
-                    if(x > canvas.width * 0.2 && x < canvas.width * 0.8) continue;
-                    nodes.push({ 
-                        x: x + Math.random() * gridSize, 
-                        y: y + Math.random() * gridSize,
-                        vx: (Math.random() - 0.5) * 0.5,
-                        vy: (Math.random() - 0.5) * 0.5
-                    });
+            function setup() {
+                canvas.width = window.innerWidth;
+                canvas.height = document.body.scrollHeight; 
+                nodes = [];
+                for (let y = 0; y < canvas.height; y += gridSize) {
+                    for (let x = 0; x < canvas.width; x += gridSize) {
+                        if(x > canvas.width * 0.2 && x < canvas.width * 0.8) continue;
+                        nodes.push({ 
+                            x: x + Math.random() * gridSize, 
+                            y: y + Math.random() * gridSize,
+                            vx: (Math.random() - 0.5) * 0.5,
+                            vy: (Math.random() - 0.5) * 0.5
+                        });
+                    }
                 }
+                draw();
             }
-            draw();
-        }
 
-        function draw() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            function draw() {
+                if(!ctx) return;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                const currentScroll = window.scrollY;
+                const screenHeight = window.innerHeight;
+
+                nodes.forEach(node => {
+                    const activationPoint = node.y - currentScroll;
+                    if (activationPoint > 0 && activationPoint < screenHeight) {
+                        const opacity = 1 - Math.abs(activationPoint - screenHeight / 2) / (screenHeight / 2);
+                        
+                        // Draw node
+                        ctx.beginPath();
+                        ctx.arc(node.x, node.y, 1.5, 0, 2 * Math.PI);
+                        ctx.fillStyle = `rgba(79, 70, 229, ${opacity * 0.6})`;
+                        ctx.fill();
+
+                        // Draw lines to neighbors
+                        nodes.forEach(neighbor => {
+                            const dist = Math.hypot(node.x - neighbor.x, node.y - neighbor.y);
+                            if (dist < gridSize * 2) {
+                                 const neighborActivationPoint = neighbor.y - currentScroll;
+                                 if(neighborActivationPoint > 0 && neighborActivationPoint < screenHeight){
+                                    const neighborOpacity = 1 - Math.abs(neighborActivationPoint - screenHeight / 2) / (screenHeight / 2);
+                                    ctx.beginPath();
+                                    ctx.moveTo(node.x, node.y);
+                                    ctx.lineTo(neighbor.x, neighbor.y);
+                                    ctx.strokeStyle = `rgba(165, 180, 252, ${Math.min(opacity, neighborOpacity) * 0.3})`;
+                                    ctx.stroke();
+                                 }
+                            }
+                        });
+                    }
+                });
+            }
             
-            const currentScroll = window.scrollY;
-            const screenHeight = window.innerHeight;
-
-            nodes.forEach(node => {
-                const activationPoint = node.y - currentScroll;
-                if (activationPoint > 0 && activationPoint < screenHeight) {
-                    const opacity = 1 - Math.abs(activationPoint - screenHeight / 2) / (screenHeight / 2);
-                    
-                    // Draw node
-                    ctx.beginPath();
-                    ctx.arc(node.x, node.y, 1.5, 0, 2 * Math.PI);
-                    ctx.fillStyle = `rgba(79, 70, 229, ${opacity * 0.6})`;
-                    ctx.fill();
-
-                    // Draw lines to neighbors
-                    nodes.forEach(neighbor => {
-                        const dist = Math.hypot(node.x - neighbor.x, node.y - neighbor.y);
-                        if (dist < gridSize * 2) {
-                             const neighborActivationPoint = neighbor.y - currentScroll;
-                             if(neighborActivationPoint > 0 && neighborActivationPoint < screenHeight){
-                                const neighborOpacity = 1 - Math.abs(neighborActivationPoint - screenHeight / 2) / (screenHeight / 2);
-                                ctx.beginPath();
-                                ctx.moveTo(node.x, node.y);
-                                ctx.lineTo(neighbor.x, neighbor.y);
-                                ctx.strokeStyle = `rgba(165, 180, 252, ${Math.min(opacity, neighborOpacity) * 0.3})`;
-                                ctx.stroke();
-                             }
-                        }
-                    });
-                }
+            window.addEventListener('scroll', draw);
+            window.addEventListener('resize', setup);
+            
+            // Initial setup
+            setup();
+        }
+        
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if(mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            mobileMenu.querySelectorAll('.nav-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
             });
         }
-        
-        window.addEventListener('scroll', draw);
-        window.addEventListener('resize', setup);
-        
-        // Initial setup
-        setup();
         
         showPage('dashboard');  
         document.getElementById('currentYear').textContent = new Date().getFullYear(); 
