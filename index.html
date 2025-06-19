@@ -66,21 +66,88 @@
             margin-bottom: 1.5rem; /* mb-6 */ 
         } 
         
-        .nav-button {
-            padding: 0.5rem 1rem;
-            border-radius: 0.375rem; /* rounded-md */
-            transition: background-color 0.3s ease, color 0.3s ease;
-            font-weight: 500;
-            cursor: pointer;
+        /* --- New Navigation Bar Styles --- */
+        .navigation-wrapper {
+            display: flex;
+            justify-content: center;
+            padding: 1rem 0;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px -1px rgba(0,0,0,0.1);
+        }
+        .navigation {
+            position: relative;
+            width: 100%;
+            max-width: 800px; /* Adjust as needed */
+            height: 70px; 
+            background: #f3f4f6; /* Lighter background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+        }
+        .navigation ul {
+            display: flex;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            justify-content: space-around;
+        }
+        .navigation ul li {
+            position: relative;
+            list-style: none;
+            width: 85px; /* Wider for more items */
+            height: 70px;
+            z-index: 1;
+        }
+        .navigation ul li a {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
             text-align: center;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .navigation ul li a .icon {
+            position: relative;
+            display: block;
+            line-height: 75px;
+            font-size: 1.5em;
+            transition: 0.5s;
             color: #4b5563; /* text-gray-600 */
         }
-        
-        .nav-button.active, .nav-button:hover {
-            background-color: #4f46e5; /* indigo-600 */
-            color: white;
+         .navigation ul li.active a .icon {
+            transform: translateY(-12px); /* Adjusted for no indicator */
+            color: #4f46e5; /* indigo-600 */
         }
-
+        .navigation ul li a .text {
+            position: absolute;
+            color: #4f46e5; /* Match active icon color */
+            font-weight: 600;
+            font-size: 0.75em;
+            letter-spacing: 0.05em;
+            transition: 0.5s;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .navigation ul li.active a .text {
+            opacity: 1;
+            transform: translateY(12px); /* Adjusted for no indicator */
+        }
+      
+        /* Responsive adjustments */
+         @media (max-width: 768px) {
+            .navigation ul li a .text {
+                display: none;
+            }
+            .navigation ul li.active a .icon {
+                transform: translateY(0);
+            }
+        }
+        
         h2 { 
             font-size: 1.5rem; /* text-2xl */ 
             font-weight: 600; /* font-semibold */ 
@@ -93,25 +160,6 @@
             color: #374151; /* text-gray-700 */ 
             margin-top: 1.5rem; 
             margin-bottom: 0.75rem; 
-        } 
-        table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            margin-top: 1rem; 
-        } 
-        th, td { 
-            text-align: left; 
-            padding: 0.75rem; /* p-3 */ 
-            border-bottom: 1px solid #e5e7eb; /* border-gray-200 */ 
-            vertical-align: top; 
-        } 
-        th { 
-            background-color: #f9fafb; /* bg-gray-50 */ 
-            font-weight: 600; 
-            color: #374151; /* text-gray-700 */ 
-        } 
-        tbody tr:hover { 
-            background-color: #f3f4f6; /* hover:bg-gray-100 */ 
         } 
         
         .header-logo { 
@@ -203,6 +251,7 @@
             text-align: center;
             transition: transform 0.3s ease;
             display: flex;
+            height: 100%;
         }
 
         .director-card:hover {
@@ -496,64 +545,67 @@
     </div> 
 </header> 
 
-<nav class="bg-white shadow-sm sticky top-0 z-50">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="relative flex items-center justify-between h-16">
-            <div class="absolute inset-y-0 left-0 flex items-center md:hidden">
-                <!-- Mobile menu button-->
-                <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
-                    <span class="sr-only">Open main menu</span>
-                    <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                    <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-            <div class="flex-1 flex items-center justify-center md:items-stretch md:justify-start">
-                <div class="flex-shrink-0 flex items-center md:hidden">
-                     <h2 class="text-xl font-bold text-indigo-600">Navegação</h2>
-                </div>
-                <div class="hidden md:block md:ml-6">
-                    <div class="flex space-x-2">
-                        <button class="nav-button active" onclick="showPage('dashboard')">Dashboard</button> 
-                        <button class="nav-button" onclick="showPage('membrosFundadores')">Diretoria e Membros</button>
-                        <button class="nav-button" onclick="showPage('relatorios')">Relatórios</button>
-                        <button class="nav-button" onclick="showPage('tutores')">Tutores</button> 
-                        <button class="nav-button" onclick="showPage('faq')">FAQ</button> 
-                        <button class="nav-button" onclick="showPage('reuniao')">Atas</button> 
-                        <button class="nav-button" onclick="showPage('avisosLiga')">Avisos</button> 
-                        <button class="nav-button" onclick="showPage('videoApresentacao')">Vídeo</button>
-                    </div>
-                </div>
-            </div>
-             <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                  <a href="https://www.instagram.com/liaoufba?utm_source=ig_web_button_share_sheet&igsh=MW56MHh6YWF4ZnF5bQ==" target="_blank" class="text-gray-400 hover:text-indigo-600 p-2 rounded-full">
-                    <span class="sr-only">Instagram</span>
-                    <i class="fab fa-instagram fa-lg"></i>
-                  </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Mobile menu, show/hide based on menu state. -->
-    <div class="md:hidden hidden" id="mobile-menu">
-        <div class="px-2 pt-2 pb-3 space-y-1">
-            <button class="nav-button active block w-full text-left" onclick="showPage('dashboard')">Dashboard</button> 
-            <button class="nav-button block w-full text-left" onclick="showPage('membrosFundadores')">Diretoria e Membros</button>
-            <button class="nav-button block w-full text-left" onclick="showPage('relatorios')">Relatórios</button>
-            <button class="nav-button block w-full text-left" onclick="showPage('tutores')">Tutores</button> 
-            <button class="nav-button block w-full text-left" onclick="showPage('faq')">FAQ</button> 
-            <button class="nav-button block w-full text-left" onclick="showPage('reuniao')">Atas de Reunião</button> 
-            <button class="nav-button block w-full text-left" onclick="showPage('avisosLiga')">Avisos da Liga</button> 
-            <button class="nav-button block w-full text-left" onclick="showPage('videoApresentacao')">Vídeo de Apresentação</button> 
-            <a href="https://www.instagram.com/liaoufba?utm_source=ig_web_button_share_sheet&igsh=MW56MHh6YWF4ZnF5bQ==" target="_blank" class="nav-button block w-full text-left flex items-center gap-2">
-               <i class="fab fa-instagram"></i> Instagram
-            </a>
-        </div>
+<nav class="navigation-wrapper sticky top-0 z-50">
+    <div class="navigation">
+        <ul>
+            <li class="list active" onclick="showPage('dashboard')">
+                <a href="#">
+                    <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
+                    <span class="text">Dashboard</span>
+                </a>
+            </li>
+            <li class="list" onclick="showPage('membrosFundadores')">
+                <a href="#">
+                    <span class="icon"><i class="fas fa-users"></i></span>
+                    <span class="text">Membros</span>
+                </a>
+            </li>
+            <li class="list" onclick="showPage('relatorios')">
+                <a href="#">
+                    <span class="icon"><i class="fas fa-chart-bar"></i></span>
+                    <span class="text">Relatórios</span>
+                </a>
+            </li>
+            <li class="list" onclick="showPage('tutores')">
+                <a href="#">
+                    <span class="icon"><i class="fas fa-chalkboard-teacher"></i></span>
+                    <span class="text">Tutores</span>
+                </a>
+            </li>
+            <li class="list" onclick="showPage('faq')">
+                <a href="#">
+                    <span class="icon"><i class="fas fa-question-circle"></i></span>
+                    <span class="text">FAQ</span>
+                </a>
+            </li>
+             <li class="list" onclick="showPage('reuniao')">
+                <a href="#">
+                    <span class="icon"><i class="fas fa-file-alt"></i></span>
+                    <span class="text">Atas</span>
+                </a>
+            </li>
+            <li class="list" onclick="showPage('avisosLiga')">
+                <a href="#">
+                    <span class="icon"><i class="fas fa-bullhorn"></i></span>
+                    <span class="text">Avisos</span>
+                </a>
+            </li>
+            <li class="list" onclick="showPage('videoApresentacao')">
+                 <a href="#">
+                    <span class="icon"><i class="fas fa-video"></i></span>
+                    <span class="text">Vídeo</span>
+                </a>
+            </li>
+            <li class="list">
+                <a href="https://www.instagram.com/liaoufba?utm_source=ig_web_button_share_sheet&igsh=MW56MHh6YWF4ZnF5bQ==" target="_blank">
+                    <span class="icon"><i class="fab fa-instagram"></i></span>
+                    <span class="text">Instagram</span>
+                </a>
+            </li>
+        </ul>
     </div>
 </nav>
+
 
 <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8"> 
 
@@ -1069,7 +1121,7 @@
                     <li>Participação ativa da liga em eventos e editais de extensão, buscando reconhecimento institucional.</li> 
                 </ul> 
 
-                <h4>Metas para gestão</h4> 
+                <h4>Metas para a gestão</h4> 
                 <ul> 
                     <li>Realizar 2 capacitações abertas ao público (workshops/cursos) até o fim do mandato.</li> 
                     <li>Organizar 1 hackathon/evento social anual, contando com parcerias estratégicas com empresas e presença de público externo.</li> 
@@ -1992,14 +2044,12 @@
             activePage.classList.add('active'); 
         } 
 
-        document.querySelectorAll('.nav-button').forEach(button => { 
-            button.classList.remove('active'); 
-            const onclickAttr = button.getAttribute('onclick');
-            if (onclickAttr) {
-                const match = onclickAttr.match(/'([^']+)'/);
-                if (match && match[1] === pageId) {
-                    button.classList.add('active');
-                }
+        document.querySelectorAll('.navigation ul li').forEach((item) => {
+            const pageName = item.getAttribute('onclick')?.match(/'([^']+)'/)[1];
+            if (pageName === pageId) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
             }
         }); 
 
@@ -2010,10 +2060,6 @@
                 break;
             case 'membrosFundadores':
                 popularMembrosFundadores();
-                break;
-            case 'cartasIntencao': 
-                // Esta página não é mais exibida pelo menu, mas a função é mantida
-                // para o caso de ser chamada de outro lugar.
                 break;
             case 'relatorios':
                 initDashboardRelatorios();
@@ -2103,19 +2149,24 @@
             setup();
         }
         
-        // Mobile menu toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        if(mobileMenuButton && mobileMenu) {
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-            mobileMenu.querySelectorAll('.nav-button').forEach(button => {
-                button.addEventListener('click', () => {
-                    mobileMenu.classList.add('hidden');
-                });
-            });
+        const list = document.querySelectorAll('.navigation .list');
+        const indicator = document.querySelector('.indicator');
+
+        function activeLink() {
+            list.forEach(item => item.classList.remove('active'));
+            this.classList.add('active');
         }
+
+        list.forEach((item, index) => {
+            item.addEventListener('click', function() {
+                activeLink.call(this);
+                if(indicator) {
+                   indicator.style.transform = `translateX(calc(85px * ${index}))`;
+                }
+                const pageId = this.getAttribute('onclick').match(/'([^']+)'/)[1];
+                showPage(pageId);
+            });
+        });
         
         showPage('dashboard');  
         document.getElementById('currentYear').textContent = new Date().getFullYear(); 
