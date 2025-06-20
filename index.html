@@ -67,85 +67,66 @@
         } 
         
         /* --- New Navigation Bar Styles --- */
+        .nav-button {
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem; /* rounded-md */
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-weight: 500;
+            cursor: pointer;
+            text-align: center;
+            color: #4b5563; /* text-gray-600 */
+        }
+        
+        .nav-button.active, .nav-button:hover {
+            background-color: #4f46e5; /* indigo-600 */
+            color: white;
+        }
+        
         .navigation-wrapper {
-            display: flex;
-            justify-content: center;
-            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
             background-color: #ffffff;
             box-shadow: 0 2px 4px -1px rgba(0,0,0,0.1);
         }
         .navigation {
             position: relative;
-            width: 100%;
-            max-width: 800px; /* Adjust as needed */
-            height: 70px; 
-            background: #f3f4f6; /* Lighter background */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 10px;
+            max-width: 900px;
+            margin: auto;
         }
-        .navigation ul {
+        .navigation-list {
             display: flex;
-            width: 100%;
-            padding: 0;
-            margin: 0;
             justify-content: space-around;
-        }
-        .navigation ul li {
-            position: relative;
+            padding: 0.5rem 0;
+            margin: 0;
             list-style: none;
-            width: 85px; /* Wider for more items */
-            height: 70px;
-            z-index: 1;
         }
-        .navigation ul li a {
-            position: relative;
+        .navigation-list li a {
             display: flex;
-            justify-content: center;
-            align-items: center;
             flex-direction: column;
-            width: 100%;
-            text-align: center;
-            font-weight: 500;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem;
+            color: #4b5563;
             text-decoration: none;
-            cursor: pointer;
-        }
-        .navigation ul li a .icon {
+            transition: color 0.3s;
             position: relative;
-            display: block;
-            line-height: 75px;
-            font-size: 1.5em;
-            transition: 0.5s;
-            color: #4b5563; /* text-gray-600 */
         }
-         .navigation ul li.active a .icon {
-            transform: translateY(-12px); /* Adjusted for no indicator */
-            color: #4f46e5; /* indigo-600 */
+        .navigation-list li a .icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+            transition: transform 0.3s ease, color 0.3s ease;
         }
-        .navigation ul li a .text {
-            position: absolute;
-            color: #4f46e5; /* Match active icon color */
-            font-weight: 600;
-            font-size: 0.75em;
-            letter-spacing: 0.05em;
-            transition: 0.5s;
-            opacity: 0;
-            transform: translateY(20px);
+        .navigation-list li a .text {
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
         }
-        .navigation ul li.active a .text {
-            opacity: 1;
-            transform: translateY(12px); /* Adjusted for no indicator */
+        .navigation-list li.active a {
+            color: #4f46e5;
         }
-      
-        /* Responsive adjustments */
-         @media (max-width: 768px) {
-            .navigation ul li a .text {
-                display: none;
-            }
-            .navigation ul li.active a .icon {
-                transform: translateY(0);
-            }
+        .navigation-list li.active a .icon {
+           transform: translateY(-4px);
         }
         
         h2 { 
@@ -534,6 +515,34 @@
             color: #4f46e5;
             font-weight: 600;
         }
+        .carousel-container {
+            position: relative;
+        }
+        .carousel-wrapper {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-slide {
+            flex-shrink: 0;
+        }
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .carousel-button.prev {
+            left: -10px;
+        }
+         .carousel-button.next {
+            right: -10px;
+        }
     </style> 
 </head> 
 <body class="bg-gray-100 text-gray-900"> 
@@ -546,8 +555,8 @@
 </header> 
 
 <nav class="navigation-wrapper sticky top-0 z-50">
-    <div class="navigation">
-        <ul>
+    <div class="navigation hidden md:block">
+        <ul class="navigation-list">
             <li class="list active" onclick="showPage('dashboard')">
                 <a href="#">
                     <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
@@ -604,7 +613,26 @@
             </li>
         </ul>
     </div>
+     <div class="md:hidden flex justify-between items-center w-full px-4">
+        <h2 class="text-xl font-bold text-indigo-600">Navegação</h2>
+        <button id="mobile-menu-button" class="p-2 rounded-md text-gray-600">
+            <i class="fas fa-bars fa-lg"></i>
+        </button>
+    </div>
 </nav>
+<div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+    <div class="px-2 pt-2 pb-3 space-y-1">
+        <a href="#" class="nav-button block w-full text-left" onclick="showPage('dashboard')">Dashboard</a>
+        <a href="#" class="nav-button block w-full text-left" onclick="showPage('membrosFundadores')">Diretoria e Membros</a>
+        <a href="#" class="nav-button block w-full text-left" onclick="showPage('relatorios')">Relatórios</a>
+        <a href="#" class="nav-button block w-full text-left" onclick="showPage('tutores')">Tutores</a>
+        <a href="#" class="nav-button block w-full text-left" onclick="showPage('faq')">FAQ</a>
+        <a href="#" class="nav-button block w-full text-left" onclick="showPage('reuniao')">Atas</a>
+        <a href="#" class="nav-button block w-full text-left" onclick="showPage('avisosLiga')">Avisos</a>
+        <a href="#" class="nav-button block w-full text-left" onclick="showPage('videoApresentacao')">Vídeo</a>
+        <a href="https://www.instagram.com/liaoufba?utm_source=ig_web_button_share_sheet&igsh=MW56MHh6YWF4ZnF5bQ==" target="_blank" class="nav-button block w-full text-left">Instagram</a>
+    </div>
+</div>
 
 
 <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8"> 
@@ -2150,22 +2178,17 @@
         }
         
         const list = document.querySelectorAll('.navigation .list');
-        const indicator = document.querySelector('.indicator');
-
-        function activeLink() {
-            list.forEach(item => item.classList.remove('active'));
-            this.classList.add('active');
-        }
-
-        list.forEach((item, index) => {
+        list.forEach(item => {
             item.addEventListener('click', function() {
-                activeLink.call(this);
-                if(indicator) {
-                   indicator.style.transform = `translateX(calc(85px * ${index}))`;
-                }
-                const pageId = this.getAttribute('onclick').match(/'([^']+)'/)[1];
-                showPage(pageId);
+                list.forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
             });
+        });
+
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
         });
         
         showPage('dashboard');  
