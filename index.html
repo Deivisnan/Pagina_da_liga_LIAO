@@ -1187,7 +1187,7 @@
         { nome: "Laura Ferreira", curso: "Ciência da Computação", genero: "Feminino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/laura_perfil%20.png" },
         { nome: "Ulysses", curso: "Ciência e Tecnologia", genero: "Masculino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/ulisses.jpg" },
         { nome: "Djair Maykon de Novaes Miranda", curso: "Ciência da Computação", genero: "Masculino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/djair.jpg" },
-        { nome: "Tarcisio de Assis Pereira Brito", curso: "Ciência da Computação", genero: "Masculino" },
+        { nome: "Tarcisio de Assis Pereira Brito", curso: "Ciência da Computação", genero: "Masculino" ,img:"https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/4797004c77383a6d598af6a72fcce8454b2edac8/Liao_membros/tarcisio_perfil.jpg"},
         { nome: "Davi Vaccarezza Guedes Pinheiro", curso: "Sistemas de Informação", genero: "Masculino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/davi%20vacareza.jpg" },
         { nome: "Eduarda Almeida", curso: "Licenciatura da Computação", genero: "Feminino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/eduarda%20almeida.jpg" }
     ];
@@ -1459,6 +1459,7 @@
             "Djair Maykon de Novaes Miranda": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/djair.jpg",
             "Jaedson Barbosa Macedo": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/e9105c3766c17ba2d0bc9f25e60604b7bb52f223/Liao_membros/jaedson%20perfil%20.png",
             "José Henrique do Espírito Santo Santana": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/be25860a34aeccc60b65c5c0165552d873f1e5da/Liao_membros/jos%C3%A9_henrrique.jpg"
+            
         };
 
 
@@ -1528,8 +1529,7 @@
                                 </div>`;
                         }).join('')}
                     </div>
-                    <button class="carousel-button prev"><i class="fas fa-chevron-left"></i></button>
-                    <button class="carousel-button next"><i class="fas fa-chevron-right"></i></button>
+
                 </div>
             </div>`;
 
@@ -1556,31 +1556,38 @@
                            `;
                        }).join('')}
                     </div>
-                     <!-- Mobile Carousel -->
-                    <div class="md:hidden carousel-container">
-                        <div class="carousel-wrapper">
-                             ${dadosMembros.sort((a,b) => a.nome.localeCompare(b)).map(membro => {
-                                const imageUrl = memberImages[membro.nome];
-                                let avatarHtml;
-                                if (imageUrl) {
-                                     avatarHtml = `<img src="${imageUrl}" alt="Foto de ${membro.nome}" class="w-full h-full object-cover">`;
-                                } else {
-                                   const iniciais = membro.nome.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-                                   avatarHtml = `<span>${iniciais}</span>`;
-                                }
-                                return `
-                                    <div class="carousel-slide">
-                                         <div class="founder-item" onclick="showFounderDetails('${membro.nome}')">
-                                            <div class="founder-item-avatar">${avatarHtml}</div>
-                                            <span>${membro.nome}</span>
-                                        </div>
-                                    </div>
-                                `;
-                            }).join('')}
-                        </div>
-                         <button class="carousel-button prev"><i class="fas fa-chevron-left"></i></button>
-                         <button class="carousel-button next"><i class="fas fa-chevron-right"></i></button>
-                    </div>
+                    <!-- Mobile Carousel com 3 membros por slide (empilhados verticalmente) -->
+<div class="md:hidden carousel-container overflow-hidden relative">
+  <div class="carousel-wrapper flex transition-transform duration-500 ease-in-out">
+    ${(() => {
+      const chunkSize = 3;
+      const membrosOrdenados = dadosMembros.sort((a, b) => a.nome.localeCompare(b.nome));
+      const slides = [];
+
+      for (let i = 0; i < membrosOrdenados.length; i += chunkSize) {
+        const grupo = membrosOrdenados.slice(i, i + chunkSize).map(membro => {
+          const imageUrl = memberImages[membro.nome];
+          let avatarHtml;
+          if (imageUrl) {
+            avatarHtml = `<img src="${imageUrl}" alt="Foto de ${membro.nome}" class="w-full h-full object-cover">`;
+          } else {
+            const iniciais = membro.nome.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+            avatarHtml = `<span>${iniciais}</span>`;
+          }
+          return `
+            <div class="founder-item mb-4 w-[263px]" onclick="showFounderDetails('${membro.nome}')">
+              <div class="founder-item-avatar">${avatarHtml}</div>
+              <span>${membro.nome}</span>
+            </div>`; 
+        }).join('');
+        slides.push(`<div class="carousel-slide flex flex-col items-center min-w-full">${grupo}</div>`);
+      }
+
+      return slides.join('');
+    })()}
+  </div>
+ </div>
+
                 </div>
             </div>`;
         container.innerHTML = content;
