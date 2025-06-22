@@ -21,16 +21,6 @@
             position: relative;
         }
         
-        #circuit-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-        }
-
         .content-section {
             display: none;
         }
@@ -122,13 +112,13 @@
         
         /* --- Updated Mobile Menu Style --- */
         #mobile-menu {
-            position: fixed; /* Changed from absolute to fixed */
-            top: 4rem; /* Height of the navbar (h-16) */
+            position: absolute; /* Changed to be relative to the navbar */
+            top: 100%; /* Position it right below the navbar */
             left: 0;
             right: 0;
-            z-index: 40; /* Below the main nav bar (z-50) */
-            max-height: calc(100vh - 4rem); /* Ensure it doesn't overflow the viewport */
-            overflow-y: auto; /* Allow scrolling if menu items are many */
+            z-index: 40; /* Stays below the navbar */
+            overflow-y: auto;
+            max-height: calc(100vh - 64px); /* Fallback max-height (64px is h-16) */
         }
         
         h2 {
@@ -540,8 +530,7 @@
     </style>
 </head>
 <body class="bg-gray-100 text-gray-900">
-<canvas id="circuit-bg"></canvas>
-<header class="shadow-md">
+<header class="shadow-md" id="page-header">
     <img src="https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/586cc1f10967f8dc5cc338aaba01ea1ff3cded74/img/banner_liao.png" alt="Banner LIAO" class="w-full h-auto block">
 </header>
 
@@ -590,24 +579,23 @@
             <i id="menu-icon" class="fas fa-bars fa-lg"></i>
         </button>
     </div>
-</nav>
-
-<!-- UPDATED MOBILE MENU CONTAINER -->
-<div id="mobile-menu" class="hidden fixed top-[152px] z-50 md:hidden bg-white shadow-lg w-full">
-    <div class="px-2 pt-2 pb-3 space-y-1">
-        <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('dashboard'); closeMenu();"><i class="fas fa-tachometer-alt w-6 text-center"></i> Dashboard</a>
-        <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('membrosFundadores'); closeMenu();"><i class="fas fa-users w-6 text-center"></i> Diretoria e Membros</a>
-        <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('relatorios'); closeMenu();"><i class="fas fa-chart-bar w-6 text-center"></i> Relatórios</a>
-        <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('tutores'); closeMenu();"><i class="fas fa-chalkboard-teacher w-6 text-center"></i> Tutores</a>
-        <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('faq'); closeMenu();"><i class="fas fa-question-circle w-6 text-center"></i> FAQ</a>
-        <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('reuniao'); closeMenu();"><i class="fas fa-file-alt w-6 text-center"></i> Atas</a>
-        <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('avisosLiga'); closeMenu();"><i class="fas fa-bullhorn w-6 text-center"></i> Avisos</a>
-        <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('videoApresentacao'); closeMenu();"><i class="fas fa-video w-6 text-center"></i> Vídeo</a>
-        <a href="https://www.instagram.com/liaoufba?utm_source=ig_web_button_share_sheet&igsh=MW56MHh6YWF4ZnF5bQ==" target="_blank" class="nav-button block w-full text-left flex items-center gap-2">
-           <i class="fab fa-instagram w-6 text-center"></i> Instagram
-        </a>
+    <!-- MOBILE MENU MOVED INSIDE THE NAV WRAPPER -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg w-full">
+        <div class="px-2 pt-2 pb-3 space-y-1">
+            <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('dashboard'); closeMenu();"><i class="fas fa-tachometer-alt w-6 text-center"></i> Dashboard</a>
+            <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('membrosFundadores'); closeMenu();"><i class="fas fa-users w-6 text-center"></i> Diretoria e Membros</a>
+            <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('relatorios'); closeMenu();"><i class="fas fa-chart-bar w-6 text-center"></i> Relatórios</a>
+            <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('tutores'); closeMenu();"><i class="fas fa-chalkboard-teacher w-6 text-center"></i> Tutores</a>
+            <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('faq'); closeMenu();"><i class="fas fa-question-circle w-6 text-center"></i> FAQ</a>
+            <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('reuniao'); closeMenu();"><i class="fas fa-file-alt w-6 text-center"></i> Atas</a>
+            <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('avisosLiga'); closeMenu();"><i class="fas fa-bullhorn w-6 text-center"></i> Avisos</a>
+            <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('videoApresentacao'); closeMenu();"><i class="fas fa-video w-6 text-center"></i> Vídeo</a>
+            <a href="https://www.instagram.com/liaoufba?utm_source=ig_web_button_share_sheet&igsh=MW56MHh6YWF4ZnF5bQ==" target="_blank" class="nav-button block w-full text-left flex items-center gap-2">
+               <i class="fab fa-instagram w-6 text-center"></i> Instagram
+            </a>
+        </div>
     </div>
-</div>
+</nav>
 
 
 <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -2225,72 +2213,6 @@
     }
     
     document.addEventListener('DOMContentLoaded', () => { 
-        const canvas = document.getElementById('circuit-bg');
-        if (canvas) {
-            const ctx = canvas.getContext('2d');
-            let nodes = [];
-            const gridSize = 30;
-            let scrollY = 0;
-
-            function setup() {
-                canvas.width = window.innerWidth;
-                canvas.height = document.body.scrollHeight; 
-                nodes = [];
-                for (let y = 0; y < canvas.height; y += gridSize) {
-                    for (let x = 0; x < canvas.width; x += gridSize) {
-                        if(x > canvas.width * 0.2 && x < canvas.width * 0.8) continue;
-                        nodes.push({ 
-                            x: x + Math.random() * gridSize, 
-                            y: y + Math.random() * gridSize,
-                            vx: (Math.random() - 0.5) * 0.5,
-                            vy: (Math.random() - 0.5) * 0.5
-                        });
-                    }
-                }
-                draw();
-            }
-
-            function draw() {
-                if(!ctx) return;
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                const currentScroll = window.scrollY;
-                const screenHeight = window.innerHeight;
-
-                nodes.forEach(node => {
-                    const activationPoint = node.y - currentScroll;
-                    if (activationPoint > 0 && activationPoint < screenHeight) {
-                        const opacity = 1 - Math.abs(activationPoint - screenHeight / 2) / (screenHeight / 2);
-                        
-                        ctx.beginPath();
-                        ctx.arc(node.x, node.y, 1.5, 0, 2 * Math.PI);
-                        ctx.fillStyle = `rgba(79, 70, 229, ${opacity * 0.6})`;
-                        ctx.fill();
-
-                        nodes.forEach(neighbor => {
-                            const dist = Math.hypot(node.x - neighbor.x, node.y - neighbor.y);
-                            if (dist < gridSize * 2) {
-                                 const neighborActivationPoint = neighbor.y - currentScroll;
-                                 if(neighborActivationPoint > 0 && neighborActivationPoint < screenHeight){
-                                     const neighborOpacity = 1 - Math.abs(neighborActivationPoint - screenHeight / 2) / (screenHeight / 2);
-                                     ctx.beginPath();
-                                     ctx.moveTo(node.x, node.y);
-                                     ctx.lineTo(neighbor.x, neighbor.y);
-                                     ctx.strokeStyle = `rgba(165, 180, 252, ${Math.min(opacity, neighborOpacity) * 0.3})`;
-                                     ctx.stroke();
-                                 }
-                            }
-                        });
-                    }
-                });
-            }
-            
-            window.addEventListener('scroll', draw);
-            window.addEventListener('resize', setup);
-            
-            setup();
-        }
-        
         const list = document.querySelectorAll('.navigation-list .list');
         list.forEach(item => {
             item.addEventListener('click', function() {
@@ -2301,14 +2223,17 @@
             });
         });
 
+        // --- UPDATED Mobile Menu Logic ---
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         const menuIcon = document.getElementById('menu-icon');
+        const navWrapper = document.querySelector('.navigation-wrapper');
 
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
-            menuIcon.classList.toggle('fa-bars');
-            menuIcon.classList.toggle('fa-times');
+            const isMenuHidden = mobileMenu.classList.contains('hidden');
+            menuIcon.classList.toggle('fa-bars', isMenuHidden);
+            menuIcon.classList.toggle('fa-times', !isMenuHidden);
         });
         
         function closeMenu() {
