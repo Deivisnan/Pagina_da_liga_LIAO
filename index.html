@@ -537,8 +537,8 @@
 <!-- UPDATED NAVIGATION -->
 <nav class="navigation-wrapper">
     <!-- Desktop Navigation -->
-    <div class="hidden md:flex items-center justify-between navigation">
-        <img src="https://raw.githubusercontent.com/Deivisnan/imagens_site/main/logo.jpg" alt="Logo LIAO" class="h-10 w-auto ml-4" onerror="this.onerror=null; this.src='https://placehold.co/150x50/indigo/white?text=LIAO';">
+    <div class="hidden md:flex items-center navigation">
+        <img src="https://raw.githubusercontent.com/Deivisnan/imagens_site/main/logo.jpg" alt="Logo LIAO" class="h-10 w-auto mr-auto cursor-pointer" onclick="showPage('dashboard')" onerror="this.onerror=null; this.src='https://placehold.co/150x50/indigo/white?text=LIAO';">
         <ul class="navigation-list">
             <li class="list active" onclick="showPage('dashboard')">
                 <a href="#"><span class="icon"><i class="fas fa-tachometer-alt"></i></span><span class="text">Dashboard</span></a>
@@ -574,7 +574,7 @@
     </div>
     <!-- Mobile Navigation -->
     <div class="md:hidden flex justify-between items-center w-full px-4 h-16">
-        <img src="https://raw.githubusercontent.com/Deivisnan/imagens_site/main/logo.jpg" alt="Logo LIAO" class="h-10 w-auto" onerror="this.onerror=null; this.src='https://placehold.co/150x50/indigo/white?text=LIAO';">
+        <img src="https://raw.githubusercontent.com/Deivisnan/imagens_site/main/logo.jpg" alt="Logo LIAO" class="h-10 w-auto cursor-pointer" onclick="showPage('dashboard')" onerror="this.onerror=null; this.src='https://placehold.co/150x50/indigo/white?text=LIAO';">
         <button id="mobile-menu-button" class="p-2 rounded-md text-gray-600">
             <i id="menu-icon" class="fas fa-bars fa-lg"></i>
         </button>
@@ -649,10 +649,18 @@
     </section>
     
     <section id="membrosFundadores" class="content-section">
+         <button class="back-button mb-6 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg inline-flex items-center gap-2" onclick="goBack()">
+            <i class="fas fa-arrow-left"></i>
+            <span>Voltar</span>
+        </button>
         <!-- O conteúdo será gerado dinamicamente via JS -->
     </section>
     
     <section id="relatorios" class="content-section">
+         <button class="back-button mb-6 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg inline-flex items-center gap-2" onclick="goBack()">
+            <i class="fas fa-arrow-left"></i>
+            <span>Voltar</span>
+        </button>
         <div class="max-w-screen-xl mx-auto">
             <!-- Cabeçalho -->
             <header class="mb-6">
@@ -737,10 +745,18 @@
     </section>
 
     <section id="tutores" class="content-section">
+         <button class="back-button mb-6 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg inline-flex items-center gap-2" onclick="goBack()">
+            <i class="fas fa-arrow-left"></i>
+            <span>Voltar</span>
+        </button>
        <!-- O conteúdo dos tutores será gerado dinamicamente aqui -->
     </section>
 
     <section id="faq" class="content-section">
+         <button class="back-button mb-6 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg inline-flex items-center gap-2" onclick="goBack()">
+            <i class="fas fa-arrow-left"></i>
+            <span>Voltar</span>
+        </button>
         <div class="card">
             <h2>Dúvidas Frequentes sobre a Liga</h2>
             <div id="faqContent" class="space-y-6">
@@ -749,6 +765,10 @@
     </section>
 
     <section id="reuniao" class="content-section">
+         <button class="back-button mb-6 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg inline-flex items-center gap-2" onclick="goBack()">
+            <i class="fas fa-arrow-left"></i>
+            <span>Voltar</span>
+        </button>
         <div class="card">
             <h2>Tópicos Discutidos em Reunião</h2>
             <div id="reuniaoContent" class="space-y-6">
@@ -757,6 +777,10 @@
     </section>
 
     <section id="avisosLiga" class="content-section">
+         <button class="back-button mb-6 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg inline-flex items-center gap-2" onclick="goBack()">
+            <i class="fas fa-arrow-left"></i>
+            <span>Voltar</span>
+        </button>
         <div class="card">
             <h2>Avisos Importantes da LIAO</h2>
             <p class="text-gray-600 mb-6">Fique por dentro das últimas novidades, decisões e comunicados da liga.</p>
@@ -766,6 +790,10 @@
     </section>
 
     <section id="videoApresentacao" class="content-section">
+         <button class="back-button mb-6 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg inline-flex items-center gap-2" onclick="goBack()">
+            <i class="fas fa-arrow-left"></i>
+            <span>Voltar</span>
+        </button>
         <div class="card">
             <h2>Vídeo de Apresentação</h2>
             <p class="text-gray-600 mb-4">Confira o vídeo de apresentação da LIAO.</p>
@@ -786,8 +814,9 @@
 
     <section id="paginaProposta" class="content-section"> 
         <div class="card">
-            <button class="nav-button mb-6 bg-gray-200 hover:bg-gray-300 text-gray-700" onclick="showPage(lastPage)">
-                ← Voltar
+            <button class="back-button mb-6 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg inline-flex items-center gap-2" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+                <span>Voltar</span>
             </button>
             <h2 id="tituloProposta" class="text-2xl font-semibold text-indigo-700">Carta de Intenção do Integrante</h2> 
             <div id="conteudoProposta" class="mt-4 text-gray-700 leading-relaxed prose max-w-none"> 
@@ -797,15 +826,19 @@
     </section>
 </main>
 
-<footer class="bg-gray-800 text-white text-center py-6 mt-12">
-    <p>© <span id="currentYear"></span> Liga Acadêmica. Todos os direitos reservados.</p>
-    <div class="mt-4">
-        <a href="https://www.instagram.com/liaoufba?utm_source=ig_web_button_share_sheet&igsh=MW56MHh6YWF4ZnF5bQ==" target="_blank" class="inline-block text-gray-400 hover:text-white transition-colors duration-300">
-            <i class="fab fa-instagram fa-2x"></i>
-            <span class="sr-only">Instagram</span>
-        </a>
+<footer class="relative text-white text-center mt-12">
+    <img src="https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/184691ece4766607441bbb8a519b67b96fff9a45/img/footer_liao.png" alt="Footer LIAO" class="w-full h-auto object-cover">
+    <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+        <p class="text-sm md:text-base">© <span id="currentYear"></span> Liga Acadêmica. Todos os direitos reservados.</p>
+        <div class="mt-2">
+            <a href="https://www.instagram.com/liaoufba?utm_source=ig_web_button_share_sheet&igsh=MW56MHh6YWF4ZnF5bQ==" target="_blank" class="inline-block text-white hover:text-gray-300 transition-colors duration-300">
+                <i class="fab fa-instagram fa-2x"></i>
+                <span class="sr-only">Instagram</span>
+            </a>
+        </div>
     </div>
 </footer>
+
 
 <div id="founderModal" class="modal-overlay" onclick="hideFounderDetails()">
     <div class="modal-content relative" onclick="event.stopPropagation()">
@@ -819,8 +852,7 @@
 <script>
     // --- DADOS DO SITE --- 
     const generatePropostaId = (name) => 'proposta_' + name.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, ''); 
-    let lastPage = 'dashboard';
-
+    
     const dadosMembros = [
         { nome: "Yuri Freitas Hughes", curso: "Ciência da Computação", genero: "Masculino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/908b4952aac861544264708280db41ecba067bd6/Liao_membros/yuri%20hughes.jpg" },
         { nome: "DEIVISNAN DA SILVA BISPO", curso: "Sistemas de Informação", genero: "Masculino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/f0f1fb1dcfaf7e881cd11f35d6882de77058efaf/Liao_membros/deivisnan.jpg" },
@@ -1451,7 +1483,8 @@
             "Ulysses": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/ulisses.jpg",
             "Djair Maykon de Novaes Miranda": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/djair.jpg",
             "Jaedson Barbosa Macedo": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/e9105c3766c17ba2d0bc9f25e60604b7bb52f223/Liao_membros/jaedson%20perfil%20.png",
-            "José Henrique do Espírito Santo Santana": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/be25860a34aeccc60b65c5c0165552d873f1e5da/Liao_membros/jos%C3%A9_henrrique.jpg"
+            "José Henrique do Espírito Santo Santana": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/be25860a34aeccc60b65c5c0165552d873f1e5da/Liao_membros/jos%C3%A9_henrrique.jpg",
+            "Tarcisio de Assis Pereira Brito": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/4797004c77383a6d598af6a72fcce8454b2edac8/Liao_membros/tarcisio_perfil.jpg"
             
         };
 
@@ -1612,7 +1645,8 @@
              "Ulysses": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/ulisses.jpg",
              "Djair Maykon de Novaes Miranda": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/djair.jpg",
              "Jaedson Barbosa Macedo": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/e9105c3766c17ba2d0bc9f25e60604b7bb52f223/Liao_membros/jaedson%20perfil%20.png",
-             "José Henrique do Espírito Santo Santana": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/be25860a34aeccc60b65c5c0165552d873f1e5da/Liao_membros/jos%C3%A9_henrrique.jpg"
+             "José Henrique do Espírito Santo Santana": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/be25860a34aeccc60b65c5c0165552d873f1e5da/Liao_membros/jos%C3%A9_henrrique.jpg",
+             "Tarcisio de Assis Pereira Brito": "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/4797004c77383a6d598af6a72fcce8454b2edac8/Liao_membros/tarcisio_perfil.jpg"
         };
         const imageUrl = memberImages[member.nome];
 
@@ -1729,7 +1763,7 @@
     } 
 
     function mostrarProposta(propostaId, nomeIntegrante, returnPage) {  
-        lastPage = returnPage;
+        historyStack.push(currentPage);
         const tituloEl = document.getElementById('tituloProposta');  
         const conteudoEl = document.getElementById('conteudoProposta');  
         const integrante = dadosInteressadosDiretoria.find(p => p.propostaId === propostaId); 
@@ -1746,7 +1780,7 @@
                 </div>
             `; 
         } 
-        showPage('paginaProposta');  
+        showPage('paginaProposta', false);  
     } 
 
     function criarGraficoCursosMembros() {
@@ -2095,28 +2129,36 @@
         }
     }
 
+    let currentPage = 'dashboard';
+    let historyStack = ['dashboard'];
 
-    function showPage(pageId) { 
-        document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active')); 
-        const activePage = document.getElementById(pageId); 
-        if (activePage) { 
-            activePage.classList.add('active'); 
-        } 
+    function showPage(pageId, fromHistory = false) {
+        if (pageId === currentPage) return;
 
-        document.querySelectorAll('.navigation-list li').forEach((item) => {
+        if (!fromHistory) {
+            historyStack.push(currentPage);
+        }
+
+        document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+        const activePage = document.getElementById(pageId);
+        if (activePage) {
+            activePage.classList.add('active');
+        }
+
+        currentPage = pageId;
+
+        // Atualizar link ativo na navbar
+        document.querySelectorAll('.navigation-list li').forEach(item => {
             const pageNameAttr = item.getAttribute('onclick');
-            if (pageNameAttr) {
-                const pageName = pageNameAttr.match(/'([^']+)'/)[1];
-                if (pageName === pageId) {
-                    item.classList.add('active');
-                } else {
-                    item.classList.remove('active');
-                }
+            if (pageNameAttr && pageNameAttr.includes(`'${pageId}'`)) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
             }
-        }); 
+        });
 
         // Chamar as funções de população para a página ativa
-        switch(pageId) {
+        switch (pageId) {
             case 'dashboard':
                 popularDashboard();
                 break;
@@ -2139,7 +2181,18 @@
                 popularAvisosLiga();
                 break;
         }
-    } 
+
+        if (pageId === 'dashboard') {
+             historyStack = ['dashboard']; // Reset history when going home
+        }
+    }
+    
+    function goBack() {
+        const lastPage = historyStack.pop();
+        if (lastPage) {
+            showPage(lastPage, true);
+        }
+    }
 
     function setupCarousel(carouselSelector, slidesPerViewMobile = 1) {
         const container = document.querySelector(carouselSelector);
@@ -2246,7 +2299,7 @@
             button.addEventListener('click', closeMenu);
         });
         
-        showPage('dashboard');  
+        showPage('dashboard', true); // Load initial page without pushing to history
         document.getElementById('currentYear').textContent = new Date().getFullYear(); 
     }); 
 
