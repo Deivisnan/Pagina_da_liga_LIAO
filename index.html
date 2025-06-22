@@ -67,21 +67,6 @@
         } 
         
         /* --- New Navigation Bar Styles --- */
-        .nav-button {
-            padding: 0.5rem 1rem;
-            border-radius: 0.375rem; /* rounded-md */
-            transition: background-color 0.3s ease, color 0.3s ease;
-            font-weight: 500;
-            cursor: pointer;
-            text-align: center;
-            color: #4b5563; /* text-gray-600 */
-        }
-        
-        .nav-button.active, .nav-button:hover {
-            background-color: #4f46e5; /* indigo-600 */
-            color: white;
-        }
-        
         .navigation-wrapper {
             position: sticky;
             top: 0;
@@ -95,11 +80,16 @@
             margin: auto;
         }
         .navigation-list {
-            display: flex;
-            justify-content: space-around;
-            padding: 0.5rem 0;
-            margin: 0;
-            list-style: none;
+            display: none;
+        }
+        @media (min-width: 768px) {
+            .navigation-list {
+                display: flex;
+                justify-content: space-around;
+                padding: 0.5rem 0;
+                margin: 0;
+                list-style: none;
+            }
         }
         .navigation-list li a {
             display: flex;
@@ -517,13 +507,16 @@
         }
         .carousel-container {
             position: relative;
+            overflow: hidden;
         }
         .carousel-wrapper {
             display: flex;
             transition: transform 0.5s ease-in-out;
         }
         .carousel-slide {
-            flex-shrink: 0;
+            min-width: 100%;
+            box-sizing: border-box;
+            padding: 0 1rem;
         }
         .carousel-button {
             position: absolute;
@@ -532,7 +525,7 @@
             background-color: rgba(0,0,0,0.5);
             color: white;
             border: none;
-            padding: 0.5rem;
+            padding: 0.5rem 1rem;
             border-radius: 50%;
             cursor: pointer;
             z-index: 10;
@@ -555,65 +548,41 @@
 </header> 
 
 <nav class="navigation-wrapper sticky top-0 z-50">
-    <div class="navigation hidden md:block">
+    <div class="hidden md:block navigation">
         <ul class="navigation-list">
             <li class="list active" onclick="showPage('dashboard')">
-                <a href="#">
-                    <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
-                    <span class="text">Dashboard</span>
-                </a>
+                <a href="#"><span class="icon"><i class="fas fa-tachometer-alt"></i></span><span class="text">Dashboard</span></a>
             </li>
             <li class="list" onclick="showPage('membrosFundadores')">
-                <a href="#">
-                    <span class="icon"><i class="fas fa-users"></i></span>
-                    <span class="text">Membros</span>
-                </a>
+                <a href="#"><span class="icon"><i class="fas fa-users"></i></span><span class="text">Membros</span></a>
             </li>
             <li class="list" onclick="showPage('relatorios')">
-                <a href="#">
-                    <span class="icon"><i class="fas fa-chart-bar"></i></span>
-                    <span class="text">Relatórios</span>
-                </a>
+                <a href="#"><span class="icon"><i class="fas fa-chart-bar"></i></span><span class="text">Relatórios</span></a>
             </li>
             <li class="list" onclick="showPage('tutores')">
-                <a href="#">
-                    <span class="icon"><i class="fas fa-chalkboard-teacher"></i></span>
-                    <span class="text">Tutores</span>
-                </a>
+                <a href="#"><span class="icon"><i class="fas fa-chalkboard-teacher"></i></span><span class="text">Tutores</span></a>
             </li>
             <li class="list" onclick="showPage('faq')">
-                <a href="#">
-                    <span class="icon"><i class="fas fa-question-circle"></i></span>
-                    <span class="text">FAQ</span>
-                </a>
+                <a href="#"><span class="icon"><i class="fas fa-question-circle"></i></span><span class="text">FAQ</span></a>
             </li>
              <li class="list" onclick="showPage('reuniao')">
-                <a href="#">
-                    <span class="icon"><i class="fas fa-file-alt"></i></span>
-                    <span class="text">Atas</span>
-                </a>
+                <a href="#"><span class="icon"><i class="fas fa-file-alt"></i></span><span class="text">Atas</span></a>
             </li>
             <li class="list" onclick="showPage('avisosLiga')">
-                <a href="#">
-                    <span class="icon"><i class="fas fa-bullhorn"></i></span>
-                    <span class="text">Avisos</span>
-                </a>
+                <a href="#"><span class="icon"><i class="fas fa-bullhorn"></i></span><span class="text">Avisos</span></a>
             </li>
             <li class="list" onclick="showPage('videoApresentacao')">
-                 <a href="#">
-                    <span class="icon"><i class="fas fa-video"></i></span>
-                    <span class="text">Vídeo</span>
-                </a>
+                 <a href="#"><span class="icon"><i class="fas fa-video"></i></span><span class="text">Vídeo</span></a>
             </li>
-            <li class="list">
-                <a href="https://www.instagram.com/liaoufba?utm_source=ig_web_button_share_sheet&igsh=MW56MHh6YWF4ZnF5bQ==" target="_blank">
+             <li class="list">
+                <a href="https://www.instagram.com/liaoufba?utm_source=ig_web_button_share_sheet&igsh=MW56MHh6YWF4ZnF5bQ==" target="_blank" class="text-gray-400 hover:text-indigo-600 p-2 rounded-full">
                     <span class="icon"><i class="fab fa-instagram"></i></span>
                     <span class="text">Instagram</span>
                 </a>
             </li>
         </ul>
     </div>
-     <div class="md:hidden flex justify-between items-center w-full px-4">
+     <div class="md:hidden flex justify-between items-center w-full px-4 h-16">
         <h2 class="text-xl font-bold text-indigo-600">Navegação</h2>
         <button id="mobile-menu-button" class="p-2 rounded-md text-gray-600">
             <i class="fas fa-bars fa-lg"></i>
@@ -622,15 +591,17 @@
 </nav>
 <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
     <div class="px-2 pt-2 pb-3 space-y-1">
-        <a href="#" class="nav-button block w-full text-left" onclick="showPage('dashboard')">Dashboard</a>
-        <a href="#" class="nav-button block w-full text-left" onclick="showPage('membrosFundadores')">Diretoria e Membros</a>
-        <a href="#" class="nav-button block w-full text-left" onclick="showPage('relatorios')">Relatórios</a>
-        <a href="#" class="nav-button block w-full text-left" onclick="showPage('tutores')">Tutores</a>
-        <a href="#" class="nav-button block w-full text-left" onclick="showPage('faq')">FAQ</a>
-        <a href="#" class="nav-button block w-full text-left" onclick="showPage('reuniao')">Atas</a>
-        <a href="#" class="nav-button block w-full text-left" onclick="showPage('avisosLiga')">Avisos</a>
-        <a href="#" class="nav-button block w-full text-left" onclick="showPage('videoApresentacao')">Vídeo</a>
-        <a href="https://www.instagram.com/liaoufba?utm_source=ig_web_button_share_sheet&igsh=MW56MHh6YWF4ZnF5bQ==" target="_blank" class="nav-button block w-full text-left">Instagram</a>
+        <a href="#" class="nav-button block w-full text-left" onclick="showPage('dashboard'); closeMenu();">Dashboard</a>
+        <a href="#" class="nav-button block w-full text-left" onclick="showPage('membrosFundadores'); closeMenu();">Diretoria e Membros</a>
+        <a href="#" class="nav-button block w-full text-left" onclick="showPage('relatorios'); closeMenu();">Relatórios</a>
+        <a href="#" class="nav-button block w-full text-left" onclick="showPage('tutores'); closeMenu();">Tutores</a>
+        <a href="#" class="nav-button block w-full text-left" onclick="showPage('faq'); closeMenu();">FAQ</a>
+        <a href="#" class="nav-button block w-full text-left" onclick="showPage('reuniao'); closeMenu();">Atas</a>
+        <a href="#" class="nav-button block w-full text-left" onclick="showPage('avisosLiga'); closeMenu();">Avisos</a>
+        <a href="#" class="nav-button block w-full text-left" onclick="showPage('videoApresentacao'); closeMenu();">Vídeo</a>
+        <a href="https://www.instagram.com/liaoufba?utm_source=ig_web_button_share_sheet&igsh=MW56MHh6YWF4ZnF5bQ==" target="_blank" class="nav-button block w-full text-left flex items-center gap-2">
+           <i class="fab fa-instagram"></i> Instagram
+        </a>
     </div>
 </div>
 
@@ -1496,65 +1467,126 @@
                 <h2 class="text-3xl font-bold text-gray-800">Diretoria Fundadora da LIAO</h2>
                 <p class="mt-2 text-lg text-gray-600">Conheça a equipe que lidera a primeira gestão da nossa liga acadêmica.</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-16">
-        `;
+            <div id="directors-container" class="mb-16">
+                 <!-- Desktop Grid -->
+                <div class="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    ${dadosDiretoriaAprovada.map(diretor => {
+                        const integranteCompleto = dadosInteressadosDiretoria.find(i => i.nome.toLowerCase() === diretor.nome.toLowerCase());
+                        const imageUrl = memberImages[diretor.nome];
+                        let avatarHtml;
 
-        dadosDiretoriaAprovada.forEach(diretor => {
-            const integranteCompleto = dadosInteressadosDiretoria.find(i => i.nome.toLowerCase() === diretor.nome.toLowerCase());
-            const imageUrl = memberImages[diretor.nome];
-            let avatarHtml;
-
-            if (imageUrl) {
-                avatarHtml = `<img src="${imageUrl}" alt="Foto de ${diretor.nome}" class="w-full h-full object-cover">`;
-            } else {
-                const iniciais = diretor.nome.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-                avatarHtml = `<span>${iniciais}</span>`;
-            }
-
-            content += `
-                <div class="director-card">
-                    <div class="director-card-inner">
-                        <div class="director-info">
-                            <div class="director-avatar">${avatarHtml}</div>
-                            <h3 class="director-name">${diretor.nome}</h3>
-                            <p class="director-title">${diretor.cargo}</p>
-                        </div>
-                        <button onclick="mostrarProposta('${integranteCompleto ? integranteCompleto.propostaId : ''}', '${diretor.nome}', 'membrosFundadores')" class="director-button">
-                            Ver Carta de Intenção
-                        </button>
-                    </div>
+                        if (imageUrl) {
+                            avatarHtml = `<img src="${imageUrl}" alt="Foto de ${diretor.nome}" class="w-full h-full object-cover">`;
+                        } else {
+                            const iniciais = diretor.nome.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                            avatarHtml = `<span>${iniciais}</span>`;
+                        }
+                        return `
+                            <div class="director-card">
+                                <div class="director-card-inner">
+                                    <div class="director-info">
+                                        <div class="director-avatar">${avatarHtml}</div>
+                                        <h3 class="director-name">${diretor.nome}</h3>
+                                        <p class="director-title">${diretor.cargo}</p>
+                                    </div>
+                                    <button onclick="mostrarProposta('${integranteCompleto ? integranteCompleto.propostaId : ''}', '${diretor.nome}', 'membrosFundadores')" class="director-button">
+                                        Ver Carta de Intenção
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
                 </div>
-            `;
-        });
-        
-        content += `</div>`;
+                 <!-- Mobile Carousel -->
+                <div class="md:hidden carousel-container">
+                    <div class="carousel-wrapper">
+                        ${dadosDiretoriaAprovada.map(diretor => {
+                            const integranteCompleto = dadosInteressadosDiretoria.find(i => i.nome.toLowerCase() === diretor.nome.toLowerCase());
+                            const imageUrl = memberImages[diretor.nome];
+                            let avatarHtml;
+
+                            if (imageUrl) {
+                                avatarHtml = `<img src="${imageUrl}" alt="Foto de ${diretor.nome}" class="w-full h-full object-cover">`;
+                            } else {
+                                const iniciais = diretor.nome.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                                avatarHtml = `<span>${iniciais}</span>`;
+                            }
+                            return `
+                                <div class="carousel-slide">
+                                     <div class="director-card">
+                                        <div class="director-card-inner">
+                                            <div class="director-info">
+                                                <div class="director-avatar">${avatarHtml}</div>
+                                                <h3 class="director-name">${diretor.nome}</h3>
+                                                <p class="director-title">${diretor.cargo}</p>
+                                            </div>
+                                            <button onclick="mostrarProposta('${integranteCompleto ? integranteCompleto.propostaId : ''}', '${diretor.nome}', 'membrosFundadores')" class="director-button">
+                                                Ver Carta de Intenção
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>`;
+                        }).join('')}
+                    </div>
+                    <button class="carousel-button prev"><i class="fas fa-chevron-left"></i></button>
+                    <button class="carousel-button next"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>`;
 
         content += `
             <div class="founder-list-card">
                  <h3 class="text-2xl font-bold text-gray-800 text-center mb-6">Membros Fundadores</h3>
-                 <div class="founder-list">
-        `;
-
-        dadosMembros.sort((a,b) => a.nome.localeCompare(b)).forEach(membro => {
-            const imageUrl = memberImages[membro.nome];
-            let avatarHtml;
-
-            if (imageUrl) {
-                 avatarHtml = `<img src="${imageUrl}" alt="Foto de ${membro.nome}" class="w-full h-full object-cover">`;
-            } else {
-                const iniciais = membro.nome.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-                avatarHtml = `<span>${iniciais}</span>`;
-            }
-            content += `
-                <div class="founder-item" onclick="showFounderDetails('${membro.nome}')">
-                    <div class="founder-item-avatar">${avatarHtml}</div>
-                    <span>${membro.nome}</span>
+                  <div id="founders-container" class="mb-16">
+                     <!-- Desktop Grid -->
+                    <div class="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                       ${dadosMembros.sort((a,b) => a.nome.localeCompare(b)).map(membro => {
+                           const imageUrl = memberImages[membro.nome];
+                           let avatarHtml;
+                           if (imageUrl) {
+                                avatarHtml = `<img src="${imageUrl}" alt="Foto de ${membro.nome}" class="w-full h-full object-cover">`;
+                           } else {
+                               const iniciais = membro.nome.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                               avatarHtml = `<span>${iniciais}</span>`;
+                           }
+                           return `
+                               <div class="founder-item" onclick="showFounderDetails('${membro.nome}')">
+                                   <div class="founder-item-avatar">${avatarHtml}</div>
+                                   <span>${membro.nome}</span>
+                               </div>
+                           `;
+                       }).join('')}
+                    </div>
+                     <!-- Mobile Carousel -->
+                    <div class="md:hidden carousel-container">
+                        <div class="carousel-wrapper">
+                             ${dadosMembros.sort((a,b) => a.nome.localeCompare(b)).map(membro => {
+                                const imageUrl = memberImages[membro.nome];
+                                let avatarHtml;
+                                if (imageUrl) {
+                                     avatarHtml = `<img src="${imageUrl}" alt="Foto de ${membro.nome}" class="w-full h-full object-cover">`;
+                                } else {
+                                   const iniciais = membro.nome.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                                   avatarHtml = `<span>${iniciais}</span>`;
+                                }
+                                return `
+                                    <div class="carousel-slide">
+                                         <div class="founder-item" onclick="showFounderDetails('${membro.nome}')">
+                                            <div class="founder-item-avatar">${avatarHtml}</div>
+                                            <span>${membro.nome}</span>
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                         <button class="carousel-button prev"><i class="fas fa-chevron-left"></i></button>
+                         <button class="carousel-button next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
                 </div>
-            `;
-        });
-
-        content += `</div></div>`;
+            </div>`;
         container.innerHTML = content;
+        
+        setupCarousel('#directors-container .carousel-container', 1);
+        setupCarousel('#founders-container .carousel-container', 1, 3);
     }
     
     function showFounderDetails(memberName) {
@@ -2073,11 +2105,14 @@
         } 
 
         document.querySelectorAll('.navigation ul li').forEach((item) => {
-            const pageName = item.getAttribute('onclick')?.match(/'([^']+)'/)[1];
-            if (pageName === pageId) {
-                item.classList.add('active');
-            } else {
-                item.classList.remove('active');
+            const pageNameAttr = item.getAttribute('onclick');
+            if (pageNameAttr) {
+                const pageName = pageNameAttr.match(/'([^']+)'/)[1];
+                if (pageName === pageId) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
             }
         }); 
 
@@ -2107,6 +2142,98 @@
         }
     } 
 
+    function setupCarousel(carouselSelector, slidesPerViewMobile, slidesPerViewDesktop) {
+        const container = document.querySelector(carouselSelector);
+        if (!container) return;
+
+        const wrapper = container.querySelector('.carousel-wrapper');
+        const prevBtn = container.querySelector('.prev');
+        const nextBtn = container.querySelector('.next');
+        const slides = container.querySelectorAll('.carousel-slide');
+        
+        let currentIndex = 0;
+        let intervalId;
+
+        const getSlidesPerView = () => {
+            return window.innerWidth <= 500 ? slidesPerViewMobile : slidesPerViewDesktop;
+        }
+
+        const updateCarousel = () => {
+            const slidesPerView = getSlidesPerView();
+            const slideWidth = container.clientWidth / slidesPerView;
+            wrapper.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+            
+            slides.forEach(slide => {
+                slide.style.minWidth = `${100 / slidesPerView}%`;
+            });
+        };
+
+        const resetInterval = () => {
+            clearInterval(intervalId);
+            intervalId = setInterval(() => {
+                const totalSlides = slides.length;
+                const slidesPerView = getSlidesPerView();
+                if (currentIndex < totalSlides - slidesPerView) {
+                    currentIndex++;
+                } else {
+                    currentIndex = 0;
+                }
+                updateCarousel();
+            }, 3000);
+        };
+        
+        if(nextBtn){
+            nextBtn.addEventListener('click', () => {
+                const totalSlides = slides.length;
+                const slidesPerView = getSlidesPerView();
+                if (currentIndex < totalSlides - slidesPerView) {
+                    currentIndex++;
+                } else {
+                    currentIndex = 0;
+                }
+                updateCarousel();
+                resetInterval();
+            });
+        }
+        
+        if(prevBtn){
+             prevBtn.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                }
+                updateCarousel();
+                resetInterval();
+            });
+        }
+
+        let touchStartX = 0;
+        wrapper.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            clearInterval(intervalId);
+        });
+
+        wrapper.addEventListener('touchend', (e) => {
+            const touchEndX = e.changedTouches[0].clientX;
+            if (touchStartX - touchEndX > 50) { // Swipe left
+                const totalSlides = slides.length;
+                const slidesPerView = getSlidesPerView();
+                 if (currentIndex < totalSlides - slidesPerView) {
+                    currentIndex++;
+                }
+            } else if (touchStartX - touchEndX < -50) { // Swipe right
+                if (currentIndex > 0) {
+                    currentIndex--;
+                }
+            }
+            updateCarousel();
+            resetInterval();
+        });
+
+        window.addEventListener('resize', updateCarousel);
+        updateCarousel(); // Initial call
+        resetInterval();
+    }
+    
     document.addEventListener('DOMContentLoaded', () => { 
         const canvas = document.getElementById('circuit-bg');
         if (canvas) {
@@ -2182,6 +2309,8 @@
             item.addEventListener('click', function() {
                 list.forEach(i => i.classList.remove('active'));
                 this.classList.add('active');
+                 const pageId = this.getAttribute('onclick').match(/'([^']+)'/)[1];
+                 showPage(pageId);
             });
         });
 
@@ -2189,6 +2318,14 @@
         const mobileMenu = document.getElementById('mobile-menu');
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
+        });
+        
+        function closeMenu() {
+            mobileMenu.classList.add('hidden');
+        }
+
+        mobileMenu.querySelectorAll('a').forEach(button => {
+            button.addEventListener('click', closeMenu);
         });
         
         showPage('dashboard');  
