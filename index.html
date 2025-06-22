@@ -1,25 +1,25 @@
-<!DOCTYPE html> 
-<html lang="pt-BR"> 
-<head> 
-    <meta charset="UTF-8"> 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>LIAO Liga de Inteligência Artificial e Otimização</title> 
-    <script src="https://cdn.tailwindcss.com"></script> 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIAO Liga de Inteligência Artificial e Otimização</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style> 
+    <style>
         @property --rotate {
           syntax: "<angle>";
           initial-value: 132deg;
           inherits: false;
         }
 
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: #f3f4f6; /* Tailwind gray-100 */ 
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Tailwind gray-100 */
             position: relative;
-        } 
+        }
         
         #circuit-bg {
             position: fixed;
@@ -31,40 +31,40 @@
             pointer-events: none;
         }
 
-        .content-section { 
-            display: none; 
-        } 
-        .content-section.active { 
-            display: block; 
-        } 
-        .chart-container { 
-            position: relative; 
-            margin: auto; 
-            height: 350px; 
-            width: 100%; 
-        } 
-        ::-webkit-scrollbar { 
-            width: 8px; 
-            height: 8px; 
-        } 
-        ::-webkit-scrollbar-track { 
-            background: #f1f1f1; 
-            border-radius: 10px; 
-        } 
-        ::-webkit-scrollbar-thumb { 
-            background: #888; 
-            border-radius: 10px; 
-        } 
-        ::-webkit-scrollbar-thumb:hover { 
-            background: #555; 
-        } 
-        .card { 
-            background-color: white; 
-            border-radius: 0.75rem; /* rounded-xl */ 
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-lg */ 
-            padding: 1.5rem; /* p-6 */ 
-            margin-bottom: 1.5rem; /* mb-6 */ 
-        } 
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 350px;
+            width: 100%;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-lg */
+            padding: 1.5rem; /* p-6 */
+            margin-bottom: 1.5rem; /* mb-6 */
+        }
         
         /* --- New Navigation Bar Styles --- */
         .navigation-wrapper {
@@ -85,6 +85,7 @@
         @media (min-width: 768px) {
             .navigation-list {
                 display: flex;
+                flex-grow: 1; /* Added to allow proper spacing */
                 justify-content: space-around;
                 padding: 0.5rem 0;
                 margin: 0;
@@ -119,99 +120,110 @@
            transform: translateY(-4px);
         }
         
-        h2 { 
-            font-size: 1.5rem; /* text-2xl */ 
-            font-weight: 600; /* font-semibold */ 
-            color: #1f2937; /* text-gray-800 */ 
-            margin-bottom: 1rem; 
-        } 
-        h3 { 
-            font-size: 1.25rem; /* text-xl */ 
-            font-weight: 600; /* font-semibold */ 
-            color: #374151; /* text-gray-700 */ 
-            margin-top: 1.5rem; 
-            margin-bottom: 0.75rem; 
-        } 
+        /* --- Updated Mobile Menu Style --- */
+        #mobile-menu {
+            position: fixed; /* Changed from absolute to fixed */
+            top: 4rem; /* Height of the navbar (h-16) */
+            left: 0;
+            right: 0;
+            z-index: 40; /* Below the main nav bar (z-50) */
+            max-height: calc(100vh - 4rem); /* Ensure it doesn't overflow the viewport */
+            overflow-y: auto; /* Allow scrolling if menu items are many */
+        }
         
-        .header-logo { 
-            height: 50px; 
-            width: auto; 
-            max-width: 150px; 
-            margin-right: 1rem; 
-            border-radius: 0.375rem; 
-        } 
-        .video-responsive-container { 
-            position: relative; 
-            overflow: hidden; 
-            width: 100%; 
-            padding-top: 56.25%;  
-            background-color: #000; 
-            border-radius: 0.5rem; 
-        } 
-        .video-responsive-container iframe { 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            border: 0; 
-        } 
-        #conteudoProposta p, #conteudoProposta ul, #conteudoProposta ol { 
-            margin-bottom: 1rem; 
-            color: #374151;  
-        } 
-        #conteudoProposta h4 { 
-            font-size: 1.125rem;  
-            font-weight: 600;  
-            color: #4f46e5;  
-            margin-top: 1.5rem; 
-            margin-bottom: 0.75rem; 
-        } 
-        #conteudoProposta ul { 
-            list-style-position: inside; 
-            margin-left: 1rem; 
-            list-style-type: disc; 
-        } 
-        #conteudoProposta li { 
-            margin-bottom: 0.25rem; 
-        } 
-        #conteudoProposta strong { 
-            font-weight: 600;  
-        } 
-        .aviso-card { 
-            background-color: #eef2ff;  
-            border-left: 4px solid #4f46e5;  
-            padding: 1rem; 
-            margin-bottom: 1rem; 
-            border-radius: 0.375rem;  
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);  
-        } 
-        .aviso-card h3 { 
-            color: #3730a3;  
-            margin-top: 0; 
-        } 
-        .aviso-card .aviso-data { 
-            font-size: 0.875rem;  
-            color: #6b7280;  
-            margin-bottom: 0.5rem; 
-        } 
-        #reuniaoContent ul { 
-            list-style-type: disc; 
-            list-style-position: inside; 
-            margin-left: 1.5rem; 
-            margin-bottom: 0.75rem; 
+        h2 {
+            font-size: 1.5rem; /* text-2xl */
+            font-weight: 600; /* font-semibold */
+            color: #1f2937; /* text-gray-800 */
+            margin-bottom: 1rem;
+        }
+        h3 {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 600; /* font-semibold */
+            color: #374151; /* text-gray-700 */
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .header-logo {
+            height: 50px;
+            width: auto;
+            max-width: 150px;
+            margin-right: 1rem;
+            border-radius: 0.375rem;
+        }
+        .video-responsive-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-top: 56.25%; 
+            background-color: #000;
+            border-radius: 0.5rem;
+        }
+        .video-responsive-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        #conteudoProposta p, #conteudoProposta ul, #conteudoProposta ol {
+            margin-bottom: 1rem;
             color: #374151; 
-        } 
-        #reuniaoContent li { 
-            margin-bottom: 0.3rem; 
-        } 
-         #reuniaoContent h4 { 
-            font-size: 1.1rem; 
+        }
+        #conteudoProposta h4 {
+            font-size: 1.125rem; 
             font-weight: 600; 
-            color: #4338ca; /* indigo-700 */ 
-            margin-top: 1.25rem; 
-            margin-bottom: 0.6rem; 
-        } 
+            color: #4f46e5; 
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        #conteudoProposta ul {
+            list-style-position: inside;
+            margin-left: 1rem;
+            list-style-type: disc;
+        }
+        #conteudoProposta li {
+            margin-bottom: 0.25rem;
+        }
+        #conteudoProposta strong {
+            font-weight: 600; 
+        }
+        .aviso-card {
+            background-color: #eef2ff; 
+            border-left: 4px solid #4f46e5; 
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0.375rem; 
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); 
+        }
+        .aviso-card h3 {
+            color: #3730a3; 
+            margin-top: 0;
+        }
+        .aviso-card .aviso-data {
+            font-size: 0.875rem; 
+            color: #6b7280; 
+            margin-bottom: 0.5rem;
+        }
+        #reuniaoContent ul {
+            list-style-type: disc;
+            list-style-position: inside;
+            margin-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #374151;
+        }
+        #reuniaoContent li {
+            margin-bottom: 0.3rem;
+        }
+         #reuniaoContent h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #4338ca; /* indigo-700 */
+            margin-top: 1.25rem;
+            margin-bottom: 0.6rem;
+        }
         
         /* Estilos para a página de Membros Fundadores */
         .director-card {
@@ -343,11 +355,7 @@
             border-radius: 0.75rem;
             padding: 1.5rem;
         }
-        .founder-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1rem;
-        }
+        
         .founder-item {
             background-color: white;
             padding: 0.75rem 1rem;
@@ -414,6 +422,7 @@
             text-align: center;
             transform: scale(0.95);
             transition: transform 0.3s ease;
+            position: relative;
         }
         .modal-overlay.active .modal-content {
             transform: scale(1);
@@ -507,48 +516,40 @@
         }
         .carousel-container {
             position: relative;
-            overflow: hidden;
         }
+        
         .carousel-wrapper {
             display: flex;
             transition: transform 0.5s ease-in-out;
         }
         .carousel-slide {
-            min-width: 100%;
+            flex-shrink: 0;
             box-sizing: border-box;
-            padding: 0 1rem;
         }
-        .carousel-button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0,0,0,0.5);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 10;
+        
+        @media (max-width: 767px) {
+            .founder-list-card .carousel-slide {
+                width: calc(100% / 3);
+                padding: 0 4px;
+            }
+             #directors-container .carousel-slide {
+                width: 100%;
+                padding: 0 8px;
+            }
         }
-        .carousel-button.prev {
-            left: -10px;
-        }
-         .carousel-button.next {
-            right: -10px;
-        }
-    </style> 
-</head> 
-<body class="bg-gray-100 text-gray-900"> 
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-900">
 <canvas id="circuit-bg"></canvas>
-<header class="bg-indigo-700 text-white shadow-md"> 
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-center sm:justify-start"> 
-        <img src="https://raw.githubusercontent.com/Deivisnan/imagens_site/main/logo.jpg" alt="Logo LIAO" class="header-logo" onerror="this.onerror=null; this.src='https://placehold.co/150x50/indigo/white?text=LIAO';"> 
-        <h1 class="text-2xl sm:text-3xl font-bold text-center sm:text-left">LIAO Liga de Inteligência Artificial e Otimização</h1> 
-    </div> 
-</header> 
+<header class="shadow-md">
+    <img src="https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/586cc1f10967f8dc5cc338aaba01ea1ff3cded74/img/banner_liao.png" alt="Banner LIAO" class="w-full h-auto block">
+</header>
 
-<nav class="navigation-wrapper sticky top-0 z-50">
-    <div class="hidden md:block navigation">
+<!-- UPDATED NAVIGATION -->
+<nav class="navigation-wrapper">
+    <!-- Desktop Navigation -->
+    <div class="hidden md:flex items-center justify-between navigation">
+        <img src="https://raw.githubusercontent.com/Deivisnan/imagens_site/main/logo.jpg" alt="Logo LIAO" class="h-10 w-auto ml-4" onerror="this.onerror=null; this.src='https://placehold.co/150x50/indigo/white?text=LIAO';">
         <ul class="navigation-list">
             <li class="list active" onclick="showPage('dashboard')">
                 <a href="#"><span class="icon"><i class="fas fa-tachometer-alt"></i></span><span class="text">Dashboard</span></a>
@@ -582,33 +583,36 @@
             </li>
         </ul>
     </div>
-     <div class="md:hidden flex justify-between items-center w-full px-4 h-16">
-        <h2 class="text-xl font-bold text-indigo-600">Navegação</h2>
+    <!-- Mobile Navigation -->
+    <div class="md:hidden flex justify-between items-center w-full px-4 h-16">
+        <img src="https://raw.githubusercontent.com/Deivisnan/imagens_site/main/logo.jpg" alt="Logo LIAO" class="h-10 w-auto" onerror="this.onerror=null; this.src='https://placehold.co/150x50/indigo/white?text=LIAO';">
         <button id="mobile-menu-button" class="p-2 rounded-md text-gray-600">
-            <i class="fas fa-bars fa-lg"></i>
+            <i id="menu-icon" class="fas fa-bars fa-lg"></i>
         </button>
     </div>
 </nav>
-<div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+
+<!-- UPDATED MOBILE MENU CONTAINER -->
+<div id="mobile-menu" class="hidden fixed top-[152px] z-50 md:hidden bg-white shadow-lg w-full">
     <div class="px-2 pt-2 pb-3 space-y-1">
-        <a href="#" class="nav-button block w-full text-left" onclick="showPage('dashboard'); closeMenu();">Dashboard</a>
-        <a href="#" class="nav-button block w-full text-left" onclick="showPage('membrosFundadores'); closeMenu();">Diretoria e Membros</a>
-        <a href="#" class="nav-button block w-full text-left" onclick="showPage('relatorios'); closeMenu();">Relatórios</a>
-        <a href="#" class="nav-button block w-full text-left" onclick="showPage('tutores'); closeMenu();">Tutores</a>
-        <a href="#" class="nav-button block w-full text-left" onclick="showPage('faq'); closeMenu();">FAQ</a>
-        <a href="#" class="nav-button block w-full text-left" onclick="showPage('reuniao'); closeMenu();">Atas</a>
-        <a href="#" class="nav-button block w-full text-left" onclick="showPage('avisosLiga'); closeMenu();">Avisos</a>
-        <a href="#" class="nav-button block w-full text-left" onclick="showPage('videoApresentacao'); closeMenu();">Vídeo</a>
+        <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('dashboard'); closeMenu();"><i class="fas fa-tachometer-alt w-6 text-center"></i> Dashboard</a>
+        <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('membrosFundadores'); closeMenu();"><i class="fas fa-users w-6 text-center"></i> Diretoria e Membros</a>
+        <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('relatorios'); closeMenu();"><i class="fas fa-chart-bar w-6 text-center"></i> Relatórios</a>
+        <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('tutores'); closeMenu();"><i class="fas fa-chalkboard-teacher w-6 text-center"></i> Tutores</a>
+        <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('faq'); closeMenu();"><i class="fas fa-question-circle w-6 text-center"></i> FAQ</a>
+        <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('reuniao'); closeMenu();"><i class="fas fa-file-alt w-6 text-center"></i> Atas</a>
+        <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('avisosLiga'); closeMenu();"><i class="fas fa-bullhorn w-6 text-center"></i> Avisos</a>
+        <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('videoApresentacao'); closeMenu();"><i class="fas fa-video w-6 text-center"></i> Vídeo</a>
         <a href="https://www.instagram.com/liaoufba?utm_source=ig_web_button_share_sheet&igsh=MW56MHh6YWF4ZnF5bQ==" target="_blank" class="nav-button block w-full text-left flex items-center gap-2">
-           <i class="fab fa-instagram"></i> Instagram
+           <i class="fab fa-instagram w-6 text-center"></i> Instagram
         </a>
     </div>
 </div>
 
 
-<main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8"> 
+<main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-    <section id="dashboard" class="content-section active"> 
+    <section id="dashboard" class="content-section active">
         <div class="card">
             <h2>Dashboard da Liga</h2>
             <p class="text-gray-600 mb-6">Visão geral e interativa sobre os membros da LIAO.</p>
@@ -654,7 +658,7 @@
                 </div>
             </div>
         </div>
-    </section> 
+    </section>
     
     <section id="membrosFundadores" class="content-section">
         <!-- O conteúdo será gerado dinamicamente via JS -->
@@ -744,86 +748,87 @@
         </div>
     </section>
 
-    <section id="tutores" class="content-section"> 
+    <section id="tutores" class="content-section">
        <!-- O conteúdo dos tutores será gerado dinamicamente aqui -->
-    </section> 
+    </section>
 
-    <section id="faq" class="content-section"> 
-        <div class="card"> 
-            <h2>Dúvidas Frequentes sobre a Liga</h2> 
-            <div id="faqContent" class="space-y-6"> 
-            </div> 
-        </div> 
-    </section> 
+    <section id="faq" class="content-section">
+        <div class="card">
+            <h2>Dúvidas Frequentes sobre a Liga</h2>
+            <div id="faqContent" class="space-y-6">
+            </div>
+        </div>
+    </section>
 
-    <section id="reuniao" class="content-section"> 
-        <div class="card"> 
-            <h2>Tópicos Discutidos em Reunião</h2> 
-            <div id="reuniaoContent" class="space-y-6"> 
-            </div> 
-        </div> 
-    </section> 
+    <section id="reuniao" class="content-section">
+        <div class="card">
+            <h2>Tópicos Discutidos em Reunião</h2>
+            <div id="reuniaoContent" class="space-y-6">
+            </div>
+        </div>
+    </section>
 
-    <section id="avisosLiga" class="content-section"> 
-        <div class="card"> 
-            <h2>Avisos Importantes da LIAO</h2> 
-            <p class="text-gray-600 mb-6">Fique por dentro das últimas novidades, decisões e comunicados da liga.</p> 
-            <div id="avisosLigaContent" class="space-y-4"> 
-                </div> 
-        </div> 
-    </section> 
+    <section id="avisosLiga" class="content-section">
+        <div class="card">
+            <h2>Avisos Importantes da LIAO</h2>
+            <p class="text-gray-600 mb-6">Fique por dentro das últimas novidades, decisões e comunicados da liga.</p>
+            <div id="avisosLigaContent" class="space-y-4">
+                </div>
+        </div>
+    </section>
 
-    <section id="videoApresentacao" class="content-section"> 
-        <div class="card"> 
-            <h2>Vídeo de Apresentação</h2> 
-            <p class="text-gray-600 mb-4">Confira o vídeo de apresentação da LIAO.</p> 
-            <div class="mx-auto max-w-3xl"> 
-                <div class="video-responsive-container"> 
+    <section id="videoApresentacao" class="content-section">
+        <div class="card">
+            <h2>Vídeo de Apresentação</h2>
+            <p class="text-gray-600 mb-4">Confira o vídeo de apresentação da LIAO.</p>
+            <div class="mx-auto max-w-3xl">
+                <div class="video-responsive-container">
                     <iframe 
-                            src="https://www.youtube.com/embed/VwSeAm-9Vgg?si=4Lns3BzbHrRjr-AB"  
-                            title="YouTube video player" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                            referrerpolicy="strict-origin-when-cross-origin" 
-                            allowfullscreen> 
-                    </iframe> 
-                </div> 
-            </div> 
-        </div> 
-    </section> 
+                            src="https://www.youtube.com/embed/VwSeAm-9Vgg?si=4Lns3BzbHrRjr-AB" 
+                            title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <section id="paginaProposta" class="content-section">  
-        <div class="card"> 
-            <button class="nav-button mb-6 bg-gray-200 hover:bg-gray-300 text-gray-700" onclick="showPage(lastPage)"> 
-                ← Voltar 
-            </button> 
-            <h2 id="tituloProposta" class="text-2xl font-semibold text-indigo-700">Carta de Intenção do Integrante</h2>  
-            <div id="conteudoProposta" class="mt-4 text-gray-700 leading-relaxed prose max-w-none">  
-                <p>Carregando carta de intenção...</p> 
-            </div> 
-        </div> 
-    </section> 
-</main> 
+    <section id="paginaProposta" class="content-section"> 
+        <div class="card">
+            <button class="nav-button mb-6 bg-gray-200 hover:bg-gray-300 text-gray-700" onclick="showPage(lastPage)">
+                ← Voltar
+            </button>
+            <h2 id="tituloProposta" class="text-2xl font-semibold text-indigo-700">Carta de Intenção do Integrante</h2> 
+            <div id="conteudoProposta" class="mt-4 text-gray-700 leading-relaxed prose max-w-none"> 
+                <p>Carregando carta de intenção...</p>
+            </div>
+        </div>
+    </section>
+</main>
 
-<footer class="bg-gray-800 text-white text-center py-6 mt-12"> 
-    <p>© <span id="currentYear"></span> Liga Acadêmica. Todos os direitos reservados.</p> 
+<footer class="bg-gray-800 text-white text-center py-6 mt-12">
+    <p>© <span id="currentYear"></span> Liga Acadêmica. Todos os direitos reservados.</p>
     <div class="mt-4">
         <a href="https://www.instagram.com/liaoufba?utm_source=ig_web_button_share_sheet&igsh=MW56MHh6YWF4ZnF5bQ==" target="_blank" class="inline-block text-gray-400 hover:text-white transition-colors duration-300">
             <i class="fab fa-instagram fa-2x"></i>
             <span class="sr-only">Instagram</span>
         </a>
     </div>
-</footer> 
+</footer>
 
 <div id="founderModal" class="modal-overlay" onclick="hideFounderDetails()">
-    <div class="modal-content" onclick="event.stopPropagation()">
+    <div class="modal-content relative" onclick="event.stopPropagation()">
+        <button onclick="hideFounderDetails()" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-2xl px-2">&times;</button>
         <div id="modalAvatar" class="director-avatar mx-auto mb-4" style="width: 150px; height: 150px;"></div>
         <h3 id="modalName" class="text-2xl font-bold text-gray-900"></h3>
         <p id="modalCourse" class="text-md text-indigo-600 font-medium"></p>
     </div>
 </div>
 
-<script> 
+<script>
     // --- DADOS DO SITE --- 
     const generatePropostaId = (name) => 'proposta_' + name.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, ''); 
     let lastPage = 'dashboard';
@@ -842,323 +847,323 @@
         { nome: "Laura Ferreira", curso: "Ciência da Computação", genero: "Feminino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/laura_perfil%20.png" },
         { nome: "Ulysses", curso: "Ciência e Tecnologia", genero: "Masculino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/ulisses.jpg" },
         { nome: "Djair Maykon de Novaes Miranda", curso: "Ciência da Computação", genero: "Masculino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/djair.jpg" },
-        { nome: "Tarcisio de Assis Pereira Brito", curso: "Ciência da Computação", genero: "Masculino" },
+        { nome: "Tarcisio de Assis Pereira Brito", curso: "Ciência da Computação", genero: "Masculino" ,img:"https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/4797004c77383a6d598af6a72fcce8454b2edac8/Liao_membros/tarcisio_perfil.jpg"},
         { nome: "Davi Vaccarezza Guedes Pinheiro", curso: "Sistemas de Informação", genero: "Masculino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/davi%20vacareza.jpg" },
         { nome: "Eduarda Almeida", curso: "Licenciatura da Computação", genero: "Feminino", img: "https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/da3d98374e1554444da4e8d24e456c2b8009f59d/Liao_membros/eduarda%20almeida.jpg" }
     ];
 
     const dadosInteressadosDiretoria = [ 
-        {  
-            nome: "DEIVISNAN DA SILVA BISPO",  
-            email: "Bispodeivisnan@gmail.com",  
-            curso: "Sistemas de Informação",  
-            diretorias: ["Direção Geral", "Direção Acadêmica"],  
-            propostaId: generatePropostaId("DEIVISNAN DA SILVA BISPO"),  
-            propostaTexto: ` 
-                <h4>📄 Carta de Intenção –  Deivisnan Da silva Bispo</h4> 
-                <p><strong>Nome:</strong> Deivisnan da silva Bispo</p> 
-                <p><strong>Curso/Período:</strong> Sistema de informação Quarto semestre</p> 
-                <p><strong>Cargo pleiteado:</strong> Direção geral ou Direção acadêmica</p> 
-                <p><strong>Liga acadêmica:</strong> LIAO</p> 
-                <p><strong>Ano de gestão:</strong> 2025</p> 
+        { 
+            nome: "DEIVISNAN DA SILVA BISPO", 
+            email: "Bispodeivisnan@gmail.com", 
+            curso: "Sistemas de Informação", 
+            diretorias: ["Direção Geral", "Direção Acadêmica"], 
+            propostaId: generatePropostaId("DEIVISNAN DA SILVA BISPO"), 
+            propostaTexto: `
+                <h4>📄 Carta de Intenção –  Deivisnan Da silva Bispo</h4>
+                <p><strong>Nome:</strong> Deivisnan da silva Bispo</p>
+                <p><strong>Curso/Período:</strong> Sistema de informação Quarto semestre</p>
+                <p><strong>Cargo pleiteado:</strong> Direção geral ou Direção acadêmica</p>
+                <p><strong>Liga acadêmica:</strong> LIAO</p>
+                <p><strong>Ano de gestão:</strong> 2025</p>
 
-                <p>Prezados membros da Liga Acadêmica,</p> 
-                <p>Venho, por meio desta, manifestar meu interesse em concorrer ao cargo de Diretor Geral ou possivelmente Direção Acadêmica, para a próxima gestão. Esta decisão parte do meu compromisso com o crescimento coletivo, da minha visão estratégica para o fortalecimento institucional da liga e da vontade de contribuir ativamente com a organização e o impacto das nossas ações.</p> 
+                <p>Prezados membros da Liga Acadêmica,</p>
+                <p>Venho, por meio desta, manifestar meu interesse em concorrer ao cargo de Diretor Geral ou possivelmente Direção Acadêmica, para a próxima gestão. Esta decisão parte do meu compromisso com o crescimento coletivo, da minha visão estratégica para o fortalecimento institucional da liga e da vontade de contribuir ativamente com a organização e o impacto das nossas ações.</p>
                 
-                <h4>Motivação para ocupar o cargo</h4> 
-                <p>Acredito que, ao longo do meu percurso no Bacharelado Interdisciplinar, desenvolvi algo valioso: a capacidade de me relacionar com pessoas de diferentes áreas e nichos, sabendo me comunicar de forma clara e eficaz com todos em prol de um objetivo comum. Além disso, venho me especializando cada vez mais na parte analítica, o que considero uma ferramenta essencial para a tomada de decisões estratégicas.</p> 
-                <p>Tenho uma motivação genuína de fazer acontecer — e da melhor forma possível. Estou disposto a me empenhar para que os resultados da gestão sejam notáveis. Mais do que apenas ocupar um cargo, meu desejo é desenvolver com responsabilidade tudo o que a Direção Geral exige, com comprometimento real e vontade de contribuir para o crescimento coletivo da liga.</p> 
-                <p>Já participei como voluntário em algumas redes de pesquisa, o que despertou ainda mais meu entusiasmo em me envolver ativamente com projetos realizados dentro da universidade. Essas experiências reforçaram meu interesse em desenvolver conhecimento prático e teórico, tanto dentro quanto fora da instituição.</p> 
-                <p>Acredito que qualquer colega que assumir essa responsabilidade terá um papel importante para tornar essa realidade possível — e coloco minha disposição justamente nesse sentido. Sempre tive afinidade com a área de administração e gestão, e acredito que essa inclinação, somada à minha vontade de ver a liga se consolidar, me motiva profundamente a ocupar o cargo de Direção Geral. Estou preparado para contribuir com empenho para o avanço e a estruturação inicial da nossa liga.</p> 
+                <h4>Motivação para ocupar o cargo</h4>
+                <p>Acredito que, ao longo do meu percurso no Bacharelado Interdisciplinar, desenvolvi algo valioso: a capacidade de me relacionar com pessoas de diferentes áreas e nichos, sabendo me comunicar de forma clara e eficaz com todos em prol de um objetivo comum. Além disso, venho me especializando cada vez mais na parte analítica, o que considero uma ferramenta essencial para a tomada de decisões estratégicas.</p>
+                <p>Tenho uma motivação genuína de fazer acontecer — e da melhor forma possível. Estou disposto a me empenhar para que os resultados da gestão sejam notáveis. Mais do que apenas ocupar um cargo, meu desejo é desenvolver com responsabilidade tudo o que a Direção Geral exige, com comprometimento real e vontade de contribuir para o crescimento coletivo da liga.</p>
+                <p>Já participei como voluntário em algumas redes de pesquisa, o que despertou ainda mais meu entusiasmo em me envolver ativamente com projetos realizados dentro da universidade. Essas experiências reforçaram meu interesse em desenvolver conhecimento prático e teórico, tanto dentro quanto fora da instituição.</p>
+                <p>Acredito que qualquer colega que assumir essa responsabilidade terá um papel importante para tornar essa realidade possível — e coloco minha disposição justamente nesse sentido. Sempre tive afinidade com a área de administração e gestão, e acredito que essa inclinação, somada à minha vontade de ver a liga se consolidar, me motiva profundamente a ocupar o cargo de Direção Geral. Estou preparado para contribuir com empenho para o avanço e a estruturação inicial da nossa liga.</p>
 
-                <h4>2. Propostas e planos de ação</h4> 
-                <p>Caso eleito para a Direção Geral, pretendo:</p> 
-                <ul> 
-                    <li>Fortalecer a comunicação interna, criando canais eficientes entre todas as coordenações para garantir alinhamento e clareza nos projetos.</li> 
-                    <li>Estabelecer um calendário de reuniões estratégicas com foco em metas mensais, acompanhamentos e resolução de pendências.</li> 
-                    <li>Apoiar cada coordenação em seus desafios específicos, promovendo um modelo de gestão participativa.</li> 
-                    <li>Buscar parcerias externas com instituições, professores e projetos que fortaleçam a atuação acadêmica e social da liga.</li> 
-                    <li>Promover treinamentos e momentos de integração, que favoreçam o aprendizado coletivo e o engajamento dos membros.</li> 
-                </ul> 
+                <h4>2. Propostas e planos de ação</h4>
+                <p>Caso eleito para a Direção Geral, pretendo:</p>
+                <ul>
+                    <li>Fortalecer a comunicação interna, criando canais eficientes entre todas as coordenações para garantir alinhamento e clareza nos projetos.</li>
+                    <li>Estabelecer um calendário de reuniões estratégicas com foco em metas mensais, acompanhamentos e resolução de pendências.</li>
+                    <li>Apoiar cada coordenação em seus desafios específicos, promovendo um modelo de gestão participativa.</li>
+                    <li>Buscar parcerias externas com instituições, professores e projetos que fortaleçam a atuação acadêmica e social da liga.</li>
+                    <li>Promover treinamentos e momentos de integração, que favoreçam o aprendizado coletivo e o engajamento dos membros.</li>
+                </ul>
 
-                <h4>3. Metas para a gestão</h4> 
-                <ul> 
-                    <li>Garantir a realização de pelo menos um projeto relevante por coordenação (científica, acadêmica e de extensão), com impacto mensurável.</li> 
-                    <li>Criar e manter um painel de acompanhamento de atividades e metas.</li> 
-                    <li>Pretendo estabelecer relatórios semestrais de avaliação da gestão da liga, nos quais cada diretoria apresentará suas ações, avanços e desafios. Esses relatórios serão consolidados pela Direção Geral e servirão tanto para acompanhamento interno quanto para orientar futuras gestões.</li> 
-                    <li>Melhorar a visibilidade da liga através de uma presença digital organizada e ativa (site, redes sociais, e-mail institucional).</li> 
-                    <li>Deixar como legado um manual de transição de gestão para facilitar a continuidade do trabalho nas próximas gestões.</li> 
-                </ul> 
-                <p>Acredito que a liderança deve ser exercida com empatia, foco e organização, e estou pronto para assumir esse compromisso com responsabilidade.</p> 
-                <p>Atenciosamente,<br>Deivisnan Bispo<br>Candidato à Direção Geral</p> 
-            `  
-        }, 
-        {  
-            nome: "Priscila Conceição Araújo",  
-            email: "priscila.araujossa@gmail.com",  
-            curso: "Ciência da Computação",  
-            diretorias: ["Coordenação Acadêmica", "Coordenação Científica"], 
-            propostaId: generatePropostaId("Priscila Conceição Araújo"),  
-            propostaTexto: ` 
-                <p><strong>Nome:</strong> Priscila Conceição Araújo</p> 
-                <p><strong>Curso/Período:</strong> Ciência da Computação - sétimo semestre</p> 
-                <p><strong>Cargo pleiteado:</strong> Coordenação Acadêmica/Coordenação Científica</p> 
-                <p><strong>Liga acadêmica:</strong> LIAO</p> 
-                <p><strong>Ano de gestão:</strong> 2025</p> 
-                
-                <h4>1. Motivação para ocupar o cargo</h4> 
-                <p>Programando na área de Inteligência artificial e visão computacional desde 2019, tanto no meio acadêmico, com projetos envolvendo Iniciação Científica, como também em conjunto com empresas de médio e grande porte, sempre se aprofundando em questões de IA (como na edtech, Letrus), em projetos no GSAM (IFBA), LIPI(IFBA) e Ivisionlab(Breve pesquisa em 2023, UFBA) envolvendo visão computacional e robótica (Opencv e TensorFlow) e Pytorch e Keras. Hoje com vários resumos e artigos publicados desde 2019 e um conhecimento interdisciplinar aprofundado em pesquisa e ensino, atuo como pesquisadora em IA e LLM na multinacional Ford.</p> 
-                <p>Além disso, tive experiência em 2018 na fundação e gestão de projetos com consultoria em uma startup que criei, a LAB TEKH, atuando como diretora de negócios, liderando equipes e, também, movendo-me para me tornar vice-presidente. Após sair da empresa e adentrar no mercado pude atestar que adquiri conhecimentos aprofundados em gestão de projetos, pessoas, prospecções e desenvolvimento pessoal como comunicação e resolução de conflitos internos e externos a empresa. Podendo também, adquirir minha formação como SCRUM Master em 2022, que me permite aprofundamento em gestão de projetos em grandes iniciativas, como faço na Ford.</p> 
-                <p>Acrescentarei, não apenas conhecimento aprofundado, como também experiência teórica e prática que, em comunhão com vasta experiência em liderança e apresentando avanços notáveis em todas as áreas que atuei, se refletirá na liga LIAO.</p> 
-
-                <h4>2. Propostas e planos de ação</h4> 
-                <ul> 
-                    <li>Criação de grupos de estudos regulares</li> 
-                    <li>Realização de cursos, workshops e oficinas</li> 
-                    <li>Acompanhamento de rendimento dos membros ativos</li> 
-                    <li>Parcerias com professores e outras ligas</li> 
-                </ul> 
-
-                <h4>3. Metas para a gestão</h4> 
-                <ul> 
-                    <li>Implementar ao menos 5 projetos acadêmicos durante a gestão</li> 
-                    <li>Publicar artigos nacionalmente e internacionalmente</li> 
-                    <li>Envolver 100% dos membros ativos nas atividades</li> 
-                    <li>Avaliar o impacto das atividades por meio de formulários de feedback</li> 
-                    <li>Conectar com grandes empresas</li> 
-                    <li>Iniciativas multidisciplinares que englobam soft skills</li> 
-                    <li>Oficina de artigos</li> 
-                    <li>Desenvolvimento de software monitorado pela metodologia SCRUM</li> 
-                </ul> 
+                <h4>3. Metas para a gestão</h4>
+                <ul>
+                    <li>Garantir a realização de pelo menos um projeto relevante por coordenação (científica, acadêmica e de extensão), com impacto mensurável.</li>
+                    <li>Criar e manter um painel de acompanhamento de atividades e metas.</li>
+                    <li>Pretendo estabelecer relatórios semestrais de avaliação da gestão da liga, nos quais cada diretoria apresentará suas ações, avanços e desafios. Esses relatórios serão consolidados pela Direção Geral e servirão tanto para acompanhamento interno quanto para orientar futuras gestões.</li>
+                    <li>Melhorar a visibilidade da liga através de uma presença digital organizada e ativa (site, redes sociais, e-mail institucional).</li>
+                    <li>Deixar como legado um manual de transição de gestão para facilitar a continuidade do trabalho nas próximas gestões.</li>
+                </ul>
+                <p>Acredito que a liderança deve ser exercida com empatia, foco e organização, e estou pronto para assumir esse compromisso com responsabilidade.</p>
+                <p>Atenciosamente,<br>Deivisnan Bispo<br>Candidato à Direção Geral</p>
             ` 
         }, 
-        {  
-            nome: "Davi Vaccarezza Guedes Pinheiro",  
-            email: "davivacareza@gmail.com",  
-            curso: "Sistemas de Informação",  
-            diretorias: ["Coordenação Científica", "Coordenação Acadêmica"],  
-            propostaId: generatePropostaId("Davi Vaccarezza Guedes Pinheiro"),  
-            propostaTexto: ` 
-                <p><strong>Nome:</strong> Davi Vaccarezza Guedes Pinheiro</p> 
-                <p><strong>Curso/Período:</strong> Sistemas de informação – primeiro semestre</p> 
-                <p><strong>Cargo pleiteado:</strong> Coordenação científica</p> 
-                <p><strong>Liga acadêmica:</strong> LIAO</p> 
-                <p><strong>Ano de gestão:</strong> 2025</p> 
-
-                <h4>1. Motivação para ocupar o cargo</h4> 
-                <p>Programador desde 2019, tenho amplo interesse, mas também desenvolvimento em quase todas as áreas de programação, já fui assistente de gerência na parte de programação da empresa Junior EJC&T além de ter feito diversos projetos sozinho enquanto aprimorava meus conhecimentos.</p> 
-                <p>Serei de grande ajuda não só em alguma área específica, mas em todas as áreas onde se precisar de alguma orientação.</p> 
-
-                <h4>2. Propostas e plano de ação</h4> 
-                <p>Caso seja eleito para a coordenação acadêmica pretendo: Organizar projetos dentro do escopo da liga, visando o aprendizado de todos os envolvidos e o desenvolvimento da liga, estabelecer datas e organizar grupos de pessoas que cuidarão de cada projeto, organizar cursos e processos de troca de conhecimento entre os participantes.</p> 
+        { 
+            nome: "Priscila Conceição Araújo", 
+            email: "priscila.araujossa@gmail.com", 
+            curso: "Ciência da Computação", 
+            diretorias: ["Coordenação Acadêmica", "Coordenação Científica"], 
+            propostaId: generatePropostaId("Priscila Conceição Araújo"), 
+            propostaTexto: `
+                <p><strong>Nome:</strong> Priscila Conceição Araújo</p>
+                <p><strong>Curso/Período:</strong> Ciência da Computação - sétimo semestre</p>
+                <p><strong>Cargo pleiteado:</strong> Coordenação Acadêmica/Coordenação Científica</p>
+                <p><strong>Liga acadêmica:</strong> LIAO</p>
+                <p><strong>Ano de gestão:</strong> 2025</p>
                 
-                <h4>Metas para gestão</h4> 
-                <ul> 
-                    <li>Organizar todos os projetos equipes e participantes de maneira simples e funcional.</li> 
-                    <li>Criar projetos úteis para a sociedade e que ajudem todos os membros a se aprimorarem, criar projetos não só úteis, mas também inovadores e interessantes.</li> 
-                </ul> 
-                <p>Atenciosamente,<br>Davi Vaccarezza Guedes Pinheiro<br>Candidato a coordenação acadêmica e científica</p> 
+                <h4>1. Motivação para ocupar o cargo</h4>
+                <p>Programando na área de Inteligência artificial e visão computacional desde 2019, tanto no meio acadêmico, com projetos envolvendo Iniciação Científica, como também em conjunto com empresas de médio e grande porte, sempre se aprofundando em questões de IA (como na edtech, Letrus), em projetos no GSAM (IFBA), LIPI(IFBA) e Ivisionlab(Breve pesquisa em 2023, UFBA) envolvendo visão computacional e robótica (Opencv e TensorFlow) e Pytorch e Keras. Hoje com vários resumos e artigos publicados desde 2019 e um conhecimento interdisciplinar aprofundado em pesquisa e ensino, atuo como pesquisadora em IA e LLM na multinacional Ford.</p>
+                <p>Além disso, tive experiência em 2018 na fundação e gestão de projetos com consultoria em uma startup que criei, a LAB TEKH, atuando como diretora de negócios, liderando equipes e, também, movendo-me para me tornar vice-presidente. Após sair da empresa e adentrar no mercado pude atestar que adquiri conhecimentos aprofundados em gestão de projetos, pessoas, prospecções e desenvolvimento pessoal como comunicação e resolução de conflitos internos e externos a empresa. Podendo também, adquirir minha formação como SCRUM Master em 2022, que me permite aprofundamento em gestão de projetos em grandes iniciativas, como faço na Ford.</p>
+                <p>Acrescentarei, não apenas conhecimento aprofundado, como também experiência teórica e prática que, em comunhão com vasta experiência em liderança e apresentando avanços notáveis em todas as áreas que atuei, se refletirá na liga LIAO.</p>
+
+                <h4>2. Propostas e planos de ação</h4>
+                <ul>
+                    <li>Criação de grupos de estudos regulares</li>
+                    <li>Realização de cursos, workshops e oficinas</li>
+                    <li>Acompanhamento de rendimento dos membros ativos</li>
+                    <li>Parcerias com professores e outras ligas</li>
+                </ul>
+
+                <h4>3. Metas para a gestão</h4>
+                <ul>
+                    <li>Implementar ao menos 5 projetos acadêmicos durante a gestão</li>
+                    <li>Publicar artigos nacionalmente e internacionalmente</li>
+                    <li>Envolver 100% dos membros ativos nas atividades</li>
+                    <li>Avaliar o impacto das atividades por meio de formulários de feedback</li>
+                    <li>Conectar com grandes empresas</li>
+                    <li>Iniciativas multidisciplinares que englobam soft skills</li>
+                    <li>Oficina de artigos</li>
+                    <li>Desenvolvimento de software monitorado pela metodologia SCRUM</li>
+                </ul>
+            ` 
+        }, 
+        { 
+            nome: "Davi Vaccarezza Guedes Pinheiro", 
+            email: "davivacareza@gmail.com", 
+            curso: "Sistemas de Informação", 
+            diretorias: ["Coordenação Científica", "Coordenação Acadêmica"], 
+            propostaId: generatePropostaId("Davi Vaccarezza Guedes Pinheiro"), 
+            propostaTexto: `
+                <p><strong>Nome:</strong> Davi Vaccarezza Guedes Pinheiro</p>
+                <p><strong>Curso/Período:</strong> Sistemas de informação – primeiro semestre</p>
+                <p><strong>Cargo pleiteado:</strong> Coordenação científica</p>
+                <p><strong>Liga acadêmica:</strong> LIAO</p>
+                <p><strong>Ano de gestão:</strong> 2025</p>
+
+                <h4>1. Motivação para ocupar o cargo</h4>
+                <p>Programador desde 2019, tenho amplo interesse, mas também desenvolvimento em quase todas as áreas de programação, já fui assistente de gerência na parte de programação da empresa Junior EJC&T além de ter feito diversos projetos sozinho enquanto aprimorava meus conhecimentos.</p>
+                <p>Serei de grande ajuda não só em alguma área específica, mas em todas as áreas onde se precisar de alguma orientação.</p>
+
+                <h4>2. Propostas e plano de ação</h4>
+                <p>Caso seja eleito para a coordenação acadêmica pretendo: Organizar projetos dentro do escopo da liga, visando o aprendizado de todos os envolvidos e o desenvolvimento da liga, estabelecer datas e organizar grupos de pessoas que cuidarão de cada projeto, organizar cursos e processos de troca de conhecimento entre os participantes.</p>
+                
+                <h4>Metas para gestão</h4>
+                <ul>
+                    <li>Organizar todos os projetos equipes e participantes de maneira simples e funcional.</li>
+                    <li>Criar projetos úteis para a sociedade e que ajudem todos os membros a se aprimorarem, criar projetos não só úteis, mas também inovadores e interessantes.</li>
+                </ul>
+                <p>Atenciosamente,<br>Davi Vaccarezza Guedes Pinheiro<br>Candidato a coordenação acadêmica e científica</p>
             ` 
         },  
-        {  
-            nome: "Paulo Ferreira de Castro Filho",  
-            email: "paulocastro@ufba.br",  
-            curso: "Ciência da Computação",  
-            diretorias: ["Secretaria Geral", "Coordenação Acadêmica", "Coordenação Científica"],  
-            propostaId: generatePropostaId("Paulo Ferreira de Castro Filho"),  
-            propostaTexto: ` 
-                <h4>Apresentação</h4> 
-                <p><strong>Nome:</strong> Paulo Ferreira de Castro Filho</p> 
-                <p><strong>Curso/Período:</strong> Ciência da Computação, 4° Semestre</p> 
-                <p><strong>Cargo pleiteado:</strong> Secretaria Geral, Coordenação Acadêmica e Coordenação Científica</p> 
-                <p><strong>Liga acadêmica:</strong> LIAO</p> 
-                <p><strong>Ano de gestão:</strong> 2025</p> 
+        { 
+            nome: "Paulo Ferreira de Castro Filho", 
+            email: "paulocastro@ufba.br", 
+            curso: "Ciência da Computação", 
+            diretorias: ["Secretaria Geral", "Coordenação Acadêmica", "Coordenação Científica"], 
+            propostaId: generatePropostaId("Paulo Ferreira de Castro Filho"), 
+            propostaTexto: `
+                <h4>Apresentação</h4>
+                <p><strong>Nome:</strong> Paulo Ferreira de Castro Filho</p>
+                <p><strong>Curso/Período:</strong> Ciência da Computação, 4° Semestre</p>
+                <p><strong>Cargo pleiteado:</strong> Secretaria Geral, Coordenação Acadêmica e Coordenação Científica</p>
+                <p><strong>Liga acadêmica:</strong> LIAO</p>
+                <p><strong>Ano de gestão:</strong> 2025</p>
 
-                <h4>Motivação para ocupar o cargo</h4> 
-                <p>Prezados membros,</p> 
-                <p>Atuo como presidente do Centro Acadêmico de Ciência da Computação, onde sou responsável pela organização de processos internos, elaboração e arquivamento de documentos, além do gerenciamento de dados essenciais ao funcionamento da entidade. Paralelamente, exerço atividades de gestão de pessoas (RH) na TITAN-UFBA com foco em processos internos, experiência na qual tenho refinado habilidades em mapeamento e otimização de fluxos administrativos em tempo real.</p> 
-                <p>Sou proficiente em metodologias ágeis, como Scrum e Kanban, adquiridas tanto em projetos acadêmicos quanto em iniciativas práticas. O que me torna preparado para trabalhar em equipe.</p> 
-                <p>Além disso, atualmente realizo Iniciação Científica na Inpatics em uma pesquisa com foco em segmentação semântica na área de Visão Computacional, sob orientação do professor Rubisley, o que me proporciona sólido embasamento teórico e prático em pesquisa, análise de dados e elaboração de relatórios.</p> 
-                <p>Acredito que posso contribuir na LIAO com minha visão de mundo e dedicação.</p> 
+                <h4>Motivação para ocupar o cargo</h4>
+                <p>Prezados membros,</p>
+                <p>Atuo como presidente do Centro Acadêmico de Ciência da Computação, onde sou responsável pela organização de processos internos, elaboração e arquivamento de documentos, além do gerenciamento de dados essenciais ao funcionamento da entidade. Paralelamente, exerço atividades de gestão de pessoas (RH) na TITAN-UFBA com foco em processos internos, experiência na qual tenho refinado habilidades em mapeamento e otimização de fluxos administrativos em tempo real.</p>
+                <p>Sou proficiente em metodologias ágeis, como Scrum e Kanban, adquiridas tanto em projetos acadêmicos quanto em iniciativas práticas. O que me torna preparado para trabalhar em equipe.</p>
+                <p>Além disso, atualmente realizo Iniciação Científica na Inpatics em uma pesquisa com foco em segmentação semântica na área de Visão Computacional, sob orientação do professor Rubisley, o que me proporciona sólido embasamento teórico e prático em pesquisa, análise de dados e elaboração de relatórios.</p>
+                <p>Acredito que posso contribuir na LIAO com minha visão de mundo e dedicação.</p>
 
-                <h4>Propostas e planos de ação</h4> 
-                <p><strong>Secretaria Geral</strong></p> 
-                <ul> 
-                    <li>Implantar sistemas digitais (como Google Drive ou Notion) para arquivamento e distribuição eficiente de documentos, facilitando o acesso e reduzindo burocracias.</li> 
-                    <li>Manter o acervo de atas, regulamentos e registros sempre atualizado, com revisões periódicas e controle de versões.</li> 
-                    <li>Estabelecer canais de comunicação centralizados (ex: grupo oficial, e-mail institucional) para facilitar o fluxo de informações entre coordenações, membros e parceiros externos.</li> 
-                </ul> 
+                <h4>Propostas e planos de ação</h4>
+                <p><strong>Secretaria Geral</strong></p>
+                <ul>
+                    <li>Implantar sistemas digitais (como Google Drive ou Notion) para arquivamento e distribuição eficiente de documentos, facilitando o acesso e reduzindo burocracias.</li>
+                    <li>Manter o acervo de atas, regulamentos e registros sempre atualizado, com revisões periódicas e controle de versões.</li>
+                    <li>Estabelecer canais de comunicação centralizados (ex: grupo oficial, e-mail institucional) para facilitar o fluxo de informações entre coordenações, membros e parceiros externos.</li>
+                </ul>
 
-                <p><strong>Coordenação Acadêmica</strong></p> 
-                <ul> 
-                    <li>Desenvolver um calendário acadêmico digital com prazos de inscrições, eventos e oportunidades, atualizado regularmente e de fácil acesso aos membros.</li> 
-                    <li>Estruturar um processo de onboarding com orientações claras, materiais de apoio e tutoria inicial para novos integrantes da Liga.</li> 
-                    <li>Promover grupos de estudo e incentivar a participação em competições acadêmicas, como hackathons de IA.</li> 
-                </ul> 
+                <p><strong>Coordenação Acadêmica</strong></p>
+                <ul>
+                    <li>Desenvolver um calendário acadêmico digital com prazos de inscrições, eventos e oportunidades, atualizado regularmente e de fácil acesso aos membros.</li>
+                    <li>Estruturar um processo de onboarding com orientações claras, materiais de apoio e tutoria inicial para novos integrantes da Liga.</li>
+                    <li>Promover grupos de estudo e incentivar a participação em competições acadêmicas, como hackathons de IA.</li>
+                </ul>
 
-                <p><strong>Coordenação Científica</strong></p> 
-                <ul> 
-                    <li>Incentivar a participação dos membros em projetos de iniciação científica e apoiar a divulgação de editais e oportunidades de pesquisa.</li> 
-                    <li>Fomentar a troca de conhecimento entre os membros, incentivando a apresentação voluntária de pesquisas e discussões técnicas durante reuniões já previstas no calendário da Liga ou em encontros pontuais, conforme a disponibilidade do grupo.</li> 
-                    <li>Buscar parcerias para viabilizar capacitações e palestras esporádicas sobre temas atuais em ciência e tecnologia.</li> 
-                    <li>Padronizar a elaboração de relatórios de atividades científicas, facilitando a análise e arquivamento dos resultados obtidos pelos grupos de pesquisa.</li> 
-                </ul> 
+                <p><strong>Coordenação Científica</strong></p>
+                <ul>
+                    <li>Incentivar a participação dos membros em projetos de iniciação científica e apoiar a divulgação de editais e oportunidades de pesquisa.</li>
+                    <li>Fomentar a troca de conhecimento entre os membros, incentivando a apresentação voluntária de pesquisas e discussões técnicas durante reuniões já previstas no calendário da Liga ou em encontros pontuais, conforme a disponibilidade do grupo.</li>
+                    <li>Buscar parcerias para viabilizar capacitações e palestras esporádicas sobre temas atuais em ciência e tecnologia.</li>
+                    <li>Padronizar a elaboração de relatórios de atividades científicas, facilitando a análise e arquivamento dos resultados obtidos pelos grupos de pesquisa.</li>
+                </ul>
             ` 
         }, 
         { nome: "Danilo Santiago Fonseca", email: "danilofonseca@ufba.br", curso: "Ciência da Computação", diretorias: ["Coordenação Acadêmica", "Coordenação Científico"], propostaId: generatePropostaId("Danilo Santiago Fonseca"), propostaTexto: null }, 
-        {  
-            nome: "Danielle Santos de Souza",  
-            email: "souza.danielle@ufba.br",  
-            curso: "Ciência da Computação",  
-            diretorias: ["Direção Geral", "Relações Públicas", "Secretaria Geral"],  
-            propostaId: generatePropostaId("Danielle Santos de Souza"),  
-            propostaTexto: ` 
-                <p><strong>Nome:</strong> Danielle Souza</p> 
-                <p><strong>Curso/Período:</strong> Ciência da Computação 1/2 semestre</p> 
-                <p><strong>Cargo(s) pleiteado(s):</strong> Direção Geral, Relações Públicas ou Secretaria Geral</p> 
-                <p><strong>Liga acadêmica:</strong> LIAO</p> 
-                <p><strong>Ano de gestão:</strong> 2025</p> 
+        { 
+            nome: "Danielle Santos de Souza", 
+            email: "souza.danielle@ufba.br", 
+            curso: "Ciência da Computação", 
+            diretorias: ["Direção Geral", "Relações Públicas", "Secretaria Geral"], 
+            propostaId: generatePropostaId("Danielle Santos de Souza"), 
+            propostaTexto: `
+                <p><strong>Nome:</strong> Danielle Souza</p>
+                <p><strong>Curso/Período:</strong> Ciência da Computação 1/2 semestre</p>
+                <p><strong>Cargo(s) pleiteado(s):</strong> Direção Geral, Relações Públicas ou Secretaria Geral</p>
+                <p><strong>Liga acadêmica:</strong> LIAO</p>
+                <p><strong>Ano de gestão:</strong> 2025</p>
 
-                <h4>Motivação para ocupar o cargo</h4> 
-                <p>Sou bacharel em Ciência e Tecnologia pela UFBA e atualmente curso Ciência da Computação na mesma instituição. Programo desde 2020 e, ao longo da minha trajetória, sempre busquei unir o desenvolvimento técnico com a participação ativa em ambientes colaborativos e acadêmicos.</p> 
-                <p>Fui membro da diretoria de desenvolvimento da antiga empresa júnior EJCET, onde participei da estruturação de projetos reais. Desde então, tenho me aprofundado nas áreas de análise e engenharia de dados, buscando compreender melhor como a informação pode gerar valor e soluções inteligentes. Atualmente, faço parte da InfoJr como trainee da trilha empreendedora, onde tenho focado no aprimoramento da minha comunicação, liderança e outras soft skills.</p> 
-                <p>Estou muito empenhada em fazer a LIAO funcionar com excelência e crescer como referência em Inteligência Artificial dentro e fora da UFBA. Quero contribuir ativamente para que a Liga seja um espaço de desenvolvimento técnico, humano e social.</p> 
-                <p>Vejo nesta oportunidade uma forma de aplicar os novos conhecimentos que venho adquirindo em Ciência da Computação, especialmente nas áreas de dados e IA e ao mesmo tempo em que desenvolvo minhas habilidades interpessoais e de liderança. Buscando unir técnica e sensibilidade para gerar impacto real e duradouro na universidade.</p> 
-                <p>Tenho profundo interesse em Inteligência Artificial e vejo na LIAO um espaço onde posso somar, aprender e impulsionar iniciativas que aproximem a tecnologia das pessoas. Ao me candidatar à Direção Geral, Relações Públicas ou Secretaria Geral, me coloco a disposição para atuar onde for mais útil a gestão e a missão da Liga.</p> 
+                <h4>Motivação para ocupar o cargo</h4>
+                <p>Sou bacharel em Ciência e Tecnologia pela UFBA e atualmente curso Ciência da Computação na mesma instituição. Programo desde 2020 e, ao longo da minha trajetória, sempre busquei unir o desenvolvimento técnico com a participação ativa em ambientes colaborativos e acadêmicos.</p>
+                <p>Fui membro da diretoria de desenvolvimento da antiga empresa júnior EJCET, onde participei da estruturação de projetos reais. Desde então, tenho me aprofundado nas áreas de análise e engenharia de dados, buscando compreender melhor como a informação pode gerar valor e soluções inteligentes. Atualmente, faço parte da InfoJr como trainee da trilha empreendedora, onde tenho focado no aprimoramento da minha comunicação, liderança e outras soft skills.</p>
+                <p>Estou muito empenhada em fazer a LIAO funcionar com excelência e crescer como referência em Inteligência Artificial dentro e fora da UFBA. Quero contribuir ativamente para que a Liga seja um espaço de desenvolvimento técnico, humano e social.</p>
+                <p>Vejo nesta oportunidade uma forma de aplicar os novos conhecimentos que venho adquirindo em Ciência da Computação, especialmente nas áreas de dados e IA e ao mesmo tempo em que desenvolvo minhas habilidades interpessoais e de liderança. Buscando unir técnica e sensibilidade para gerar impacto real e duradouro na universidade.</p>
+                <p>Tenho profundo interesse em Inteligência Artificial e vejo na LIAO um espaço onde posso somar, aprender e impulsionar iniciativas que aproximem a tecnologia das pessoas. Ao me candidatar à Direção Geral, Relações Públicas ou Secretaria Geral, me coloco a disposição para atuar onde for mais útil a gestão e a missão da Liga.</p>
 
-                <h4>Planos de Ação por Cargo</h4> 
-                <h5>Direção Geral</h5> 
-                <p><strong>Objetivo:</strong> Garantir o bom funcionamento das diretorias e a coerência estratégica das ações da LIAO, promovendo liderança colaborativa e impacto institucional.</p> 
-                <ul> 
-                    <li>Realizar reuniões mensais com todas as diretorias para alinhamento e acompanhamento de metas.</li> 
-                    <li>Elaborar um plano de metas semestral com indicadores simples e check-ins quinzenais.</li> 
-                    <li>Promover mentoria cruzada entre diretorias para troca de experiências.</li> 
-                    <li>Estimular uma cultura de feedback e reconhecimento.</li> 
-                    <li>Documentar aprendizados da gestão para transições futuras.</li> 
-                </ul> 
+                <h4>Planos de Ação por Cargo</h4>
+                <h5>Direção Geral</h5>
+                <p><strong>Objetivo:</strong> Garantir o bom funcionamento das diretorias e a coerência estratégica das ações da LIAO, promovendo liderança colaborativa e impacto institucional.</p>
+                <ul>
+                    <li>Realizar reuniões mensais com todas as diretorias para alinhamento e acompanhamento de metas.</li>
+                    <li>Elaborar um plano de metas semestral com indicadores simples e check-ins quinzenais.</li>
+                    <li>Promover mentoria cruzada entre diretorias para troca de experiências.</li>
+                    <li>Estimular uma cultura de feedback e reconhecimento.</li>
+                    <li>Documentar aprendizados da gestão para transições futuras.</li>
+                </ul>
 
-                <h5>Relações Públicas</h5> 
-                <p><strong>Objetivo:</strong> Fortalecer a imagem da LIAO e suas ações, promovendo conexões estratégicas e conteúdo acessível ao público.</p> 
-                <ul> 
-                    <li>Criar um calendário de publicações para redes sociais com conteúdo técnico, humano e institucional.</li> 
-                    <li>Produzir séries de vídeos curtos com especialistas, membros e colaboradores.</li> 
-                    <li>Estabelecer parcerias com outras ligas, grupos de pesquisa e empresas para eventos e conteúdo colaborativo, afim de contribuir com futuros eventos.</li> 
-                    <li>Desenvolver campanhas temáticas como "IA para Todos", com foco social e educativo.</li> 
-                    <li>Fazer com que a LIAO seja cada vez mais bem representada.</li> 
-                </ul> 
+                <h5>Relações Públicas</h5>
+                <p><strong>Objetivo:</strong> Fortalecer a imagem da LIAO e suas ações, promovendo conexões estratégicas e conteúdo acessível ao público.</p>
+                <ul>
+                    <li>Criar um calendário de publicações para redes sociais com conteúdo técnico, humano e institucional.</li>
+                    <li>Produzir séries de vídeos curtos com especialistas, membros e colaboradores.</li>
+                    <li>Estabelecer parcerias com outras ligas, grupos de pesquisa e empresas para eventos e conteúdo colaborativo, afim de contribuir com futuros eventos.</li>
+                    <li>Desenvolver campanhas temáticas como "IA para Todos", com foco social e educativo.</li>
+                    <li>Fazer com que a LIAO seja cada vez mais bem representada.</li>
+                </ul>
 
-                <h5>Secretaria Geral</h5> 
-                <p><strong>Objetivo:</strong> Organizar os fluxos internos da Liga, garantindo comunicação clara, documentação eficiente e apoio logístico à gestão.</p> 
-                <ul> 
-                    <li>Padronizar e armazenar atas de reuniões no Drive com acesso fácil.</li> 
-                    <li>Manter um calendário geral da Liga integrado ao Google Agenda, com notificações.</li> 
-                    <li>Criar um manual de boas práticas da Secretaria para continuidade entre gestões.</li> 
-                    <li>Aplicar formulários periódicos de escuta interna para mapear sugestões e satisfação dos membros.</li> 
-                    <li>Apoiar a elaboração de relatórios e documentos para editais e prestação de contas.</li> 
-                </ul> 
-            `  
+                <h5>Secretaria Geral</h5>
+                <p><strong>Objetivo:</strong> Organizar os fluxos internos da Liga, garantindo comunicação clara, documentação eficiente e apoio logístico à gestão.</p>
+                <ul>
+                    <li>Padronizar e armazenar atas de reuniões no Drive com acesso fácil.</li>
+                    <li>Manter um calendário geral da Liga integrado ao Google Agenda, com notificações.</li>
+                    <li>Criar um manual de boas práticas da Secretaria para continuidade entre gestões.</li>
+                    <li>Aplicar formulários periódicos de escuta interna para mapear sugestões e satisfação dos membros.</li>
+                    <li>Apoiar a elaboração de relatórios e documentos para editais e prestação de contas.</li>
+                </ul>
+            ` 
         }, 
-        {  
-            nome: "Yuri Freitas Hughes",  
-            email: "yuri.hughes@ufba.br",  
-            curso: "Ciência da Computação",  
-            diretorias: ["Direção Geral"],  
-            propostaId: generatePropostaId("Yuri Freitas Hughes"),  
-            propostaTexto: ` 
-                <h4>Motivação para ocupar o cargo</h4> 
-                <p>Colegas,</p> 
-                <p>Venho me candidatar ao cargo de Diretor da Liga porque, além da minha trajetória nessa área como pesquisador, engenheiro, eterno estudante e entusiasta, carrego também a motivação original que me levou a idealizar as ligas acadêmicas em computação. Essa motivação é trazer a ciência e a pesquisa em computação para mais perto dos estudantes.</p> 
-                <p>Em um momento em que não tive esse apoio, precisei buscar por conta própria orientadores e projetos. A liga acadêmica é justamente aquilo que eu não tive, mas que desejo construir para os que virão. Quero plantar essa árvore para que, no futuro, a computação na UFBA possa repousar à sua sombra, reforçando meu compromisso de longo prazo com meus colegas e com a instituição.</p> 
+        { 
+            nome: "Yuri Freitas Hughes", 
+            email: "yuri.hughes@ufba.br", 
+            curso: "Ciência da Computação", 
+            diretorias: ["Direção Geral"], 
+            propostaId: generatePropostaId("Yuri Freitas Hughes"), 
+            propostaTexto: `
+                <h4>Motivação para ocupar o cargo</h4>
+                <p>Colegas,</p>
+                <p>Venho me candidatar ao cargo de Diretor da Liga porque, além da minha trajetória nessa área como pesquisador, engenheiro, eterno estudante e entusiasta, carrego também a motivação original que me levou a idealizar as ligas acadêmicas em computação. Essa motivação é trazer a ciência e a pesquisa em computação para mais perto dos estudantes.</p>
+                <p>Em um momento em que não tive esse apoio, precisei buscar por conta própria orientadores e projetos. A liga acadêmica é justamente aquilo que eu não tive, mas que desejo construir para os que virão. Quero plantar essa árvore para que, no futuro, a computação na UFBA possa repousar à sua sombra, reforçando meu compromisso de longo prazo com meus colegas e com a instituição.</p>
                 
-                <h4>Alinhamento com o domínio</h4> 
-                <ul> 
-                    <li>2 iniciações científicas concluídas na área de NLP pelo Formas Research Group; atualmente, estou na 3ª, com foco em LLMs.</li> 
-                    <li>Voluntário em uma pesquisa recente na área de otimização multiobjetivo aplicada.</li> 
-                    <li>2 disciplinas cursadas no PGCOMP na área de aprendizado de máquina.</li> 
-                    <li>Intern de P&D na Ford Motors, atuando como AI Engineer em um projeto que aplica LLMs à engenharia automotiva, desde a pesquisa e validação de POCs até o desenvolvimento completo da solução, integrando IA e engenharia de software.</li> 
-                    <li>Cofundador de uma startup de outsource, onde sou founding engineer de um SaaS baseado em LLMs para agendamento inteligente, business intelligence e gestão.</li> 
-                </ul> 
+                <h4>Alinhamento com o domínio</h4>
+                <ul>
+                    <li>2 iniciações científicas concluídas na área de NLP pelo Formas Research Group; atualmente, estou na 3ª, com foco em LLMs.</li>
+                    <li>Voluntário em uma pesquisa recente na área de otimização multiobjetivo aplicada.</li>
+                    <li>2 disciplinas cursadas no PGCOMP na área de aprendizado de máquina.</li>
+                    <li>Intern de P&D na Ford Motors, atuando como AI Engineer em um projeto que aplica LLMs à engenharia automotiva, desde a pesquisa e validação de POCs até o desenvolvimento completo da solução, integrando IA e engenharia de software.</li>
+                    <li>Cofundador de uma startup de outsource, onde sou founding engineer de um SaaS baseado em LLMs para agendamento inteligente, business intelligence e gestão.</li>
+                </ul>
 
-                <h4>Propostas, visões e metas</h4> 
-                <ul> 
-                    <li>Trazer aos diretores e membros ideias novas e atemporais que estão em curso nas áreas de atuação da Liga. Estar “antenado” com o campo, não só em IA, mas também em engenharia, organização, gestão e ensino.</li> 
-                    <li>Fortalecer a mentalidade e o trabalho colaborativo, estabelecendo rituais entre os membros que incentivem a cooperação e a força de vontade.</li> 
-                    <li>Desenvolver uma cultura de autodesenvolvimento constante, aplicando o conhecimento técnico adquirido em estudos e pesquisas para aprimorar os próprios processos internos da Liga.</li> 
-                    <li>Estimular a interdisciplinaridade, tanto entre as áreas de atuação da Liga quanto entre diferentes domínios do conhecimento, conectando a computação a questões e problemas do mundo real.</li> 
-                    <li>Fortalecer e cultivar, como cultura da Liga, o desenvolvimento dos membros em tópicos fundamentais da computação: matemática, lógica, linguagem, entre outros.</li> 
-                    <li>Além disso, consolidar o domínio em programação, raciocínio algorítmico e engenharia de software para o desenvolvimento de projetos.</li> 
-                </ul> 
-            `  
+                <h4>Propostas, visões e metas</h4>
+                <ul>
+                    <li>Trazer aos diretores e membros ideias novas e atemporais que estão em curso nas áreas de atuação da Liga. Estar “antenado” com o campo, não só em IA, mas também em engenharia, organização, gestão e ensino.</li>
+                    <li>Fortalecer a mentalidade e o trabalho colaborativo, estabelecendo rituais entre os membros que incentivem a cooperação e a força de vontade.</li>
+                    <li>Desenvolver uma cultura de autodesenvolvimento constante, aplicando o conhecimento técnico adquirido em estudos e pesquisas para aprimorar os próprios processos internos da Liga.</li>
+                    <li>Estimular a interdisciplinaridade, tanto entre as áreas de atuação da Liga quanto entre diferentes domínios do conhecimento, conectando a computação a questões e problemas do mundo real.</li>
+                    <li>Fortalecer e cultivar, como cultura da Liga, o desenvolvimento dos membros em tópicos fundamentais da computação: matemática, lógica, linguagem, entre outros.</li>
+                    <li>Além disso, consolidar o domínio em programação, raciocínio algorítmico e engenharia de software para o desenvolvimento de projetos.</li>
+                </ul>
+            ` 
         }, 
-        {  
-            nome: "Beatriz Pereira Espinheira",  
-            email: "espinheira.beatriz@ufba.br",  
-            curso: "Ciência da Computação",  
-            diretorias: ["Direção de Extensão"],  
-            propostaId: generatePropostaId("Beatriz Pereira Espinheira"),  
-            propostaTexto: ` 
-                <p><strong>Nome:</strong> Beatriz Pereira Espinheira</p> 
-                <p><strong>Curso/Período:</strong> Ciência da Computação 4° semestre</p> 
-                <p><strong>Cargo pleiteado:</strong> Direção de Extensão</p> 
-                <p><strong>Liga acadêmica:</strong> LIAO</p> 
-                <p><strong>Ano de gestão:</strong> 2025</p> 
+        { 
+            nome: "Beatriz Pereira Espinheira", 
+            email: "espinheira.beatriz@ufba.br", 
+            curso: "Ciência da Computação", 
+            diretorias: ["Direção de Extensão"], 
+            propostaId: generatePropostaId("Beatriz Pereira Espinheira"), 
+            propostaTexto: `
+                <p><strong>Nome:</strong> Beatriz Pereira Espinheira</p>
+                <p><strong>Curso/Período:</strong> Ciência da Computação 4° semestre</p>
+                <p><strong>Cargo pleiteado:</strong> Direção de Extensão</p>
+                <p><strong>Liga acadêmica:</strong> LIAO</p>
+                <p><strong>Ano de gestão:</strong> 2025</p>
 
-                <h4>Motivação para ocupar o cargo</h4> 
-                <p>Sou bacharel em Ciência e Tecnologia pela UFBA e atualmente curso Ciência da Computação na mesma instituição. Desde o início da graduação, participei de diversas disciplinas de ACCS, que me mostraram a importância da extensão universitária e o potencial do conhecimento acadêmico como ferramenta de transformação social.</p> 
-                <p>Em Ciência da Computação, tive a oportunidade de integrar um projeto de iniciação científica na área de CG, onde desenvolvi habilidades em pesquisa, experimentação técnica e resolução de problemas. Paralelamente, atuei na InfoJr em cargos de gerência, exercitando competências como liderança, comunicação e trabalho em equipe, além de fortalecer meu senso de responsabilidade e proatividade.</p> 
-                <p>Tenho experiência com negociação e organização de eventos, já atuei na organização de feiras e atualmente integro a equipe da Semcomp, onde sou responsável pela prospecção de patrocínios e parcerias com empresas do setor de tecnologia. Essas experiências me permitiram desenvolver habilidades que considero essenciais para a diretoria de extensão de uma liga acadêmica.</p> 
-                <p>Por fim, acredito que a diretoria de extensão deve ser capaz de promover o desenvolvimento dos membros da Liga e, ao mesmo tempo, gerar impacto real na sociedade. Caso tenha a oportunidade de assumir o cargo, comprometo-me a contribuir para uma atuação prática, que prepare nossos membros para o mercado de trabalho e para serem agentes ativos de transformação social.</p> 
+                <h4>Motivação para ocupar o cargo</h4>
+                <p>Sou bacharel em Ciência e Tecnologia pela UFBA e atualmente curso Ciência da Computação na mesma instituição. Desde o início da graduação, participei de diversas disciplinas de ACCS, que me mostraram a importância da extensão universitária e o potencial do conhecimento acadêmico como ferramenta de transformação social.</p>
+                <p>Em Ciência da Computação, tive a oportunidade de integrar um projeto de iniciação científica na área de CG, onde desenvolvi habilidades em pesquisa, experimentação técnica e resolução de problemas. Paralelamente, atuei na InfoJr em cargos de gerência, exercitando competências como liderança, comunicação e trabalho em equipe, além de fortalecer meu senso de responsabilidade e proatividade.</p>
+                <p>Tenho experiência com negociação e organização de eventos, já atuei na organização de feiras e atualmente integro a equipe da Semcomp, onde sou responsável pela prospecção de patrocínios e parcerias com empresas do setor de tecnologia. Essas experiências me permitiram desenvolver habilidades que considero essenciais para a diretoria de extensão de uma liga acadêmica.</p>
+                <p>Por fim, acredito que a diretoria de extensão deve ser capaz de promover o desenvolvimento dos membros da Liga e, ao mesmo tempo, gerar impacto real na sociedade. Caso tenha a oportunidade de assumir o cargo, comprometo-me a contribuir para uma atuação prática, que prepare nossos membros para o mercado de trabalho e para serem agentes ativos de transformação social.</p>
 
-                <h4>Propostas e planos de ação</h4> 
-                <ul> 
-                    <li>Estabelecimento de parcerias com órgãos governamentais (Saúde, Segurança, Infraestrutura, Transporte, Meio Ambiente) para o desenvolvimento de soluções baseadas em IA.</li> 
-                    <li>Parcerias com ONGs para aplicação de IA e algoritmos de otimização em problemas como logística de recursos.</li> 
-                    <li>Realização de workshops/capacitações de alfabetização digital em IA para professores de escolas públicas, jovens ou comunidades periféricas.</li> 
-                    <li>Hackathons, com temáticas sociais, integrando palestras e exposição de projetos.</li> 
-                    <li>Colaboração com ligas acadêmicas da área da saúde da UFBA para desenvolvimento de projetos conjuntos aplicados à saúde pública (ex: triagem com IA).</li> 
-                    <li>Produção de conteúdo em formato de vídeos ou podcasts, em parceria com a diretoria de RP, com especialistas e temas sociais em IA.</li> 
-                    <li>Participação ativa da liga em eventos e editais de extensão, buscando reconhecimento institucional.</li> 
-                </ul> 
+                <h4>Propostas e planos de ação</h4>
+                <ul>
+                    <li>Estabelecimento de parcerias com órgãos governamentais (Saúde, Segurança, Infraestrutura, Transporte, Meio Ambiente) para o desenvolvimento de soluções baseadas em IA.</li>
+                    <li>Parcerias com ONGs para aplicação de IA e algoritmos de otimização em problemas como logística de recursos.</li>
+                    <li>Realização de workshops/capacitações de alfabetização digital em IA para professores de escolas públicas, jovens ou comunidades periféricas.</li>
+                    <li>Hackathons, com temáticas sociais, integrando palestras e exposição de projetos.</li>
+                    <li>Colaboração com ligas acadêmicas da área da saúde da UFBA para desenvolvimento de projetos conjuntos aplicados à saúde pública (ex: triagem com IA).</li>
+                    <li>Produção de conteúdo em formato de vídeos ou podcasts, em parceria com a diretoria de RP, com especialistas e temas sociais em IA.</li>
+                    <li>Participação ativa da liga em eventos e editais de extensão, buscando reconhecimento institucional.</li>
+                </ul>
 
-                <h4>Metas para a gestão</h4> 
-                <ul> 
-                    <li>Realizar 2 capacitações abertas ao público (workshops/cursos) até o fim do mandato.</li> 
-                    <li>Organizar 1 hackathon/evento social anual, contando com parcerias estratégicas com empresas e presença de público externo.</li> 
-                    <li>Estabelecer pelo menos 1 parceria de impacto com ONG ou órgão governamental até o fim da gestão.</li> 
-                    <li>Participar de pelo menos 1 edital ou evento institucional de extensão para consolidar a presença da liga na UFBA.</li> 
-                    <li>Junto com a diretoria de RP, publicar continuamente conteúdos de divulgação científica sobre IA e otimização com foco social.</li> 
-                </ul> 
-            `  
+                <h4>Metas para a gestão</h4>
+                <ul>
+                    <li>Realizar 2 capacitações abertas ao público (workshops/cursos) até o fim do mandato.</li>
+                    <li>Organizar 1 hackathon/evento social anual, contando com parcerias estratégicas com empresas e presença de público externo.</li>
+                    <li>Estabelecer pelo menos 1 parceria de impacto com ONG ou órgão governamental até o fim da gestão.</li>
+                    <li>Participar de pelo menos 1 edital ou evento institucional de extensão para consolidar a presença da liga na UFBA.</li>
+                    <li>Junto com a diretoria de RP, publicar continuamente conteúdos de divulgação científica sobre IA e otimização com foco social.</li>
+                </ul>
+            ` 
         }, 
-        { nome: "Djair Maykon de Novaes Miranda", email: "djair.maykon@ufba.br", curso: "Ciência da Computação", diretorias: ["Coordenação Acadêmica", "Coordenação Científico", "Coordenação de Extensão"], propostaId: generatePropostaId("Djair Maykon de Novaes Miranda"), propostaTexto: null }, 
-        {  
-            nome: "Thales Brito Rodrigues",  
-            email: "thalesbr@ufba.br",  
-            curso: "Ciência da Computação",  
-            diretorias: ["Secretaria Geral"],  
-            propostaId: generatePropostaId("Thales Brito Rodrigues"),  
-            propostaTexto: ` 
-                <p><strong>Nome:</strong> Thales Brito Rodrigues</p> 
-                <p><strong>Curso/Período:</strong> Ciência da Computação - 6º semestre</p> 
-                <p><strong>Cargo pleiteado:</strong> Secretaria Geral</p> 
-                <p><strong>Liga acadêmica:</strong> LIAO</p> 
-                <p><strong>Ano de gestão:</strong> 2025</p> 
+        { nome: "Djair Maykon de Novaes Miranda", email: "djair.maykon@ufba.br", curso: "Ciência da Computação", diretorias: ["Coordenação Acadêmica", "Coordenação Científico"], propostaId: generatePropostaId("Djair Maykon de Novaes Miranda"), propostaTexto: null }, 
+        { 
+            nome: "Thales Brito Rodrigues", 
+            email: "thalesbr@ufba.br", 
+            curso: "Ciência da Computação", 
+            diretorias: ["Secretaria Geral"], 
+            propostaId: generatePropostaId("Thales Brito Rodrigues"), 
+            propostaTexto: `
+                <p><strong>Nome:</strong> Thales Brito Rodrigues</p>
+                <p><strong>Curso/Período:</strong> Ciência da Computação - 6º semestre</p>
+                <p><strong>Cargo pleiteado:</strong> Secretaria Geral</p>
+                <p><strong>Liga acadêmica:</strong> LIAO</p>
+                <p><strong>Ano de gestão:</strong> 2025</p>
 
-                <h4>Motivação para ocupar o cargo</h4> 
-                <p>Prezados colegas da LIAO,</p> 
-                <p>Gostaria de manifestar meu interesse em ocupar o cargo de Secretário Geral da Liga, pois acredito que minha trajetória prévia e minha visão institucional podem contribuir de forma significativa para promover o crescimento sólido e estruturado da LIAO.</p> 
-                <p>Já atuei em cargos de gestão durante minha participação na InfoJr UFBA, onde fui Diretor de Projetos. Nesta função, fui responsável por definir e aprimorar diversos processos de gerência e documentação de projetos, além de ter fundado os núcleos de estudos, que desde 2021 são a principal metodologia de capacitação e disseminação de conhecimento técnico na empresa. Posteriormente, como Conselheiro Administrativo, colaborei com a Diretoria Executiva em diversos aspectos administrativos, com destaque para a organização de processos seletivos e a elaboração do Estatuto vigente da InfoJr.</p> 
-                <p>Além disso, possuo sólida experiência profissional em desenvolvimento de software (7 anos). Atualmente, atuo em projetos integrados com tecnologias de Inteligência Artificial, o que me permite alinhar a gestão administrativa da Liga com soluções tecnológicas eficazes e inovadoras.</p> 
+                <h4>Motivação para ocupar o cargo</h4>
+                <p>Prezados colegas da LIAO,</p>
+                <p>Gostaria de manifestar meu interesse em ocupar o cargo de Secretário Geral da Liga, pois acredito que minha trajetória prévia e minha visão institucional podem contribuir de forma significativa para promover o crescimento sólido e estruturado da LIAO.</p>
+                <p>Já atuei em cargos de gestão durante minha participação na InfoJr UFBA, onde fui Diretor de Projetos. Nesta função, fui responsável por definir e aprimorar diversos processos de gerência e documentação de projetos, além de ter fundado os núcleos de estudos, que desde 2021 são a principal metodologia de capacitação e disseminação de conhecimento técnico na empresa. Posteriormente, como Conselheiro Administrativo, colaborei com a Diretoria Executiva em diversos aspectos administrativos, com destaque para a organização de processos seletivos e a elaboração do Estatuto vigente da InfoJr.</p>
+                <p>Além disso, possuo sólida experiência profissional em desenvolvimento de software (7 anos). Atualmente, atuo em projetos integrados com tecnologias de Inteligência Artificial, o que me permite alinhar a gestão administrativa da Liga com soluções tecnológicas eficazes e inovadoras.</p>
 
-                <h4>Propostas e planos de ação</h4> 
-                <p>Como Secretário Geral, pretendo:</p> 
-                <ul> 
-                    <li>Definir os processos internos da LIAO, como o processo seletivo, o processo eleitoral e o modelo de gestão de projetos;</li> 
-                    <li>Estabelecer padrões de registro documental e organização de projetos, utilizando ferramentas como Google Drive, GitHub e similares, promovendo coesão e continuidade institucional;</li> 
-                    <li>Finalizar a regulamentação da Liga, com a redação do Regimento Interno e do Código de Ética, complementando o Estatuto aprovado que já fiz;</li> 
-                    <li>Desenvolver um bot para o Discord oficial da LIAO, utilizando tecnologias de IA com busca (RAG). Esse bot permitirá consultas rápidas a documentos importantes, como o Estatuto, o Regimento Interno, documentação de projetos, história da LIAO, e demais registros institucionais. Sua manutenção será feita pelos próprios membros da Liga, reforçando a cultura de autonomia e engajamento técnico;</li> 
-                    <li>Auxiliar o Diretor Geral em ações conjuntas que envolvam outras coordenações, contribuindo para a integração e eficiência das atividades da LIAO.</li> 
-                </ul> 
+                <h4>Propostas e planos de ação</h4>
+                <p>Como Secretário Geral, pretendo:</p>
+                <ul>
+                    <li>Definir os processos internos da LIAO, como o processo seletivo, o processo eleitoral e o modelo de gestão de projetos;</li>
+                    <li>Estabelecer padrões de registro documental e organização de projetos, utilizando ferramentas como Google Drive, GitHub e similares, promovendo coesão e continuidade institucional;</li>
+                    <li>Finalizar a regulamentação da Liga, com a redação do Regimento Interno e do Código de Ética, complementando o Estatuto aprovado que já fiz;</li>
+                    <li>Desenvolver um bot para o Discord oficial da LIAO, utilizando tecnologias de IA com busca (RAG). Esse bot permitirá consultas rápidas a documentos importantes, como o Estatuto, o Regimento Interno, documentação de projetos, história da LIAO, e demais registros institucionais. Sua manutenção será feita pelos próprios membros da Liga, reforçando a cultura de autonomia e engajamento técnico;</li>
+                    <li>Auxiliar o Diretor Geral em ações conjuntas que envolvam outras coordenações, contribuindo para a integração e eficiência das atividades da LIAO.</li>
+                </ul>
             ` 
         } 
     ]; 
@@ -1214,7 +1219,7 @@
         }, 
         { 
             pergunta: "4. Estrutura e Funções da Diretoria", 
-            resposta: ` 
+            resposta: `
                     <strong>I. Direção Geral</strong><br> 
                     Função: Liderança máxima da Liga. Coordena, supervisiona e representa a Liga institucionalmente.<br> 
                     Tarefas: Convocar e presidir reuniões; Delegar funções; Garantir o cumprimento da missão e objetivos; Ser o principal ponto de contato com a coordenação do curso/instituição.<br><br> 
@@ -1237,19 +1242,19 @@
         { 
             pergunta: "5. Professores Tutores", 
             resposta: `Ainda não há definição final sobre todos os tutores, mas alguns professores já demonstraram interesse e possuem perfis alinhados com as áreas da Liga:<br><br> 
-                            <strong>Prof. Dr. Islame Felipe da Costa Fernandes</strong><br> 
-                            Professor Adjunto A no Instituto de Computação (IC/DCC/UFBA). Doutor em Sistema e Computação (UFRN).<br> 
-                            <em>Áreas de pesquisa:</em> Hibridização de meta-heurísticas, teoria dos grafos, otimização combinatória mono e multiobjetivo, algoritmos experimentais e inteligência de agentes.<br> 
-                            <em>Status:</em> Cotado.<br><br> 
-                            <strong>Prof. Dr. Marlo Vieira dos Santos e Souza</strong><br> 
-                            Professor do Departamento de Computação Interdisciplinar da UFBA e do Programa de Pós-graduação em Computação da UFBA. Doutor em Computação (UFRGS).<br> 
-                            <em>Áreas de atuação:</em> Computação Teórica, Inteligência Artificial, Processamento de Linguagem Natural, Semântica Formal e Representação de Conhecimento.<br> 
-                            <em>Status:</em> Em contato.<br><br> 
-                            <strong>Prof. Franklin Lázaro Santos de Oliveira</strong><br> 
-                            <em>E-mail:</em> franklinoliveira40@gmail.com<br> 
-                            <em>Áreas de atuação:</em> IA, Visão Computacional, EdgeAI, Otimização.<br> 
-                            <em>Status:</em> Interessado.<br><br> 
-                            Devido à abrangência dos temas abordados pela Liga, como Inteligência Artificial e Otimização, é provável que outros tutores possam ser envolvidos para atender às diferentes frentes.` 
+                                  <strong>Prof. Dr. Islame Felipe da Costa Fernandes</strong><br> 
+                                  Professor Adjunto A no Instituto de Computação (IC/DCC/UFBA). Doutor em Sistema e Computação (UFRN).<br> 
+                                  <em>Áreas de pesquisa:</em> Hibridização de meta-heurísticas, teoria dos grafos, otimização combinatória mono e multiobjetivo, algoritmos experimentais e inteligência de agentes.<br> 
+                                  <em>Status:</em> Cotado.<br><br> 
+                                  <strong>Prof. Dr. Marlo Vieira dos Santos e Souza</strong><br> 
+                                  Professor do Departamento de Computação Interdisciplinar da UFBA e do Programa de Pós-graduação em Computação da UFBA. Doutor em Computação (UFRGS).<br> 
+                                  <em>Áreas de atuação:</em> Computação Teórica, Inteligência Artificial, Processamento de Linguagem Natural, Semântica Formal e Representação de Conhecimento.<br> 
+                                  <em>Status:</em> Em contato.<br><br> 
+                                  <strong>Prof. Franklin Lázaro Santos de Oliveira</strong><br> 
+                                  <em>E-mail:</em> franklinoliveira40@gmail.com<br> 
+                                  <em>Áreas de atuação:</em> IA, Visão Computacional, EdgeAI, Otimização.<br> 
+                                  <em>Status:</em> Interessado.<br><br> 
+                                  Devido à abrangência dos temas abordados pela Liga, como Inteligência Artificial e Otimização, é provável que outros tutores possam ser envolvidos para atender às diferentes frentes.` 
         }, 
         { 
             pergunta: "6. Pautas Atuais", 
@@ -1258,121 +1263,121 @@
     ]; 
 
     let reuniaoData = `
-            <h3>ATA REUNIÃO Presencial - 13/06/2025</h3>
-            <p>A Reunião teve seu início a partir das 13:30 (mas desde o horário combinado 13:00 já havia integrantes na sala).</p>
-            
-            <h4>Participantes</h4>
-            <ul>
-                <li>Yuri Freitas Hughes</li>
-                <li>DEIVISNAN DA SILVA BISPO</li>
-                <li>Thales Brito Rodrigues</li>
-                <li>Danielle Santos de Souza</li>
-                <li>Beatriz Pereira Espinheira</li>
-                <li>Paulo Ferreira de Castro Filho</li>
-                <li>Priscila Conceição Araújo</li>
-                <li>Lucca Oliveira Seixas</li>
-                <li>Jaedson Barbosa Macedo</li>
-                <li>José Henrique do Espírito Santo Santana</li>
-                <li>Laura Ferreira</li>
-                <li>Ulysses</li>
-                <li>Djair Maykon de Novaes Miranda</li>
-                <li>Tarcisio de Assis Pereira Brito</li>
-                <li>Davi Vaccarezza Guedes Pinheiro</li>
-            </ul>
+                <h3>ATA REUNIÃO Presencial - 13/06/2025</h3>
+                <p>A Reunião teve seu início a partir das 13:30 (mas desde o horário combinado 13:00 já havia integrantes na sala).</p>
+                
+                <h4>Participantes</h4>
+                <ul>
+                    <li>Yuri Freitas Hughes</li>
+                    <li>DEIVISNAN DA SILVA BISPO</li>
+                    <li>Thales Brito Rodrigues</li>
+                    <li>Danielle Santos de Souza</li>
+                    <li>Beatriz Pereira Espinheira</li>
+                    <li>Paulo Ferreira de Castro Filho</li>
+                    <li>Priscila Conceição Araújo</li>
+                    <li>Lucca Oliveira Seixas</li>
+                    <li>Jaedson Barbosa Macedo</li>
+                    <li>José Henrique do Espírito Santo Santana</li>
+                    <li>Laura Ferreira</li>
+                    <li>Ulysses</li>
+                    <li>Djair Maykon de Novaes Miranda</li>
+                    <li>Tarcisio de Assis Pereira Brito</li>
+                    <li>Davi Vaccarezza Guedes Pinheiro</li>
+                </ul>
 
-            <h4>Deliberações e Decisões</h4>
-            <p><strong>Diretoria Eleita:</strong> Foi decidido os membros das direções, segue a lista os diretores e seus respectivos cargos:</p>
-            <ul>
-                <li><strong>Diretor Geral:</strong> Yuri Freitas Hughes</li>
-                <li><strong>Vice-diretor geral:</strong> Deivisnan Da Silva Bispo</li>
-                <li><strong>Secretária:</strong> Thales Brito Rodrigues</li>
-                <li><strong>Relações Externas:</strong> Danielle Santos de Souza</li>
-                <li><strong>Coordenação Acadêmica:</strong> Beatriz Pereira Espinheira</li>
-                <li><strong>Coordenação Científica:</strong> Paulo Ferreira de Castro Filho</li>
-                <li><strong>Coordenação de Extensão:</strong> Priscila Conceição Araújo</li>
-            </ul>
-            <p class="mt-2"><strong>OBS:</strong> Devido a uma discussão de forma democrática foi aprovado um novo cargo que é de vice diretor e até então este é o único que tem cargo de vice diretor.</p>
+                <h4>Deliberações e Decisões</h4>
+                <p><strong>Diretoria Eleita:</strong> Foi decidido os membros das direções, segue a lista os diretores e seus respectivos cargos:</p>
+                <ul>
+                    <li><strong>Diretor Geral:</strong> Yuri Freitas Hughes</li>
+                    <li><strong>Vice-diretor geral:</strong> Deivisnan Da Silva Bispo</li>
+                    <li><strong>Secretária:</strong> Thales Brito Rodrigues</li>
+                    <li><strong>Relações Externas:</strong> Danielle Santos de Souza</li>
+                    <li><strong>Coordenação Acadêmica:</strong> Beatriz Pereira Espinheira</li>
+                    <li><strong>Coordenação Científica:</strong> Paulo Ferreira de Castro Filho</li>
+                    <li><strong>Coordenação de Extensão:</strong> Priscila Conceição Araújo</li>
+                </ul>
+                <p class="mt-2"><strong>OBS:</strong> Devido a uma discussão de forma democrática foi aprovado um novo cargo que é de vice diretor e até então este é o único que tem cargo de vice diretor.</p>
 
-            <hr class="my-6 border-gray-300">
-            
-            <h3>Relato de Atividades e Planejamento da LIAO</h3>
-            <p>Desde o início da construção da liga, diversos estudantes participaram ativamente do processo, demonstrando grande interesse e comprometimento. Eles estiveram presentes desde a primeira reunião online (a qual está devidamente gravada), assim como na segunda reunião virtual e na reunião presencial. Além disso, mostraram-se proativos nos debates realizados no grupo do WhatsApp, contribuindo com opiniões e sugestões relevantes.</p>
-            <p>Alguns desses participantes chegaram a concorrer a cargos na diretoria da liga. Outros, embora não elegíveis devido ao regimento — que exige que os membros da diretoria sejam exclusivamente alunos do Instituto de Computação —, demonstraram desde o princípio um forte desejo de contribuir com a iniciativa. Essas pessoas são reconhecidas por seu papel fundamental na fase inicial da LIAO e serão consideradas membros fundadores, por terem colaborado diretamente com a estruturação do que temos até o momento. (Ressaltamos que ainda estamos analisando outros nomes que também podem ser incluídos nesse reconhecimento.)</p>
-            <p>Dando prosseguimento às atividades, está previsto — em data a ser definida — um processo seletivo para novos membros. No entanto, optamos por, antes disso, consolidar as bases da liga, garantindo seu funcionamento adequado. Após essa fase de estruturação, será desenvolvido um processo seletivo para permitir que mais alunos ingressem e colaborem com a LIAO.</p>
-            <p>Atualmente, propostas para a próxima reunião estão sendo discutidas. Um dos nossos principais objetivos é estreitar os laços com os professores tutores, cujos conhecimentos são de valor inestimável para o desenvolvimento da liga. Pretendemos realizar um encontro no formato de “reunião/palestra” aberta a todos os alunos interessados, com o intuito de introduzir e debater o conceito e as aplicações da Inteligência Artificial.</p>
-            <p>Conforme mencionado, os membros da base inicial da LIAO terão a missão de ser o alicerce da organização. Eles serão responsáveis por estruturar os processos e garantir a funcionalidade da liga, de modo que, futuramente, os novos membros possam integrar-se de maneira mais fluida e produtiva.</p>
+                <hr class="my-6 border-gray-300">
+                
+                <h3>Relato de Atividades e Planejamento da LIAO</h3>
+                <p>Desde o início da construção da liga, diversos estudantes participaram ativamente do processo, demonstrando grande interesse e comprometimento. Eles estiveram presentes desde a primeira reunião online (a qual está devidamente gravada), assim como na segunda reunião virtual e na reunião presencial. Além disso, mostraram-se proativos nos debates realizados no grupo do WhatsApp, contribuindo com opiniões e sugestões relevantes.</p>
+                <p>Alguns desses participantes chegaram a concorrer a cargos na diretoria da liga. Outros, embora não elegíveis devido ao regimento — que exige que os membros da diretoria sejam exclusivamente alunos do Instituto de Computação —, demonstraram desde o princípio um forte desejo de contribuir com a iniciativa. Essas pessoas são reconhecidas por seu papel fundamental na fase inicial da LIAO e serão consideradas membros fundadores, por terem colaborado diretamente com a estruturação do que temos até o momento. (Ressaltamos que ainda estamos analisando outros nomes que também podem ser incluídos nesse reconhecimento.)</p> 
+                <p>Dando prosseguimento às atividades, está previsto — em data a ser definida — um processo seletivo para novos membros. No entanto, optamos por, antes disso, consolidar as bases da liga, garantindo seu funcionamento adequado. Após essa fase de estruturação, será desenvolvido um processo seletivo para permitir que mais alunos ingressem e colaborem com a LIAO.</p>
+                <p>Atualmente, propostas para a próxima reunião estão sendo discutidas. Um dos nossos principais objetivos é estreitar os laços com os professores tutores, cujos conhecimentos são de valor inestimável para o desenvolvimento da liga. Pretendemos realizar um encontro no formato de “reunião/palestra” aberta a todos os alunos interessados, com o intuito de introduzir e debater o conceito e as aplicações da Inteligência Artificial.</p>
+                <p>Conforme mencionado, os membros da base inicial da LIAO terão a missão de ser o alicerce da organização. Eles serão responsáveis por estruturar os processos e garantir a funcionalidade da liga, de modo que, futuramente, os novos membros possam integrar-se de maneira mais fluida e produtiva.</p>
 
-            <hr class="my-6 border-gray-300">
+                <hr class="my-6 border-gray-300">
 
-            <h3>Pautas da Reunião: 18/05/2025</h3> 
-            <h4>Escopo e Atividades da liga:</h4> 
-            <p><strong>Extensão:</strong></p> 
-            <ul> 
-                <li>Aulas semanais + 1 problema envolvendo o assunto</li> 
-                <li>Workshops sobre o tema principal que a liga aborda e assuntos que o instituto de computação aborda</li> 
-                <li>Seminários e palestras (com certificado)</li> 
-            </ul> 
-            <p><strong>Publicidade:</strong></p> 
-            <ul> 
-                <li>Instagram</li> 
-                <li>Linktree</li> 
-                <li>LinkedIn</li> 
-                <li>GitHub da liga</li> 
-                <li>YouTube</li> 
-            </ul> 
-            <p><strong>Comunicação/Marketing</strong></p> 
-            <p><strong>Coordenação Acadêmica:</strong></p> 
-            <ul> 
-                <li>Função: Responsável pelas atividades de ensino e aprendizagem.</li> 
-                <li>Tarefas: Organizar cursos, oficinas, palestras e grupos de estudo; Garantir qualidade pedagógica; Acompanhar o desempenho acadêmico dos membros.</li> 
-                <li>Competições internas entre membros ranqueadas (Kaggle)</li> 
-                <li>Criação de projetos comunitários (podemos utilizar auxílio dos tutores e de seus alunos)</li> 
-                <li>Monitoria interna</li> 
-                <li>Diferentes níveis para os cursos (básico/intermediário/avançado)</li> 
-            </ul> 
-            <p><strong>Coordenação Científica:</strong></p> 
-            <ul> 
-                <li>Incentivar iniciação científica e produção de artigos;</li> 
-                <li>Organizar grupos voltados à pesquisa;</li> 
-                <li>Acompanhar projetos e submissões para eventos científicos.</li> 
-            </ul> 
-            <p><strong>Direção Geral:</strong></p> 
-            <ul> 
-                <li>Reunião de alinhamento</li> 
-                <li>Drive interno da liga</li> 
-            </ul> 
-            <h4>Processo Seletivo:</h4> 
-            <p>Divulgação, Formulário, Dinâmica, Entrevistas, Processo Trainee.</p> 
-            <h4>Cursos que podemos aceitar:</h4> 
-            <ul> 
-                <li>Todos da politécnica, matemática e estatística, BI C&T, física (porcentagem atribuída 25%)</li> 
-                <li>10% outros</li> 
-                <li>65% Instituto IC</li> 
-                <li>Caso haja um projeto específico da liga direcionado a determinada área, pode-se convocar uma reunião interna das direções e decidir a quantidade percentual de pessoas daquela área que podem participar (limitado 35%).</li> 
-            </ul> 
-            <h4>Atividades Complementares da Liga:</h4> 
-            <ul> 
-                <li>Parcerias com outras ligas</li> 
-                <li>Criação do nome da liga (LIVCO)</li> 
-            </ul> 
-            <h4>#Definir processo de eleição.</h4> 
-            <h4>Estatuto:</h4> 
-            <p>Pessoas candidatas a escrever o estatuto:</p> 
-            <ul> 
-                <li>Priscila Araujo</li> 
-                <li>Davi Vaccarezza</li> 
-                <li>Paulo Ferreira</li> 
-                <li>Thales Brito</li> 
-            </ul> 
-            <hr class="my-6 border-gray-300">  
-            <h3>Deliberações da Reunião de 01/06/2025:</h3>  
-            <ul> 
-                <li><strong>Deliberação sobre o Estatuto:</strong> Ficou definido que, inicialmente, haverá apenas os 6 cargos na DEX.</li> 
-                <li><strong>Discussão sobre o cargo de Vice-Presidência:</strong> Decidiu-se que o cargo será ocupado por indicação.</li> 
-                <li><strong>Entrada de novos membros:</strong> A votação e a entrada de novos integrantes na Liga ocorrerão durante a terceira reunião presencial. Os membros presentes e ativos nessa reunião serão considerados membros fundadores.</li> 
-                <li><strong>Eleição dos Diretores:</strong> A escolha dos Diretores será feita de forma consensual entre os presentes. Depois será feita a aprovação do estatuto.</li> 
-            </ul> 
-        `; 
+                <h3>Pautas da Reunião: 18/05/2025</h3> 
+                <h4>Escopo e Atividades da liga:</h4> 
+                <p><strong>Extensão:</strong></p> 
+                <ul> 
+                    <li>Aulas semanais + 1 problema envolvendo o assunto</li> 
+                    <li>Workshops sobre o tema principal que a liga aborda e assuntos que o instituto de computação aborda</li> 
+                    <li>Seminários e palestras (com certificado)</li> 
+                </ul> 
+                <p><strong>Publicidade:</strong></p> 
+                <ul> 
+                    <li>Instagram</li> 
+                    <li>Linktree</li> 
+                    <li>LinkedIn</li> 
+                    <li>GitHub da liga</li> 
+                    <li>YouTube</li> 
+                </ul> 
+                <p><strong>Comunicação/Marketing</strong></p> 
+                <p><strong>Coordenação Acadêmica:</strong></p> 
+                <ul> 
+                    <li>Função: Responsável pelas atividades de ensino e aprendizagem.</li> 
+                    <li>Tarefas: Organizar cursos, oficinas, palestras e grupos de estudo; Garantir qualidade pedagógica; Acompanhar o desempenho acadêmico dos membros.</li> 
+                    <li>Competições internas entre membros ranqueadas (Kaggle)</li> 
+                    <li>Criação de projetos comunitários (podemos utilizar auxílio dos tutores e de seus alunos)</li> 
+                    <li>Monitoria interna</li> 
+                    <li>Diferentes níveis para os cursos (básico/intermediário/avançado)</li> 
+                </ul> 
+                <p><strong>Coordenação Científica:</strong></p> 
+                <ul> 
+                    <li>Incentivar iniciação científica e produção de artigos;</li> 
+                    <li>Organizar grupos voltados à pesquisa;</li> 
+                    <li>Acompanhar projetos e submissões para eventos científicos.</li> 
+                </ul> 
+                <p><strong>Direção Geral:</strong></p> 
+                <ul> 
+                    <li>Reunião de alinhamento</li> 
+                    <li>Drive interno da liga</li> 
+                </ul> 
+                <h4>Processo Seletivo:</h4> 
+                <p>Divulgação, Formulário, Dinâmica, Entrevistas, Processo Trainee.</p> 
+                <h4>Cursos que podemos aceitar:</h4> 
+                <ul> 
+                    <li>Todos da politécnica, matemática e estatística, BI C&T, física (porcentagem atribuída 25%)</li> 
+                    <li>10% outros</li> 
+                    <li>65% Instituto IC</li> 
+                    <li>Caso haja um projeto específico da liga direcionado a determinada área, pode-se convocar uma reunião interna das direções e decidir a quantidade percentual de pessoas daquela área que podem participar (limitado 35%).</li> 
+                </ul> 
+                <h4>Atividades Complementares da Liga:</h4> 
+                <ul> 
+                    <li>Parcerias com outras ligas</li> 
+                    <li>Criação do nome da liga (LIVCO)</li> 
+                </ul> 
+                <h4>#Definir processo de eleição.</h4> 
+                <h4>Estatuto:</h4> 
+                <p>Pessoas candidatas a escrever o estatuto:</p> 
+                <ul> 
+                    <li>Priscila Araujo</li> 
+                    <li>Davi Vaccarezza</li> 
+                    <li>Paulo Ferreira</li> 
+                    <li>Thales Brito</li> 
+                </ul> 
+                <hr class="my-6 border-gray-300">  
+                <h3>Deliberações da Reunião de 01/06/2025:</h3> 
+                <ul> 
+                    <li><strong>Deliberação sobre o Estatuto:</strong> Ficou definido que, inicialmente, haverá apenas os 6 cargos na DEX.</li> 
+                    <li><strong>Discussão sobre o cargo de Vice-Presidência:</strong> Decidiu-se que o cargo será ocupado por indicação.</li> 
+                    <li><strong>Entrada de novos membros:</strong> A votação e a entrada de novos integrantes na Liga ocorrerão durante a terceira reunião presencial. Os membros presentes e ativos nessa reunião serão considerados membros fundadores.</li> 
+                    <li><strong>Eleição dos Diretores:</strong> A escolha dos Diretores será feita de forma consensual entre os presentes. Depois será feita a aprovação do estatuto.</li> 
+                </ul> 
+            `; 
     
     // --- Dados para Avisos da Liga --- 
     const dadosAvisosLiga = [ 
@@ -1499,8 +1504,8 @@
                     }).join('')}
                 </div>
                  <!-- Mobile Carousel -->
-                <div class="md:hidden carousel-container">
-                    <div class="carousel-wrapper">
+                <div class="md:hidden carousel-container overflow-hidden">
+                    <div class="carousel-wrapper flex">
                         ${dadosDiretoriaAprovada.map(diretor => {
                             const integranteCompleto = dadosInteressadosDiretoria.find(i => i.nome.toLowerCase() === diretor.nome.toLowerCase());
                             const imageUrl = memberImages[diretor.nome];
@@ -1513,7 +1518,7 @@
                                 avatarHtml = `<span>${iniciais}</span>`;
                             }
                             return `
-                                <div class="carousel-slide">
+                                <div class="carousel-slide p-2">
                                      <div class="director-card">
                                         <div class="director-card-inner">
                                             <div class="director-info">
@@ -1529,36 +1534,35 @@
                                 </div>`;
                         }).join('')}
                     </div>
-
                 </div>
             </div>`;
 
         content += `
             <div class="founder-list-card">
                  <h3 class="text-2xl font-bold text-gray-800 text-center mb-6">Membros Fundadores</h3>
-                  <div id="founders-container" class="mb-16">
-                     <!-- Desktop Grid -->
-                    <div class="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                       ${dadosMembros.sort((a,b) => a.nome.localeCompare(b)).map(membro => {
-                           const imageUrl = memberImages[membro.nome];
-                           let avatarHtml;
-                           if (imageUrl) {
+                  <div id="founders-container">
+                       <!-- Desktop Grid -->
+                      <div class="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                         ${dadosMembros.sort((a,b) => a.nome.localeCompare(b)).map(membro => {
+                            const imageUrl = memberImages[membro.nome];
+                            let avatarHtml;
+                            if (imageUrl) {
                                 avatarHtml = `<img src="${imageUrl}" alt="Foto de ${membro.nome}" class="w-full h-full object-cover">`;
-                           } else {
-                               const iniciais = membro.nome.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-                               avatarHtml = `<span>${iniciais}</span>`;
-                           }
-                           return `
-                               <div class="founder-item" onclick="showFounderDetails('${membro.nome}')">
-                                   <div class="founder-item-avatar">${avatarHtml}</div>
-                                   <span>${membro.nome}</span>
-                               </div>
-                           `;
-                       }).join('')}
-                    </div>
-                    <!-- Mobile Carousel com 3 membros por slide (empilhados verticalmente) -->
-<div class="md:hidden carousel-container overflow-hidden relative">
-  <div class="carousel-wrapper flex transition-transform duration-500 ease-in-out">
+                            } else {
+                                const iniciais = membro.nome.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                                avatarHtml = `<span>${iniciais}</span>`;
+                            }
+                            return `
+                                <div class="founder-item" onclick="showFounderDetails('${membro.nome}')">
+                                    <div class="founder-item-avatar">${avatarHtml}</div>
+                                    <span>${membro.nome}</span>
+                                </div>
+                            `;
+                        }).join('')}
+                      </div>
+                      <!-- Mobile Carousel com 3 membros por slide (empilhados verticalmente) -->
+<div class="md:hidden carousel-container overflow-hidden">
+  <div class="carousel-wrapper flex">
     ${(() => {
       const chunkSize = 3;
       const membrosOrdenados = dadosMembros.sort((a, b) => a.nome.localeCompare(b.nome));
@@ -1588,12 +1592,12 @@
   </div>
  </div>
 
-                </div>
+                  </div>
             </div>`;
         container.innerHTML = content;
         
         setupCarousel('#directors-container .carousel-container', 1);
-        setupCarousel('#founders-container .carousel-container', 1, 3);
+        setupCarousel('#founders-container .carousel-container', 1);
     }
     
     function showFounderDetails(memberName) {
@@ -1663,15 +1667,15 @@
              }
 
              content += `
-                <div class="tutor-card">
-                    <div class="tutor-avatar">${avatarHtml}</div>
-                    <h3 class="tutor-name">${tutor.nome}</h3>
-                    <p class="tutor-email"><i class="fas fa-envelope"></i> ${tutor.email}</p>
-                    <div class="tutor-area">
-                        <strong>Áreas de Especialidade:</strong><br>
-                        ${tutor.area}
-                    </div>
-                </div>
+                 <div class="tutor-card">
+                     <div class="tutor-avatar">${avatarHtml}</div>
+                     <h3 class="tutor-name">${tutor.nome}</h3>
+                     <p class="tutor-email"><i class="fas fa-envelope"></i> ${tutor.email}</p>
+                     <div class="tutor-area">
+                         <strong>Áreas de Especialidade:</strong><br>
+                         ${tutor.area}
+                     </div>
+                 </div>
              `;
         });
 
@@ -1685,7 +1689,7 @@
     function popularFAQs() { 
         const container = document.getElementById('faqContent'); 
         if (!container) return; 
-        container.innerHTML = '';  
+        container.innerHTML = ''; 
         faqData.forEach(item => { 
             const div = document.createElement('div'); 
             div.className = 'p-4 bg-gray-50 rounded-lg shadow-sm'; 
@@ -1711,7 +1715,7 @@
     function popularAvisosLiga() { 
         const container = document.getElementById('avisosLigaContent'); 
         if (!container) return; 
-        container.innerHTML = '';  
+        container.innerHTML = ''; 
         if (dadosAvisosLiga.length === 0) { 
             container.innerHTML = '<p class="text-gray-500">Nenhum aviso no momento.</p>'; 
             return; 
@@ -1749,8 +1753,8 @@
         } else { 
             conteudoEl.innerHTML = ` 
                 <div class="text-center p-8">
-                     <h4 class="text-xl font-semibold text-gray-700">Carta de Intenção não disponível</h4>
-                     <p class="mt-2 text-gray-500">O conteúdo da carta de intenção para <strong>${nomeIntegrante}</strong> não foi submetido.</p>
+                    <h4 class="text-xl font-semibold text-gray-700">Carta de Intenção não disponível</h4>
+                    <p class="mt-2 text-gray-500">O conteúdo da carta de intenção para <strong>${nomeIntegrante}</strong> não foi submetido.</p>
                 </div>
             `; 
         } 
@@ -2111,7 +2115,7 @@
             activePage.classList.add('active'); 
         } 
 
-        document.querySelectorAll('.navigation ul li').forEach((item) => {
+        document.querySelectorAll('.navigation-list li').forEach((item) => {
             const pageNameAttr = item.getAttribute('onclick');
             if (pageNameAttr) {
                 const pageName = pageNameAttr.match(/'([^']+)'/)[1];
@@ -2149,88 +2153,67 @@
         }
     } 
 
-    function setupCarousel(carouselSelector, slidesPerViewMobile, slidesPerViewDesktop) {
+    function setupCarousel(carouselSelector, slidesPerViewMobile = 1) {
         const container = document.querySelector(carouselSelector);
         if (!container) return;
 
         const wrapper = container.querySelector('.carousel-wrapper');
-        const prevBtn = container.querySelector('.prev');
-        const nextBtn = container.querySelector('.next');
-        const slides = container.querySelectorAll('.carousel-slide');
+        if (!wrapper) return;
+        
+        const slides = Array.from(wrapper.children);
+        if (slides.length === 0) return;
         
         let currentIndex = 0;
         let intervalId;
 
-        const getSlidesPerView = () => {
-            return window.innerWidth <= 500 ? slidesPerViewMobile : slidesPerViewDesktop;
-        }
-
         const updateCarousel = () => {
-            const slidesPerView = getSlidesPerView();
-            const slideWidth = container.clientWidth / slidesPerView;
-            wrapper.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+            if (window.innerWidth >= 768) {
+                 wrapper.style.transform = ''; 
+                 slides.forEach(s => s.style.minWidth = ''); 
+                 if (intervalId) clearInterval(intervalId);
+                 return;
+            }
+            
+            const slideWidth = container.clientWidth / slidesPerViewMobile;
             
             slides.forEach(slide => {
-                slide.style.minWidth = `${100 / slidesPerView}%`;
+                slide.style.minWidth = `${100 / slidesPerViewMobile}%`;
             });
+            
+            wrapper.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
         };
 
         const resetInterval = () => {
+            if (window.innerWidth >= 768) {
+                 if (intervalId) clearInterval(intervalId);
+                 return;
+            }
             clearInterval(intervalId);
             intervalId = setInterval(() => {
                 const totalSlides = slides.length;
-                const slidesPerView = getSlidesPerView();
-                if (currentIndex < totalSlides - slidesPerView) {
-                    currentIndex++;
-                } else {
-                    currentIndex = 0;
-                }
+                const maxIndex = Math.ceil(totalSlides / slidesPerViewMobile) - 1;
+                currentIndex = currentIndex >= maxIndex ? 0 : currentIndex + 1;
                 updateCarousel();
             }, 3000);
         };
         
-        if(nextBtn){
-            nextBtn.addEventListener('click', () => {
-                const totalSlides = slides.length;
-                const slidesPerView = getSlidesPerView();
-                if (currentIndex < totalSlides - slidesPerView) {
-                    currentIndex++;
-                } else {
-                    currentIndex = 0;
-                }
-                updateCarousel();
-                resetInterval();
-            });
-        }
-        
-        if(prevBtn){
-             prevBtn.addEventListener('click', () => {
-                if (currentIndex > 0) {
-                    currentIndex--;
-                }
-                updateCarousel();
-                resetInterval();
-            });
-        }
-
         let touchStartX = 0;
         wrapper.addEventListener('touchstart', (e) => {
+            if (window.innerWidth >= 768) return;
             touchStartX = e.touches[0].clientX;
             clearInterval(intervalId);
         });
 
         wrapper.addEventListener('touchend', (e) => {
+            if (window.innerWidth >= 768) return;
             const touchEndX = e.changedTouches[0].clientX;
+            const totalSlides = slides.length;
+            const maxIndex = Math.ceil(totalSlides / slidesPerViewMobile) - 1;
+
             if (touchStartX - touchEndX > 50) { // Swipe left
-                const totalSlides = slides.length;
-                const slidesPerView = getSlidesPerView();
-                 if (currentIndex < totalSlides - slidesPerView) {
-                    currentIndex++;
-                }
+                 if (currentIndex < maxIndex) currentIndex++;
             } else if (touchStartX - touchEndX < -50) { // Swipe right
-                if (currentIndex > 0) {
-                    currentIndex--;
-                }
+                if (currentIndex > 0) currentIndex--;
             }
             updateCarousel();
             resetInterval();
@@ -2279,24 +2262,22 @@
                     if (activationPoint > 0 && activationPoint < screenHeight) {
                         const opacity = 1 - Math.abs(activationPoint - screenHeight / 2) / (screenHeight / 2);
                         
-                        // Draw node
                         ctx.beginPath();
                         ctx.arc(node.x, node.y, 1.5, 0, 2 * Math.PI);
                         ctx.fillStyle = `rgba(79, 70, 229, ${opacity * 0.6})`;
                         ctx.fill();
 
-                        // Draw lines to neighbors
                         nodes.forEach(neighbor => {
                             const dist = Math.hypot(node.x - neighbor.x, node.y - neighbor.y);
                             if (dist < gridSize * 2) {
                                  const neighborActivationPoint = neighbor.y - currentScroll;
                                  if(neighborActivationPoint > 0 && neighborActivationPoint < screenHeight){
-                                    const neighborOpacity = 1 - Math.abs(neighborActivationPoint - screenHeight / 2) / (screenHeight / 2);
-                                    ctx.beginPath();
-                                    ctx.moveTo(node.x, node.y);
-                                    ctx.lineTo(neighbor.x, neighbor.y);
-                                    ctx.strokeStyle = `rgba(165, 180, 252, ${Math.min(opacity, neighborOpacity) * 0.3})`;
-                                    ctx.stroke();
+                                     const neighborOpacity = 1 - Math.abs(neighborActivationPoint - screenHeight / 2) / (screenHeight / 2);
+                                     ctx.beginPath();
+                                     ctx.moveTo(node.x, node.y);
+                                     ctx.lineTo(neighbor.x, neighbor.y);
+                                     ctx.strokeStyle = `rgba(165, 180, 252, ${Math.min(opacity, neighborOpacity) * 0.3})`;
+                                     ctx.stroke();
                                  }
                             }
                         });
@@ -2307,11 +2288,10 @@
             window.addEventListener('scroll', draw);
             window.addEventListener('resize', setup);
             
-            // Initial setup
             setup();
         }
         
-        const list = document.querySelectorAll('.navigation .list');
+        const list = document.querySelectorAll('.navigation-list .list');
         list.forEach(item => {
             item.addEventListener('click', function() {
                 list.forEach(i => i.classList.remove('active'));
@@ -2323,12 +2303,18 @@
 
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
+            menuIcon.classList.toggle('fa-bars');
+            menuIcon.classList.toggle('fa-times');
         });
         
         function closeMenu() {
             mobileMenu.classList.add('hidden');
+            menuIcon.classList.remove('fa-times');
+            menuIcon.classList.add('fa-bars');
         }
 
         mobileMenu.querySelectorAll('a').forEach(button => {
@@ -2339,6 +2325,6 @@
         document.getElementById('currentYear').textContent = new Date().getFullYear(); 
     }); 
 
-</script> 
-</body> 
+</script>
+</body>
 </html>
