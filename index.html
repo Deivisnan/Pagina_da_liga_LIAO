@@ -527,6 +527,30 @@
                 padding: 0 8px;
             }
         }
+        /* --- FOOTER STYLES --- */
+        footer {
+            position: relative;
+            color: white;
+            text-align: center;
+            margin-top: 3rem; /* mt-12 */
+        }
+        .footer-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            min-height: 120px; /* Adjust as needed */
+        }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-900">
@@ -649,7 +673,7 @@
     </section>
     
     <section id="membrosFundadores" class="content-section">
-         <button class="back-button mb-6 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg inline-flex items-center gap-2" onclick="goBack()">
+        <button class="back-button mb-6 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg inline-flex items-center gap-2" onclick="goBack()">
             <i class="fas fa-arrow-left"></i>
             <span>Voltar</span>
         </button>
@@ -657,7 +681,7 @@
     </section>
     
     <section id="relatorios" class="content-section">
-         <button class="back-button mb-6 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg inline-flex items-center gap-2" onclick="goBack()">
+        <button class="back-button mb-6 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg inline-flex items-center gap-2" onclick="goBack()">
             <i class="fas fa-arrow-left"></i>
             <span>Voltar</span>
         </button>
@@ -745,7 +769,7 @@
     </section>
 
     <section id="tutores" class="content-section">
-         <button class="back-button mb-6 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg inline-flex items-center gap-2" onclick="goBack()">
+        <button class="back-button mb-6 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg inline-flex items-center gap-2" onclick="goBack()">
             <i class="fas fa-arrow-left"></i>
             <span>Voltar</span>
         </button>
@@ -753,7 +777,7 @@
     </section>
 
     <section id="faq" class="content-section">
-         <button class="back-button mb-6 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg inline-flex items-center gap-2" onclick="goBack()">
+        <button class="back-button mb-6 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg inline-flex items-center gap-2" onclick="goBack()">
             <i class="fas fa-arrow-left"></i>
             <span>Voltar</span>
         </button>
@@ -765,7 +789,7 @@
     </section>
 
     <section id="reuniao" class="content-section">
-         <button class="back-button mb-6 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg inline-flex items-center gap-2" onclick="goBack()">
+        <button class="back-button mb-6 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg inline-flex items-center gap-2" onclick="goBack()">
             <i class="fas fa-arrow-left"></i>
             <span>Voltar</span>
         </button>
@@ -777,7 +801,7 @@
     </section>
 
     <section id="avisosLiga" class="content-section">
-         <button class="back-button mb-6 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg inline-flex items-center gap-2" onclick="goBack()">
+        <button class="back-button mb-6 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg inline-flex items-center gap-2" onclick="goBack()">
             <i class="fas fa-arrow-left"></i>
             <span>Voltar</span>
         </button>
@@ -790,7 +814,7 @@
     </section>
 
     <section id="videoApresentacao" class="content-section">
-         <button class="back-button mb-6 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg inline-flex items-center gap-2" onclick="goBack()">
+        <button class="back-button mb-6 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg inline-flex items-center gap-2" onclick="goBack()">
             <i class="fas fa-arrow-left"></i>
             <span>Voltar</span>
         </button>
@@ -826,11 +850,12 @@
     </section>
 </main>
 
-<footer class="relative text-white text-center mt-12">
-    <img src="https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/184691ece4766607441bbb8a519b67b96fff9a45/img/footer_liao.png" alt="Footer LIAO" class="w-full h-auto object-cover">
-    <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
-        <p class="text-sm md:text-base">© <span id="currentYear"></span> Liga Acadêmica. Todos os direitos reservados.</p>
-        <div class="mt-2">
+<!-- FOOTER UPDATED FOR RESPONSIVENESS -->
+<footer>
+    <img src="https://raw.githubusercontent.com/Deivisnan/Pagina_da_liga_LIAO/184691ece4766607441bbb8a519b67b96fff9a45/img/footer_liao.png" alt="Footer LIAO" class="footer-background">
+    <div class="footer-content">
+        <p class="text-sm md:text-base mb-2">© <span id="currentYear"></span> Liga Acadêmica. Todos os direitos reservados.</p>
+        <div>
             <a href="https://www.instagram.com/liaoufba?utm_source=ig_web_button_share_sheet&igsh=MW56MHh6YWF4ZnF5bQ==" target="_blank" class="inline-block text-white hover:text-gray-300 transition-colors duration-300">
                 <i class="fab fa-instagram fa-2x"></i>
                 <span class="sr-only">Instagram</span>
@@ -1240,24 +1265,24 @@
         { 
             pergunta: "4. Estrutura e Funções da Diretoria", 
             resposta: `
-                    <strong>I. Direção Geral</strong><br> 
-                    Função: Liderança máxima da Liga. Coordena, supervisiona e representa a Liga institucionalmente.<br> 
-                    Tarefas: Convocar e presidir reuniões; Delegar funções; Garantir o cumprimento da missão e objetivos; Ser o principal ponto de contato com a coordenação do curso/instituição.<br><br> 
-                    <strong>II. Secretaria Geral</strong><br> 
-                    Função: Responsável pela parte administrativa e documental.<br> 
-                    Tarefas: Redigir atas; Organizar e arquivar documentos; Controlar prazos e regulamentos internos; Gerenciar listas de presença, calendários e cronogramas.<br><br> 
-                    <strong>III. Relações Públicas</strong><br> 
-                    Função: Gerencia a comunicação interna e externa da Liga.<br> 
-                    Tarefas: Administrar redes sociais, e-mails e materiais de divulgação; Promover eventos e atividades; Manter contato com outras ligas, empresas e instituições; Trabalhar na identidade visual da Liga.<br><br> 
-                    <strong>IV. Coordenação Acadêmica</strong><br> 
-                    Função: Responsável pelas atividades de ensino e aprendizagem.<br> 
-                    Tarefas: Organizar cursos, oficinas, palestras e grupos de estudo; Garantir qualidade pedagógica; Acompanhar o desempenho acadêmico dos membros.<br><br> 
-                    <strong>V. Coordenação Científica</strong><br> 
-                    Função: Promove e orienta atividades de pesquisa.<br> 
-                    Tarefas: Incentivar iniciação científica e produção de artigos; Organizar grupos voltados à pesquisa; Acompanhar projetos e submissões para eventos científicos.<br><br> 
-                    <strong>VI. Coordenação de Extensão</strong><br> 
-                    Função: Responsável pelas ações externas da Liga, promovendo o impacto social.<br> 
-                    Tarefas: Planejar projetos com foco social (cursos abertos, visitas a escolas, voluntariado); Estabelecer parcerias externas; Avaliar os resultados das atividades de extensão.` 
+                      <strong>I. Direção Geral</strong><br> 
+                      Função: Liderança máxima da Liga. Coordena, supervisiona e representa a Liga institucionalmente.<br> 
+                      Tarefas: Convocar e presidir reuniões; Delegar funções; Garantir o cumprimento da missão e objetivos; Ser o principal ponto de contato com a coordenação do curso/instituição.<br><br> 
+                      <strong>II. Secretaria Geral</strong><br> 
+                      Função: Responsável pela parte administrativa e documental.<br> 
+                      Tarefas: Redigir atas; Organizar e arquivar documentos; Controlar prazos e regulamentos internos; Gerenciar listas de presença, calendários e cronogramas.<br><br> 
+                      <strong>III. Relações Públicas</strong><br> 
+                      Função: Gerencia a comunicação interna e externa da Liga.<br> 
+                      Tarefas: Administrar redes sociais, e-mails e materiais de divulgação; Promover eventos e atividades; Manter contato com outras ligas, empresas e instituições; Trabalhar na identidade visual da Liga.<br><br> 
+                      <strong>IV. Coordenação Acadêmica</strong><br> 
+                      Função: Responsável pelas atividades de ensino e aprendizagem.<br> 
+                      Tarefas: Organizar cursos, oficinas, palestras e grupos de estudo; Garantir qualidade pedagógica; Acompanhar o desempenho acadêmico dos membros.<br><br> 
+                      <strong>V. Coordenação Científica</strong><br> 
+                      Função: Promove e orienta atividades de pesquisa.<br> 
+                      Tarefas: Incentivar iniciação científica e produção de artigos; Organizar grupos voltados à pesquisa; Acompanhar projetos e submissões para eventos científicos.<br><br> 
+                      <strong>VI. Coordenação de Extensão</strong><br> 
+                      Função: Responsável pelas ações externas da Liga, promovendo o impacto social.<br> 
+                      Tarefas: Planejar projetos com foco social (cursos abertos, visitas a escolas, voluntariado); Estabelecer parcerias externas; Avaliar os resultados das atividades de extensão.` 
         }, 
         { 
             pergunta: "5. Professores Tutores", 
@@ -1561,27 +1586,27 @@
         content += `
             <div class="founder-list-card">
                  <h3 class="text-2xl font-bold text-gray-800 text-center mb-6">Membros Fundadores</h3>
-                  <div id="founders-container">
+                 <div id="founders-container">
                        <!-- Desktop Grid -->
                       <div class="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                         ${dadosMembros.sort((a,b) => a.nome.localeCompare(b)).map(membro => {
-                            const imageUrl = memberImages[membro.nome];
-                            let avatarHtml;
-                            if (imageUrl) {
-                                avatarHtml = `<img src="${imageUrl}" alt="Foto de ${membro.nome}" class="w-full h-full object-cover">`;
-                            } else {
-                                const iniciais = membro.nome.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-                                avatarHtml = `<span>${iniciais}</span>`;
-                            }
-                            return `
-                                <div class="founder-item" onclick="showFounderDetails('${membro.nome}')">
-                                    <div class="founder-item-avatar">${avatarHtml}</div>
-                                    <span>${membro.nome}</span>
-                                </div>
-                            `;
-                        }).join('')}
+                          ${dadosMembros.sort((a,b) => a.nome.localeCompare(b)).map(membro => {
+                              const imageUrl = memberImages[membro.nome];
+                              let avatarHtml;
+                              if (imageUrl) {
+                                  avatarHtml = `<img src="${imageUrl}" alt="Foto de ${membro.nome}" class="w-full h-full object-cover">`;
+                              } else {
+                                  const iniciais = membro.nome.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                                  avatarHtml = `<span>${iniciais}</span>`;
+                              }
+                              return `
+                                  <div class="founder-item" onclick="showFounderDetails('${membro.nome}')">
+                                      <div class="founder-item-avatar">${avatarHtml}</div>
+                                      <span>${membro.nome}</span>
+                                  </div>
+                              `;
+                          }).join('')}
                       </div>
-                      <!-- Mobile Carousel com 3 membros por slide (empilhados verticalmente) -->
+                       <!-- Mobile Carousel com 3 membros por slide (empilhados verticalmente) -->
 <div class="md:hidden carousel-container overflow-hidden">
   <div class="carousel-wrapper flex">
     ${(() => {
@@ -1613,7 +1638,7 @@
   </div>
  </div>
 
-                  </div>
+                 </div>
             </div>`;
         container.innerHTML = content;
         
@@ -1690,19 +1715,19 @@
 
              content += `
                  <div class="tutor-card">
-                     <div class="tutor-avatar">${avatarHtml}</div>
-                     <h3 class="tutor-name">${tutor.nome}</h3>
-                     <p class="tutor-email"><i class="fas fa-envelope"></i> ${tutor.email}</p>
-                     <div class="tutor-area">
-                         <strong>Áreas de Especialidade:</strong><br>
-                         ${tutor.area}
-                     </div>
+                      <div class="tutor-avatar">${avatarHtml}</div>
+                      <h3 class="tutor-name">${tutor.nome}</h3>
+                      <p class="tutor-email"><i class="fas fa-envelope"></i> ${tutor.email}</p>
+                      <div class="tutor-area">
+                          <strong>Áreas de Especialidade:</strong><br>
+                          ${tutor.area}
+                      </div>
                  </div>
              `;
         });
 
         content += '</div>';
-        container.innerHTML = content;
+        container.innerHTML += content; // Use += to append after the back button
 
         const totalTutoresEl = document.getElementById('totalTutoresInteressados'); 
         if(totalTutoresEl) totalTutoresEl.textContent = dadosTutores.length; 
@@ -1871,7 +1896,7 @@
         if(!ctx) return;
 
         const diretorias = [
-            "Diretor Geral", "Vice-diretor Geral", "Secretária", 
+            "Diretor Geral", "Vice-diretor Geral", "Secretário", 
             "Relações Externas", "Coord. Acadêmica", 
             "Coord. Científica", "Coord. de Extensão"
         ];
@@ -1919,8 +1944,13 @@
         const totalMembrosEl = document.getElementById('totalMembros');
         if (totalMembrosEl) totalMembrosEl.textContent = dadosMembros.length;
         
-        popularFAQs();
+        // Populate other stats
+        const totalTutoresEl = document.getElementById('totalTutoresInteressados'); 
+        if(totalTutoresEl) totalTutoresEl.textContent = dadosTutores.length; 
+        const totalFaqEl = document.getElementById('totalPerguntasFrequentes'); 
+        if(totalFaqEl) totalFaqEl.textContent = faqData.length; 
         
+        // Use a small timeout to ensure the canvas elements are ready
         setTimeout(() => {
             criarGraficoCursosMembros();
             criarGraficoGeneroMembros();
@@ -2133,7 +2163,7 @@
     let historyStack = ['dashboard'];
 
     function showPage(pageId, fromHistory = false) {
-        if (pageId === currentPage) return;
+        if (pageId === currentPage && !fromHistory) return;
 
         if (!fromHistory) {
             historyStack.push(currentPage);
@@ -2147,7 +2177,7 @@
 
         currentPage = pageId;
 
-        // Atualizar link ativo na navbar
+        // Update active link in the navbar
         document.querySelectorAll('.navigation-list li').forEach(item => {
             const pageNameAttr = item.getAttribute('onclick');
             if (pageNameAttr && pageNameAttr.includes(`'${pageId}'`)) {
@@ -2157,7 +2187,13 @@
             }
         });
 
-        // Chamar as funções de população para a página ativa
+        // Clear previous content to avoid duplication
+        const containerMap = {
+            'membrosFundadores': document.querySelector('#membrosFundadores .back-button'),
+            'tutores': document.querySelector('#tutores .back-button'),
+        };
+
+        // Call population functions for the active page
         switch (pageId) {
             case 'dashboard':
                 popularDashboard();
@@ -2169,6 +2205,9 @@
                 initDashboardRelatorios();
                 break;
             case 'tutores':
+                 // Clear previous tutor cards before repopulating
+                const tutorsContainer = document.getElementById('tutors-container');
+                if (tutorsContainer) tutorsContainer.remove();
                 popularTabelaTutores();
                 break;
             case 'faq':
@@ -2181,6 +2220,8 @@
                 popularAvisosLiga();
                 break;
         }
+
+        window.scrollTo(0, 0); // Scroll to top on page change
 
         if (pageId === 'dashboard') {
              historyStack = ['dashboard']; // Reset history when going home
@@ -2221,7 +2262,7 @@
                 slide.style.minWidth = `${100 / slidesPerViewMobile}%`;
             });
             
-            wrapper.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+            wrapper.style.transform = `translateX(-${currentIndex * (container.clientWidth / slidesPerViewMobile)}px)`;
         };
 
         const resetInterval = () => {
@@ -2231,11 +2272,10 @@
             }
             clearInterval(intervalId);
             intervalId = setInterval(() => {
-                const totalSlides = slides.length;
-                const maxIndex = Math.ceil(totalSlides / slidesPerViewMobile) - 1;
-                currentIndex = currentIndex >= maxIndex ? 0 : currentIndex + 1;
+                const totalSlidesInView = Math.ceil(slides.length / slidesPerViewMobile);
+                currentIndex = (currentIndex + 1) % totalSlidesInView;
                 updateCarousel();
-            }, 3000);
+            }, 5000); // Increased interval for better UX
         };
         
         let touchStartX = 0;
@@ -2248,11 +2288,10 @@
         wrapper.addEventListener('touchend', (e) => {
             if (window.innerWidth >= 768) return;
             const touchEndX = e.changedTouches[0].clientX;
-            const totalSlides = slides.length;
-            const maxIndex = Math.ceil(totalSlides / slidesPerViewMobile) - 1;
+            const totalSlidesInView = Math.ceil(slides.length / slidesPerViewMobile);
 
             if (touchStartX - touchEndX > 50) { // Swipe left
-                 if (currentIndex < maxIndex) currentIndex++;
+                 if (currentIndex < totalSlidesInView - 1) currentIndex++;
             } else if (touchStartX - touchEndX < -50) { // Swipe right
                 if (currentIndex > 0) currentIndex--;
             }
@@ -2260,27 +2299,29 @@
             resetInterval();
         });
 
-        window.addEventListener('resize', updateCarousel);
+        window.addEventListener('resize', () => {
+            currentIndex = 0; // Reset on resize
+            updateCarousel();
+            resetInterval();
+        });
+
         updateCarousel(); // Initial call
         resetInterval();
     }
     
     document.addEventListener('DOMContentLoaded', () => { 
+        // --- Navigation Logic ---
         const list = document.querySelectorAll('.navigation-list .list');
         list.forEach(item => {
             item.addEventListener('click', function() {
-                list.forEach(i => i.classList.remove('active'));
-                this.classList.add('active');
-                 const pageId = this.getAttribute('onclick').match(/'([^']+)'/)[1];
-                 showPage(pageId);
+                // The showPage function will handle the 'active' class
             });
         });
 
-        // --- UPDATED Mobile Menu Logic ---
+        // --- Mobile Menu Logic ---
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         const menuIcon = document.getElementById('menu-icon');
-        const navWrapper = document.querySelector('.navigation-wrapper');
 
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
@@ -2289,17 +2330,21 @@
             menuIcon.classList.toggle('fa-times', !isMenuHidden);
         });
         
-        function closeMenu() {
+        window.closeMenu = function() { // Make it global for inline onclick
             mobileMenu.classList.add('hidden');
             menuIcon.classList.remove('fa-times');
             menuIcon.classList.add('fa-bars');
-        }
+        };
 
-        mobileMenu.querySelectorAll('a').forEach(button => {
-            button.addEventListener('click', closeMenu);
-        });
+        // --- Initial Content Load ---
+        // The dashboard is active by default in HTML, so we just need to populate its content.
+        popularDashboard();
         
-        showPage('dashboard', true); // Load initial page without pushing to history
+        // Populate other sections that might be needed without being visible initially
+        popularFAQs();
+        popularReuniao();
+        popularAvisosLiga();
+        
         document.getElementById('currentYear').textContent = new Date().getFullYear(); 
     }); 
 
