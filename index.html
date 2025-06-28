@@ -9,6 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
         @property --rotate {
           syntax: "<angle>";
           initial-value: 132deg;
@@ -564,29 +567,29 @@
     <div class="hidden md:flex items-center navigation">
         <img src="https://raw.githubusercontent.com/Deivisnan/imagens_site/main/logo.jpg" alt="Logo LIAO" class="h-10 w-auto mr-auto cursor-pointer" onclick="showPage('dashboard')" onerror="this.onerror=null; this.src='https://placehold.co/150x50/indigo/white?text=LIAO';">
         <ul class="navigation-list">
-            <li class="list active" onclick="showPage('dashboard')">
-                <a href="#"><span class="icon"><i class="fas fa-tachometer-alt"></i></span><span class="text">Dashboard</span></a>
+            <li class="list active">
+                <a href="#!" onclick="event.preventDefault(); showPage('dashboard')"><span class="icon"><i class="fas fa-tachometer-alt"></i></span><span class="text">Dashboard</span></a>
             </li>
-            <li class="list" onclick="showPage('membrosFundadores')">
-                <a href="#"><span class="icon"><i class="fas fa-users"></i></span><span class="text">Membros</span></a>
+            <li class="list">
+                <a href="#!" onclick="event.preventDefault(); showPage('membrosFundadores')"><span class="icon"><i class="fas fa-users"></i></span><span class="text">Membros</span></a>
             </li>
-            <li class="list" onclick="showPage('relatorios')">
-                <a href="#"><span class="icon"><i class="fas fa-chart-bar"></i></span><span class="text">Relatórios</span></a>
+            <li class="list">
+                <a href="#!" onclick="event.preventDefault(); showPage('relatorios')"><span class="icon"><i class="fas fa-chart-bar"></i></span><span class="text">Relatórios</span></a>
             </li>
-            <li class="list" onclick="showPage('tutores')">
-                <a href="#"><span class="icon"><i class="fas fa-chalkboard-teacher"></i></span><span class="text">Tutores</span></a>
+            <li class="list">
+                <a href="#!" onclick="event.preventDefault(); showPage('tutores')"><span class="icon"><i class="fas fa-chalkboard-teacher"></i></span><span class="text">Tutores</span></a>
             </li>
-            <li class="list" onclick="showPage('faq')">
-                <a href="#"><span class="icon"><i class="fas fa-question-circle"></i></span><span class="text">FAQ</span></a>
+            <li class="list">
+                <a href="#!" onclick="event.preventDefault(); showPage('faq')"><span class="icon"><i class="fas fa-question-circle"></i></span><span class="text">FAQ</span></a>
             </li>
-             <li class="list" onclick="showPage('reuniao')">
-                <a href="#"><span class="icon"><i class="fas fa-file-alt"></i></span><span class="text">Atas</span></a>
+             <li class="list">
+                <a href="#!" onclick="event.preventDefault(); showPage('reuniao')"><span class="icon"><i class="fas fa-file-alt"></i></span><span class="text">Atas</span></a>
             </li>
-            <li class="list" onclick="showPage('avisosLiga')">
-                <a href="#"><span class="icon"><i class="fas fa-bullhorn"></i></span><span class="text">Avisos</span></a>
+            <li class="list">
+                <a href="#!" onclick="event.preventDefault(); showPage('avisosLiga')"><span class="icon"><i class="fas fa-bullhorn"></i></span><span class="text">Avisos</span></a>
             </li>
-            <li class="list" onclick="showPage('videoApresentacao')">
-                 <a href="#"><span class="icon"><i class="fas fa-video"></i></span><span class="text">Vídeo</span></a>
+            <li class="list">
+                 <a href="#!" onclick="event.preventDefault(); showPage('videoApresentacao')"><span class="icon"><i class="fas fa-video"></i></span><span class="text">Vídeo</span></a>
             </li>
              <li class="list">
                 <a href="https://www.instagram.com/liaoufba?utm_source=ig_web_button_share_sheet&igsh=MW56MHh6YWF4ZnF5bQ==" target="_blank" class="text-gray-400 hover:text-indigo-600 p-2 rounded-full">
@@ -606,14 +609,14 @@
     <!-- MOBILE MENU MOVED INSIDE THE NAV WRAPPER -->
     <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg w-full">
         <div class="px-2 pt-2 pb-3 space-y-1">
-            <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('dashboard'); closeMenu();"><i class="fas fa-tachometer-alt w-6 text-center"></i> Dashboard</a>
-            <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('membrosFundadores'); closeMenu();"><i class="fas fa-users w-6 text-center"></i> Diretoria e Membros</a>
-            <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('relatorios'); closeMenu();"><i class="fas fa-chart-bar w-6 text-center"></i> Relatórios</a>
-            <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('tutores'); closeMenu();"><i class="fas fa-chalkboard-teacher w-6 text-center"></i> Tutores</a>
-            <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('faq'); closeMenu();"><i class="fas fa-question-circle w-6 text-center"></i> FAQ</a>
-            <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('reuniao'); closeMenu();"><i class="fas fa-file-alt w-6 text-center"></i> Atas</a>
-            <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('avisosLiga'); closeMenu();"><i class="fas fa-bullhorn w-6 text-center"></i> Avisos</a>
-            <a href="#" class="nav-button block w-full text-left flex items-center gap-2" onclick="showPage('videoApresentacao'); closeMenu();"><i class="fas fa-video w-6 text-center"></i> Vídeo</a>
+            <a href="#!" class="nav-button block w-full text-left flex items-center gap-2" onclick="event.preventDefault(); showPage('dashboard'); closeMenu();"><i class="fas fa-tachometer-alt w-6 text-center"></i> Dashboard</a>
+            <a href="#!" class="nav-button block w-full text-left flex items-center gap-2" onclick="event.preventDefault(); showPage('membrosFundadores'); closeMenu();"><i class="fas fa-users w-6 text-center"></i> Diretoria e Membros</a>
+            <a href="#!" class="nav-button block w-full text-left flex items-center gap-2" onclick="event.preventDefault(); showPage('relatorios'); closeMenu();"><i class="fas fa-chart-bar w-6 text-center"></i> Relatórios</a>
+            <a href="#!" class="nav-button block w-full text-left flex items-center gap-2" onclick="event.preventDefault(); showPage('tutores'); closeMenu();"><i class="fas fa-chalkboard-teacher w-6 text-center"></i> Tutores</a>
+            <a href="#!" class="nav-button block w-full text-left flex items-center gap-2" onclick="event.preventDefault(); showPage('faq'); closeMenu();"><i class="fas fa-question-circle w-6 text-center"></i> FAQ</a>
+            <a href="#!" class="nav-button block w-full text-left flex items-center gap-2" onclick="event.preventDefault(); showPage('reuniao'); closeMenu();"><i class="fas fa-file-alt w-6 text-center"></i> Atas</a>
+            <a href="#!" class="nav-button block w-full text-left flex items-center gap-2" onclick="event.preventDefault(); showPage('avisosLiga'); closeMenu();"><i class="fas fa-bullhorn w-6 text-center"></i> Avisos</a>
+            <a href="#!" class="nav-button block w-full text-left flex items-center gap-2" onclick="event.preventDefault(); showPage('videoApresentacao'); closeMenu();"><i class="fas fa-video w-6 text-center"></i> Vídeo</a>
             <a href="https://www.instagram.com/liaoufba?utm_source=ig_web_button_share_sheet&igsh=MW56MHh6YWF4ZnF5bQ==" target="_blank" class="nav-button block w-full text-left flex items-center gap-2">
                <i class="fab fa-instagram w-6 text-center"></i> Instagram
             </a>
@@ -655,15 +658,15 @@
             <div class="card mt-8">
                 <h3>Estatísticas Rápidas</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-center">
-                    <a href="#" onclick="showPage('membrosFundadores'); event.preventDefault();" class="stat-card-link bg-indigo-100 p-4 shadow">
+                    <a href="#!" onclick="event.preventDefault(); showPage('membrosFundadores');" class="stat-card-link bg-indigo-100 p-4 shadow">
                         <p class="text-3xl font-bold text-indigo-600" id="totalMembros">0</p>
                         <p class="text-gray-700">Total de Membros</p>
                     </a>
-                    <a href="#" onclick="showPage('tutores'); event.preventDefault();" class="stat-card-link bg-green-100 p-4 shadow">
+                    <a href="#!" onclick="event.preventDefault(); showPage('tutores');" class="stat-card-link bg-green-100 p-4 shadow">
                         <p class="text-3xl font-bold text-green-600" id="totalTutoresInteressados">0</p>
                         <p class="text-gray-700">Tutores Interessados</p>
                     </a>
-                    <a href="#" onclick="showPage('faq'); event.preventDefault();" class="stat-card-link bg-purple-100 p-4 shadow">
+                    <a href="#!" onclick="event.preventDefault(); showPage('faq');" class="stat-card-link bg-purple-100 p-4 shadow">
                         <p class="text-3xl font-bold text-purple-600" id="totalPerguntasFrequentes">0</p>
                         <p class="text-gray-700">Dúvidas Frequentes</p>
                     </a>
@@ -677,7 +680,8 @@
             <i class="fas fa-arrow-left"></i>
             <span>Voltar</span>
         </button>
-        <!-- O conteúdo será gerado dinamicamente via JS -->
+        <!-- **FIXED**: Wrapper for dynamic content -->
+        <div id="membros-content-wrapper"></div>
     </section>
     
     <section id="relatorios" class="content-section">
@@ -773,7 +777,8 @@
             <i class="fas fa-arrow-left"></i>
             <span>Voltar</span>
         </button>
-       <!-- O conteúdo dos tutores será gerado dinamicamente aqui -->
+        <!-- **FIXED**: Wrapper for dynamic content -->
+        <div id="tutores-content-wrapper"></div>
     </section>
 
     <section id="faq" class="content-section">
@@ -1265,24 +1270,24 @@
         { 
             pergunta: "4. Estrutura e Funções da Diretoria", 
             resposta: `
-                      <strong>I. Direção Geral</strong><br> 
-                      Função: Liderança máxima da Liga. Coordena, supervisiona e representa a Liga institucionalmente.<br> 
-                      Tarefas: Convocar e presidir reuniões; Delegar funções; Garantir o cumprimento da missão e objetivos; Ser o principal ponto de contato com a coordenação do curso/instituição.<br><br> 
-                      <strong>II. Secretaria Geral</strong><br> 
-                      Função: Responsável pela parte administrativa e documental.<br> 
-                      Tarefas: Redigir atas; Organizar e arquivar documentos; Controlar prazos e regulamentos internos; Gerenciar listas de presença, calendários e cronogramas.<br><br> 
-                      <strong>III. Relações Públicas</strong><br> 
-                      Função: Gerencia a comunicação interna e externa da Liga.<br> 
-                      Tarefas: Administrar redes sociais, e-mails e materiais de divulgação; Promover eventos e atividades; Manter contato com outras ligas, empresas e instituições; Trabalhar na identidade visual da Liga.<br><br> 
-                      <strong>IV. Coordenação Acadêmica</strong><br> 
-                      Função: Responsável pelas atividades de ensino e aprendizagem.<br> 
-                      Tarefas: Organizar cursos, oficinas, palestras e grupos de estudo; Garantir qualidade pedagógica; Acompanhar o desempenho acadêmico dos membros.<br><br> 
-                      <strong>V. Coordenação Científica</strong><br> 
-                      Função: Promove e orienta atividades de pesquisa.<br> 
-                      Tarefas: Incentivar iniciação científica e produção de artigos; Organizar grupos voltados à pesquisa; Acompanhar projetos e submissões para eventos científicos.<br><br> 
-                      <strong>VI. Coordenação de Extensão</strong><br> 
-                      Função: Responsável pelas ações externas da Liga, promovendo o impacto social.<br> 
-                      Tarefas: Planejar projetos com foco social (cursos abertos, visitas a escolas, voluntariado); Estabelecer parcerias externas; Avaliar os resultados das atividades de extensão.` 
+                          <strong>I. Direção Geral</strong><br> 
+                          Função: Liderança máxima da Liga. Coordena, supervisiona e representa a Liga institucionalmente.<br> 
+                          Tarefas: Convocar e presidir reuniões; Delegar funções; Garantir o cumprimento da missão e objetivos; Ser o principal ponto de contato com a coordenação do curso/instituição.<br><br> 
+                          <strong>II. Secretaria Geral</strong><br> 
+                          Função: Responsável pela parte administrativa e documental.<br> 
+                          Tarefas: Redigir atas; Organizar e arquivar documentos; Controlar prazos e regulamentos internos; Gerenciar listas de presença, calendários e cronogramas.<br><br> 
+                          <strong>III. Relações Públicas</strong><br> 
+                          Função: Gerencia a comunicação interna e externa da Liga.<br> 
+                          Tarefas: Administrar redes sociais, e-mails e materiais de divulgação; Promover eventos e atividades; Manter contato com outras ligas, empresas e instituições; Trabalhar na identidade visual da Liga.<br><br> 
+                          <strong>IV. Coordenação Acadêmica</strong><br> 
+                          Função: Responsável pelas atividades de ensino e aprendizagem.<br> 
+                          Tarefas: Organizar cursos, oficinas, palestras e grupos de estudo; Garantir qualidade pedagógica; Acompanhar o desempenho acadêmico dos membros.<br><br> 
+                          <strong>V. Coordenação Científica</strong><br> 
+                          Função: Promove e orienta atividades de pesquisa.<br> 
+                          Tarefas: Incentivar iniciação científica e produção de artigos; Organizar grupos voltados à pesquisa; Acompanhar projetos e submissões para eventos científicos.<br><br> 
+                          <strong>VI. Coordenação de Extensão</strong><br> 
+                          Função: Responsável pelas ações externas da Liga, promovendo o impacto social.<br> 
+                          Tarefas: Planejar projetos com foco social (cursos abertos, visitas a escolas, voluntariado); Estabelecer parcerias externas; Avaliar os resultados das atividades de extensão.` 
         }, 
         { 
             pergunta: "5. Professores Tutores", 
@@ -1489,8 +1494,9 @@
 
     // --- Funções de Renderização --- 
     
+    // **FIXED**: This function now targets a specific wrapper and uses innerHTML to prevent duplication.
     function popularMembrosFundadores() {
-        const container = document.getElementById('membrosFundadores');
+        const container = document.getElementById('membros-content-wrapper');
         if (!container) return;
         
         const memberImages = {
@@ -1587,9 +1593,9 @@
             <div class="founder-list-card">
                  <h3 class="text-2xl font-bold text-gray-800 text-center mb-6">Membros Fundadores</h3>
                  <div id="founders-container">
-                       <!-- Desktop Grid -->
+                        <!-- Desktop Grid -->
                       <div class="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                          ${dadosMembros.sort((a,b) => a.nome.localeCompare(b)).map(membro => {
+                          ${dadosMembros.sort((a,b) => a.nome.localeCompare(b.nome)).map(membro => {
                               const imageUrl = memberImages[membro.nome];
                               let avatarHtml;
                               if (imageUrl) {
@@ -1606,7 +1612,7 @@
                               `;
                           }).join('')}
                       </div>
-                       <!-- Mobile Carousel com 3 membros por slide (empilhados verticalmente) -->
+                        <!-- Mobile Carousel com 3 membros por slide (empilhados verticalmente) -->
 <div class="md:hidden carousel-container overflow-hidden">
   <div class="carousel-wrapper flex">
     ${(() => {
@@ -1692,8 +1698,9 @@
         document.getElementById('founderModal').classList.remove('active');
     }
 
+    // **FIXED**: This function now targets a specific wrapper and uses innerHTML to prevent duplication.
     function popularTabelaTutores() { 
-        const container = document.getElementById('tutores');
+        const container = document.getElementById('tutores-content-wrapper');
         if(!container) return;
 
         let content = `
@@ -1727,7 +1734,7 @@
         });
 
         content += '</div>';
-        container.innerHTML += content; // Use += to append after the back button
+        container.innerHTML = content;
 
         const totalTutoresEl = document.getElementById('totalTutoresInteressados'); 
         if(totalTutoresEl) totalTutoresEl.textContent = dadosTutores.length; 
@@ -2177,21 +2184,18 @@
 
         currentPage = pageId;
 
-        // Update active link in the navbar
+        // **FIXED**: Update active link in the navbar by checking the child 'a' tag
         document.querySelectorAll('.navigation-list li').forEach(item => {
-            const pageNameAttr = item.getAttribute('onclick');
-            if (pageNameAttr && pageNameAttr.includes(`'${pageId}'`)) {
-                item.classList.add('active');
-            } else {
-                item.classList.remove('active');
+            const link = item.querySelector('a');
+            if (link) {
+                const pageNameAttr = link.getAttribute('onclick');
+                if (pageNameAttr && pageNameAttr.includes(`'${pageId}'`)) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
             }
         });
-
-        // Clear previous content to avoid duplication
-        const containerMap = {
-            'membrosFundadores': document.querySelector('#membrosFundadores .back-button'),
-            'tutores': document.querySelector('#tutores .back-button'),
-        };
 
         // Call population functions for the active page
         switch (pageId) {
@@ -2205,9 +2209,6 @@
                 initDashboardRelatorios();
                 break;
             case 'tutores':
-                 // Clear previous tutor cards before repopulating
-                const tutorsContainer = document.getElementById('tutors-container');
-                if (tutorsContainer) tutorsContainer.remove();
                 popularTabelaTutores();
                 break;
             case 'faq':
@@ -2221,7 +2222,14 @@
                 break;
         }
 
-        window.scrollTo(0, 0); // Scroll to top on page change
+        // **UPDATED SCROLL LOGIC**: Force scroll to top ONLY for the dashboard page.
+        // For all other pages, the scroll position is maintained to avoid jumps.
+        if (pageId === 'dashboard') {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
 
         if (pageId === 'dashboard') {
              historyStack = ['dashboard']; // Reset history when going home
@@ -2310,14 +2318,6 @@
     }
     
     document.addEventListener('DOMContentLoaded', () => { 
-        // --- Navigation Logic ---
-        const list = document.querySelectorAll('.navigation-list .list');
-        list.forEach(item => {
-            item.addEventListener('click', function() {
-                // The showPage function will handle the 'active' class
-            });
-        });
-
         // --- Mobile Menu Logic ---
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
