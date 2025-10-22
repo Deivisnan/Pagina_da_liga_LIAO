@@ -1333,12 +1333,21 @@
     let historyStack = ['dashboard'];
 
     function showPage(pageId, fromHistory = false) {
-        if (pageId === currentPage && !fromHistory) return;
+        if (pageId === currentPage && !fromHistory) return; // Evita recarregar a mesma página
 
+        // --- Gerenciamento do Histórico ---
         if (!fromHistory) {
-            historyStack.push(currentPage);
+            // Só adiciona ao histórico se não for a mesma página que a última no histórico
+            // (evita duplicatas ao clicar rápido ou voltar e ir para a mesma página)
+            if (historyStack.length === 0 || historyStack[historyStack.length - 1] !== currentPage) {
+                 historyStack.push(currentPage);
+            }
+        } else if (historyStack.length === 0 && pageId !== 'dashboard') {
+             // Se voltando do histórico e ele está vazio (ex: refresh), garante que dashboard está na base
+             historyStack.push('dashboard');
         }
 
+        // --- Atualização da UI ---
         document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
         const activePage = document.getElementById(pageId);
         if (activePage) {
@@ -1347,6 +1356,7 @@
 
         currentPage = pageId;
 
+        // Atualiza link ativo na navegação desktop
         document.querySelectorAll('.navigation-list li').forEach(item => {
             const link = item.querySelector('a');
             if (link) {
@@ -1359,38 +1369,71 @@
             }
         });
 
-        closeMenu(); // Fecha menu mobile
+         // Fecha o menu mobile se estiver aberto
+        closeMenu();
 
-        // Popula conteúdo da página ativa
+        // --- Popula conteúdo dinâmico ---
         switch (pageId) {
             case 'dashboard': popularDashboard(); break;
             case 'membrosFundadores': popularMembrosFundadores(); break;
             case 'tutores': popularTabelaTutores(); break;
             case 'faq': popularFAQs(); break;
             case 'avisosLiga': popularAvisosLiga(); break;
+            // 'prossel', 'videoApresentacao' não precisam de população aqui
         }
 
-        if (pageId === 'dashboard' || fromHistory) {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        } else if (!fromHistory) {
+        // --- Lógica de Scroll AJUSTADA ---
+        // Rola para o topo SOMENTE se o destino for o dashboard E não veio do histórico.
+        // Ou seja, clicar no link/logo do Dashboard rola para o topo.
+        // Trocar entre outras abas ou usar o botão Voltar NÃO rola para o topo.
+        if (pageId === 'dashboard' && !fromHistory) {
              window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+        // Removemos o scroll-to-top condicionado por `fromHistory`
 
-        if (pageId === 'dashboard') {
-             historyStack = ['dashboard']; // Reseta histórico
+        // --- Reset do Histórico ---
+        // Reseta o histórico somente se voltamos explicitamente para o dashboard (não via goBack)
+        if (pageId === 'dashboard' && !fromHistory) {
+             historyStack = ['dashboard'];
         }
     }
 
     function goBack() {
-        const lastPage = historyStack.pop();
-        if (lastPage) {
-            showPage(lastPage, true);
-        } else if (currentPage !== 'dashboard') {
-             showPage('dashboard', true);
+        // Se a página atual for a página de detalhes, apenas fecha o modal correspondente
+        if (document.getElementById('directorAboutModal').classList.contains('active')) {
+            hideDirectorAbout();
+            return; // Impede que a navegação da página ocorra
         }
+         if (document.getElementById('founderModal').classList.contains('active')) {
+             hideFounderDetails();
+             return; // Impede que a navegação da página ocorra
+         }
+
+        // Comportamento original de voltar na pilha de histórico
+        if (historyStack.length > 0) {
+            const lastPage = historyStack.pop();
+            if (lastPage && lastPage !== currentPage) { // Evita voltar para a mesma página
+                showPage(lastPage, true); // Mostra a página anterior, indicando que é do histórico
+            } else if (historyStack.length > 0) {
+                 // Se a última página era a mesma, tenta a anterior
+                 const secondLastPage = historyStack.pop();
+                 if (secondLastPage) {
+                     showPage(secondLastPage, true);
+                 }
+            } else if (currentPage !== 'dashboard') {
+                 // Se o histórico esvaziou e não estamos no dashboard, vai para o dashboard
+                 showPage('dashboard', true);
+            }
+        } else if (currentPage !== 'dashboard') {
+            // Se o histórico já estava vazio e não estamos no dashboard, vai para o dashboard
+            showPage('dashboard', true);
+        }
+         // Se já está no dashboard e o histórico está vazio, não faz nada
     }
 
-   function setupCarousel(carouselSelector, slidesPerViewMobile = 1) {
+
+    function setupCarousel(carouselSelector, slidesPerViewMobile = 1) {
+        // ... (código do carrossel permanece o mesmo) ...
         const container = document.querySelector(carouselSelector);
         if (!container) return;
 
@@ -1398,57 +1441,80 @@
         if (!wrapper) return;
 
         const slides = Array.from(wrapper.children);
+         if (slides.length === 0) return; // Adicionado para evitar erro se não houver slides
+
+
+         // Desativa carrossel se não houver slides suficientes para rolar
         if (slides.length <= slidesPerViewMobile && window.innerWidth < 768) {
-             // Não inicializa se não houver slides suficientes para rolar no mobile
+             // console.log(`Carousel ${carouselSelector} disabled: Not enough slides for mobile view.`);
+             // Pode adicionar estilos para mostrar todos se desativado, se necessário
              return;
         }
 
         let currentIndex = 0;
-        let intervalId = null; // Inicializa como nulo
+        let intervalId = null;
         let isDragging = false;
         let startPos = 0;
         let currentTranslate = 0;
         let prevTranslate = 0;
         let animationID;
 
+        // Ajuste: Calcula o número real de "páginas" no carrossel
+        const getTotalPages = () => {
+             if (window.innerWidth >= 768 || slides.length === 0) return 1; // Desktop ou sem slides
+            // Considera que a última "página" pode ter menos itens
+             // return Math.ceil(slides.length / slidesPerViewMobile); // Se for slide por slide
+             return Math.max(1, slides.length - slidesPerViewMobile + 1); // Se for item a item
+        };
+
         const getValidIndex = (index) => {
-            const totalSlides = slides.length;
-            if (totalSlides === 0) return 0;
-            // Ajuste para carrossel não infinito
-            return Math.max(0, Math.min(index, totalSlides - 1));
+            const totalPages = getTotalPages();
+            if (totalPages <= 1) return 0;
+             // Garante que o índice esteja dentro dos limites [0, totalPages - 1]
+            return Math.max(0, Math.min(index, totalPages - 1));
         };
 
 
         const updateCarousel = (animate = true) => {
              const isMobile = window.innerWidth < 768;
+             const totalPages = getTotalPages(); // Recalcula a cada update
 
-             if (!isMobile) { // Desktop: desativa transform e transição
+             if (!isMobile || totalPages <= 1) { // Desativa no desktop ou se não há páginas suficientes
                  wrapper.style.transform = '';
                  wrapper.style.transition = 'none';
-                 slides.forEach(s => s.style.minWidth = ''); // Reset minWidth
-                 if (intervalId) clearInterval(intervalId); // Para autoplay
+                 slides.forEach(s => s.style.minWidth = '');
+                 if (intervalId) clearInterval(intervalId);
                  intervalId = null;
+                 wrapper.style.cursor = 'default'; // Cursor padrão no desktop
                  return;
              }
 
              // Mobile: ativa carrossel
              const slideWidth = container.clientWidth / slidesPerViewMobile;
              slides.forEach(slide => {
-                 slide.style.minWidth = `${100 / slidesPerViewMobile}%`;
+                 slide.style.minWidth = `${100 / slidesPerViewMobile}%`; // Garante a largura correta
              });
 
-             // Calcula o deslocamento correto, limitando ao último slide
+             // Calcula o deslocamento correto, limitando ao último slide/página
              const maxTranslate = 0;
-             const minTranslate = - (slides.length - slidesPerViewMobile) * slideWidth;
+             // O deslocamento mínimo é para mostrar a última página completa
+             const minTranslate = - (totalPages - 1) * slideWidth;
+             // Garante que currentIndex esteja dentro dos limites válidos ANTES de calcular o translate
+             currentIndex = getValidIndex(currentIndex);
              currentTranslate = Math.max(minTranslate, Math.min(maxTranslate, -currentIndex * slideWidth));
-             prevTranslate = currentTranslate;
+             prevTranslate = currentTranslate; // Sincroniza prevTranslate
 
              wrapper.style.transition = animate ? 'transform 0.5s ease-in-out' : 'none';
              wrapper.style.transform = `translateX(${currentTranslate}px)`;
+             wrapper.style.cursor = 'grab'; // Cursor grab no mobile
 
-             // Reinicia o intervalo apenas se estava ativo e agora está no mobile
-             if (!intervalId && isMobile && slides.length > slidesPerViewMobile) {
+             // Reinicia o intervalo apenas se estava inativo e agora deve estar ativo
+             if (!intervalId && isMobile && totalPages > 1) {
                  resetInterval();
+             } else if (intervalId && (!isMobile || totalPages <= 1)) {
+                 // Para o intervalo se mudou para desktop ou não há mais páginas
+                  if (intervalId) clearInterval(intervalId);
+                  intervalId = null;
              }
         };
 
@@ -1456,102 +1522,119 @@
         const resetInterval = () => {
              if (intervalId) clearInterval(intervalId);
              intervalId = null;
-             if (window.innerWidth >= 768 || slides.length <= slidesPerViewMobile) {
-                return; // Não inicia autoplay no desktop ou se não há slides suficientes
+             const isMobile = window.innerWidth < 768;
+             const totalPages = getTotalPages();
+
+             if (!isMobile || totalPages <= 1) {
+                return; // Não inicia autoplay no desktop ou se não há slides/páginas suficientes
              }
 
             intervalId = setInterval(() => {
-                // Modificado para loop: volta ao início quando chega ao fim
                 let nextIndex = currentIndex + 1;
-                if (nextIndex >= slides.length) {
-                    nextIndex = 0; // Volta para o primeiro slide
+                // Loop: Se chegou ao fim, volta para o início
+                if (nextIndex >= totalPages) {
+                    nextIndex = 0;
                 }
                 currentIndex = nextIndex;
                 updateCarousel();
             }, 5000); // Intervalo de 5 segundos
         };
 
-        const touchStart = (index) => (e) => {
-            if (window.innerWidth >= 768) return;
-            // index não é mais necessário aqui, usamos currentIndex
+        const touchStart = (e) => { // Não precisa mais do index aqui
+            const isMobile = window.innerWidth < 768;
+            if (!isMobile || getTotalPages() <= 1) return; // Só permite drag no mobile e se houver mais de uma página
+
             startPos = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
             isDragging = true;
             animationID = requestAnimationFrame(animation);
             wrapper.style.cursor = 'grabbing';
             if (intervalId) clearInterval(intervalId);
             intervalId = null;
+            wrapper.style.transition = 'none'; // Garante que não haja transição durante o drag inicial
         };
 
         const touchMove = (e) => {
-            if (!isDragging || window.innerWidth >= 768) return;
+            if (!isDragging) return; // Só executa se estiver arrastando
+             const isMobile = window.innerWidth < 768;
+            if (!isMobile) { // Se redimensionou para desktop durante o drag, cancela
+                 touchEnd(); // Finaliza o drag
+                 return;
+            }
+
             const currentPosition = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
             currentTranslate = prevTranslate + currentPosition - startPos;
-            // Limita o arraste para não ir além dos limites
-             const slideWidth = container.clientWidth / slidesPerViewMobile;
-             const maxTranslate = 0;
-             const minTranslate = - (slides.length - slidesPerViewMobile) * slideWidth;
-             currentTranslate = Math.max(minTranslate - slideWidth / 2, Math.min(maxTranslate + slideWidth / 2, currentTranslate)); // Adiciona uma margem extra
+
+            // Aplica o translate imediatamente (sem esperar o animation frame) para responsividade
+             wrapper.style.transform = `translateX(${currentTranslate}px)`;
+
         };
 
         const touchEnd = () => {
-             if (!isDragging || window.innerWidth >= 768) return;
+            if (!isDragging) return; // Só executa se estava arrastando
             cancelAnimationFrame(animationID);
             isDragging = false;
             const movedBy = currentTranslate - prevTranslate;
             const slideWidth = container.clientWidth / slidesPerViewMobile;
+            const totalPages = getTotalPages();
 
-            // Decide se deve mudar de slide (limite de 1/4 da largura)
-            if (movedBy < -slideWidth / 4 && currentIndex < slides.length - 1) {
+             // Decide se deve mudar de página (threshold de 1/5 da largura do slide)
+             // Swipe para esquerda (próximo)
+            if (movedBy < -slideWidth / 5 && currentIndex < totalPages - 1) {
                 currentIndex++;
             }
-            if (movedBy > slideWidth / 4 && currentIndex > 0) {
+             // Swipe para direita (anterior)
+            if (movedBy > slideWidth / 5 && currentIndex > 0) {
                 currentIndex--;
             }
 
-            currentIndex = getValidIndex(currentIndex); // Garante que o índice é válido
+            // Garante que o índice é válido após o swipe
+            currentIndex = getValidIndex(currentIndex);
 
             updateCarousel(); // Volta para a posição correta com animação
             wrapper.style.cursor = 'grab';
             resetInterval(); // Reinicia o auto-play
         };
 
+        // Animação suave durante o arraste (opcional, pode ser removido se o touchMove direto for suficiente)
         const animation = () => {
-            if (isDragging) {
-                 wrapper.style.transition = 'none'; // Sem transição durante o drag
-                wrapper.style.transform = `translateX(${currentTranslate}px)`;
-                requestAnimationFrame(animation);
-            }
+            // Se precisar de interpolação ou efeitos durante o drag, adicione aqui
+             // No momento, o touchMove atualiza diretamente o transform
+             // if (isDragging) requestAnimationFrame(animation); // Descomente se usar interpolação
         };
 
-        // Adiciona eventos
-        // Eventos de Toque no wrapper (melhor para performance)
-        wrapper.addEventListener('touchstart', touchStart(currentIndex)); // Passa o índice atual
+        // --- Adiciona Event Listeners ---
+        wrapper.addEventListener('touchstart', touchStart, { passive: true }); // Use passive para melhor performance de scroll
         wrapper.addEventListener('touchend', touchEnd);
-        wrapper.addEventListener('touchmove', touchMove);
+        wrapper.addEventListener('touchmove', touchMove, { passive: true }); // Use passive
 
-        // Eventos de Mouse no wrapper
-        wrapper.addEventListener('mousedown', touchStart(currentIndex)); // Passa o índice atual
+        wrapper.addEventListener('mousedown', touchStart);
         wrapper.addEventListener('mouseup', touchEnd);
-        wrapper.addEventListener('mouseleave', touchEnd);
+        wrapper.addEventListener('mouseleave', touchEnd); // Finaliza se o mouse sair
         wrapper.addEventListener('mousemove', touchMove);
+
+        // Previne seleção de texto durante o arraste com mouse
+        container.addEventListener('selectstart', (e) => {
+            if (isDragging) e.preventDefault();
+        });
 
 
         // Evento de redimensionamento
         window.addEventListener('resize', () => {
-            // Se mudou de mobile para desktop ou vice-versa
-            const wasMobile = wrapper.style.transform !== '';
+            const wasMobile = wrapper.style.transform !== ''; // Verifica se estava ativo
             const isMobile = window.innerWidth < 768;
+            const totalPages = getTotalPages(); // Recalcula
 
-            currentIndex = 0; // Reseta no resize
-            updateCarousel(false); // Atualiza sem animar
+            const needsUpdate = (isMobile && totalPages > 1) || (!isMobile && wasMobile);
 
-            if (wasMobile !== isMobile) { // Só reinicia o intervalo se o modo mudou
-                 resetInterval();
-            }
+            if (needsUpdate) {
+                 // console.log(`Resize triggered update for ${carouselSelector}. Mobile: ${isMobile}, Pages: ${totalPages}`);
+                 currentIndex = 0; // Reseta sempre no resize para evitar posições quebradas
+                 updateCarousel(false); // Atualiza imediatamente sem animar
+                 resetInterval(); // Reinicia ou para o intervalo conforme necessário
+             }
         });
 
          // Inicialização
-        wrapper.style.cursor = 'grab';
         updateCarousel(false); // Chamada inicial sem animação
         resetInterval();
     }
@@ -1581,8 +1664,7 @@
         popularDashboard();
         popularFAQs();
         popularAvisosLiga();
-        // Não precisa chamar popularMembrosFundadores ou popularTabelaTutores aqui,
-        // serão chamados quando a respectiva página for mostrada.
+        // As outras seções serão populadas quando ativadas pelo showPage
 
         document.getElementById('currentYear').textContent = new Date().getFullYear();
     });
